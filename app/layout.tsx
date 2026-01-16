@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 import type React from "react"
 import { Inter } from "next/font/google"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css"
 import Navigation from "@/components/navigation"
 import SiteFooter from "@/components/layout/site-footer"
@@ -94,6 +95,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <AnalyticsProvider />
         </Suspense>
+        <SpeedInsights />
       </body>
     </html>
   )
