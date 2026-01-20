@@ -7,12 +7,14 @@ export const metadata: Metadata = {
   description: "Terms of Service for Nords Event Communications",
 }
 
+const LAST_UPDATED = "January 20, 2026"
+
 export default function TermsOfServicePage() {
   return (
     <main className="bg-white">
       <PageHeader
         title="Terms of Service"
-        subtitle="Please read these terms carefully before using our website"
+        subtitle="The rules for using this website"
         imageUrl="https://rimirigamarathon.com/wp-content/uploads/2025/07/0RK_6989.jpg"
       />
 
@@ -30,21 +32,19 @@ export default function TermsOfServicePage() {
             </Link>
           </div>
 
-          <p className="text-gray-600 mb-12">
-            Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-          </p>
+          <p className="text-gray-600 mb-12">Last updated: {LAST_UPDATED}</p>
 
           <div className="prose prose-lg max-w-none space-y-8">
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Agreement to Terms</h2>
               <p className="text-gray-700 leading-relaxed">
-                By accessing or using the website of Nords Event Communications SIA ("NECom", "we", "us", or "our"), you
-                agree to be bound by these Terms of Service and all applicable laws and regulations.
+                By accessing or using this website, you agree to these Terms of Service ("Terms"). If you do not agree,
+                please do not use the website.
               </p>
               <p className="text-gray-700 leading-relaxed mt-4">
                 <strong>Company Details:</strong>
                 <br />
-                Nords Event Communications SIA
+                Nords Event Communications SIA ("NECom")
                 <br />
                 Registration Number: 40203089546
                 <br />
@@ -55,71 +55,81 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Description of Services</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. What this website is (and isn’t)</h2>
               <p className="text-gray-700 leading-relaxed">
-                NECom is a premium event marketing and sponsorship agency based in Latvia. We organize and manage
-                various events including sports competitions, music festivals, and food and beverage experiences across
-                the Baltic region.
+                This website provides general information about NECom and our work. It does not provide user accounts,
+                sign-ups, registrations, or paid checkout on this domain.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Use of Website</h2>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">3.1 Permitted Use</h3>
-              <p className="text-gray-700 leading-relaxed">
-                You may use this website for lawful purposes only. You agree to use the website in a manner consistent
-                with all applicable laws and regulations.
-              </p>
-
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">3.2 Prohibited Activities</h3>
-              <p className="text-gray-700 leading-relaxed">You agree not to:</p>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Acceptable Use</h2>
+              <p className="text-gray-700 leading-relaxed">You agree to use the website lawfully and not to:</p>
               <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
-                <li>Use the website in any way that violates any applicable law</li>
-                <li>Transmit any malicious code or harmful software</li>
-                <li>Attempt to gain unauthorized access to our systems</li>
-                <li>Interfere with or disrupt the website or servers</li>
-                <li>Collect personal information from other users</li>
-                <li>Use automated systems without our written permission</li>
+                <li>Try to gain unauthorized access to the website, servers, or networks</li>
+                <li>Introduce malware, scrape the site aggressively, or disrupt normal operation</li>
+                <li>Use the website in a way that infringes someone else’s rights</li>
+                <li>Misrepresent your identity when contacting us</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Intellectual Property Rights</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Third-Party Links and Embedded Content</h2>
               <p className="text-gray-700 leading-relaxed">
-                The content, design, graphics, logos, and other materials on this website are owned by NECom or our
-                licensors and are protected by copyright and trademark laws.
+                This website may link to third-party websites and may embed content (for example, YouTube videos).
+                Third-party sites and services are not operated by us, and their terms and privacy practices apply.
+              </p>
+              <p className="text-gray-700 leading-relaxed mt-4">
+                We do not control third-party content and are not responsible for it. Linking or embedding does not imply
+                endorsement.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Disclaimer of Warranties</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Intellectual Property</h2>
               <p className="text-gray-700 leading-relaxed">
-                This website and its content are provided "as is" without any warranties of any kind. We do not warrant
-                that the website will be uninterrupted, timely, secure, or error-free.
+                Unless otherwise stated, the website and its content (text, images, branding, and design) are owned by
+                NECom or used with permission and are protected by applicable intellectual property laws. You may view and
+                share pages for personal, non-commercial use, but you may not copy, modify, or reuse content for
+                commercial purposes without written permission.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Limitation of Liability</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Disclaimers</h2>
               <p className="text-gray-700 leading-relaxed">
-                To the fullest extent permitted by law, NECom shall not be liable for any indirect, incidental, special,
-                or consequential damages resulting from your use of the website.
+                The website is provided on an “as is” and “as available” basis. We make reasonable efforts to keep the
+                information accurate, but we do not guarantee it will always be complete, current, or error-free.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Governing Law</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Limitation of Liability</h2>
               <p className="text-gray-700 leading-relaxed">
-                These Terms shall be governed by and construed in accordance with the laws of the Republic of Latvia.
-                Any legal proceedings shall be brought exclusively in the courts located in Riga, Latvia.
+                To the fullest extent permitted by law, NECom will not be liable for indirect, incidental, special, or
+                consequential damages arising from your use of (or inability to use) the website.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Contact Information</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Changes to These Terms</h2>
               <p className="text-gray-700 leading-relaxed">
-                If you have any questions about these Terms, please contact us:
+                We may update these Terms from time to time. The “Last updated” date above indicates when changes were
+                last made.
               </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Governing Law</h2>
+              <p className="text-gray-700 leading-relaxed">
+                These Terms are governed by the laws of the Republic of Latvia. Any disputes will be handled by the
+                competent courts in Riga, Latvia.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Contact</h2>
+              <p className="text-gray-700 leading-relaxed">Questions about these Terms? Email us:</p>
               <div className="bg-gray-50 rounded-2xl p-6 mt-4">
                 <p className="text-gray-700">
                   <strong>Nords Event Communications SIA</strong>
