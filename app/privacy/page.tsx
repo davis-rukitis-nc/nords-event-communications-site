@@ -7,12 +7,14 @@ export const metadata: Metadata = {
   description: "Privacy Policy for Nords Event Communications",
 }
 
+const LAST_UPDATED = "January 20, 2026"
+
 export default function PrivacyPolicyPage() {
   return (
     <main className="bg-white">
       <PageHeader
         title="Privacy Policy"
-        subtitle="How we collect, use, and protect your information"
+        subtitle="How we collect, use, and protect information"
         imageUrl="https://rimirigamarathon.com/wp-content/uploads/2025/07/0RK_6989.jpg"
       />
 
@@ -30,17 +32,15 @@ export default function PrivacyPolicyPage() {
             </Link>
           </div>
 
-          <p className="text-gray-600 mb-12">
-            Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-          </p>
+          <p className="text-gray-600 mb-12">Last updated: {LAST_UPDATED}</p>
 
           <div className="prose prose-lg max-w-none space-y-8">
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Introduction</h2>
               <p className="text-gray-700 leading-relaxed">
-                Nords Event Communications SIA ("NECom", "we", "us", or "our") is committed to protecting your privacy.
-                This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you
-                visit our website or interact with our services.
+                Nords Event Communications SIA ("NECom", "we", "us", or "our") operates this website to share information
+                about our projects, work, and partners. We take privacy seriously and aim to be clear about what data is
+                collected and why.
               </p>
               <p className="text-gray-700 leading-relaxed mt-4">
                 <strong>Company Details:</strong>
@@ -57,156 +57,125 @@ export default function PrivacyPolicyPage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Information We Collect</h2>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">2.1 Personal Information</h3>
-              <p className="text-gray-700 leading-relaxed">
-                We may collect personal information that you voluntarily provide to us when you:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
-                <li>Contact us via email or contact forms</li>
-                <li>Subscribe to our newsletters or event updates</li>
-                <li>Register for our events</li>
-                <li>Interact with our social media channels</li>
-              </ul>
-              <p className="text-gray-700 leading-relaxed mt-4">
-                Personal information may include: name, email address, phone number, company name, and any other
-                information you choose to provide.
-              </p>
 
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">2.2 Automatically Collected Information</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">2.1 Information you provide</h3>
               <p className="text-gray-700 leading-relaxed">
-                When you visit our website, we automatically collect certain information about your device and usage
-                patterns:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
-                <li>IP address and general location data</li>
-                <li>Browser type and version</li>
-                <li>Device information (type, operating system)</li>
-                <li>Pages visited and time spent on pages</li>
-                <li>Referring website addresses</li>
-                <li>Date and time of access</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Cookies and Tracking Technologies</h2>
-              <p className="text-gray-700 leading-relaxed">
-                We use cookies and similar tracking technologies to enhance your browsing experience and analyze website
-                performance.
-              </p>
-
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">3.1 Analytics Services</h3>
-              <p className="text-gray-700 leading-relaxed">
-                We use the following analytics services to understand how visitors interact with our website:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
-                <li>
-                  <strong>Vercel Web Analytics:</strong> Collects anonymous usage data to help us improve website
-                  performance and user experience. This service respects Do Not Track (DNT) settings and does not use
-                  cookies.
-                </li>
-                <li>
-                  <strong>Vercel Speed Insights:</strong> Monitors website performance metrics including page load times
-                  and user interactions to ensure optimal website speed.
-                </li>
-              </ul>
-
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">3.2 Managing Cookies</h3>
-              <p className="text-gray-700 leading-relaxed">
-                You can control and manage cookies through your browser settings. However, disabling cookies may affect
-                the functionality of our website.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. How We Use Your Information</h2>
-              <p className="text-gray-700 leading-relaxed">
-                We use the collected information for the following purposes:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
-                <li>To respond to your inquiries and provide customer support</li>
-                <li>To send event information, newsletters, and marketing communications (with your consent)</li>
-                <li>To improve our website, services, and user experience</li>
-                <li>To analyze website traffic and usage patterns</li>
-                <li>To comply with legal obligations and enforce our terms</li>
-                <li>To prevent fraud and ensure website security</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Data Storage and Security</h2>
-              <p className="text-gray-700 leading-relaxed">
-                We implement appropriate technical and organizational security measures to protect your personal
-                information against unauthorized access, alteration, disclosure, or destruction. Your data is stored
-                securely on servers provided by our hosting partner Vercel, which maintains industry-standard security
-                practices.
+                If you contact us by email, we will receive the information you include in your message (for example: your
+                email address, name/signature, and the content of your request).
               </p>
               <p className="text-gray-700 leading-relaxed mt-4">
-                While we strive to protect your personal information, no method of transmission over the internet or
-                electronic storage is 100% secure. We cannot guarantee absolute security.
+                This website does not offer user accounts, registrations, or newsletter subscriptions.
               </p>
-            </section>
 
-            <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Data Sharing and Disclosure</h2>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">2.2 Information collected automatically</h3>
               <p className="text-gray-700 leading-relaxed">
-                We do not sell, trade, or rent your personal information to third parties. We may share your information
-                only in the following circumstances:
+                Like most websites, basic technical data may be processed when you visit (for example: device and browser
+                information, approximate location derived from IP address, pages viewed, and referring/exit pages). This is
+                used to operate the site, keep it secure, and understand overall usage.
+              </p>
+
+              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">2.3 Performance and analytics</h3>
+              <p className="text-gray-700 leading-relaxed">
+                We use Vercel tools to understand site performance and improve reliability:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
                 <li>
-                  <strong>Service Providers:</strong> With trusted third-party service providers who assist in operating
-                  our website and events
+                  <strong>Vercel Web Analytics:</strong> aggregated, privacy-focused analytics to understand general traffic
+                  patterns and pages visited. It is designed to work without cookies.
                 </li>
                 <li>
-                  <strong>Legal Requirements:</strong> When required by law, court order, or governmental authority
-                </li>
-                <li>
-                  <strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets
-                </li>
-                <li>
-                  <strong>Protection of Rights:</strong> To protect our rights, property, or safety
+                  <strong>Vercel Speed Insights:</strong> performance measurement (for example: page load and Core Web Vitals)
+                  to help us keep the site fast.
                 </li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Your Rights Under GDPR</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Cookies and Embedded Content</h2>
+
+              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">3.1 Cookies</h3>
               <p className="text-gray-700 leading-relaxed">
-                If you are a resident of the European Economic Area (EEA), you have certain data protection rights:
+                We do not set advertising cookies on this website, and Vercel Web Analytics is designed to operate without
+                cookies. However, third-party embedded content may set cookies or use similar technologies.
               </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
-                <li>
-                  <strong>Right to Access:</strong> You can request copies of your personal data
-                </li>
-                <li>
-                  <strong>Right to Rectification:</strong> You can request correction of inaccurate data
-                </li>
-                <li>
-                  <strong>Right to Erasure:</strong> You can request deletion of your personal data
-                </li>
-                <li>
-                  <strong>Right to Restrict Processing:</strong> You can request limitation on how we use your data
-                </li>
-                <li>
-                  <strong>Right to Data Portability:</strong> You can request transfer of your data
-                </li>
-                <li>
-                  <strong>Right to Object:</strong> You can object to our processing of your personal data
-                </li>
-                <li>
-                  <strong>Right to Withdraw Consent:</strong> You can withdraw consent at any time
-                </li>
-              </ul>
+
+              <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">3.2 YouTube embeds</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Some pages include embedded YouTube videos. When a page loads an embedded video (or when you play it),
+                your browser connects to YouTube/Google and they may collect information such as your IP address and video
+                interaction data, and may set cookies depending on your settings.
+              </p>
               <p className="text-gray-700 leading-relaxed mt-4">
-                To exercise any of these rights, please contact us at info@necom.lv.
+                If you prefer not to share data with YouTube, you can avoid playing embedded videos or adjust your browser
+                and Google account privacy settings.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Contact Us</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. How We Use Information</h2>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
+                <li>To respond to emails and communicate with you</li>
+                <li>To operate, maintain, and secure the website</li>
+                <li>To measure performance and improve content and user experience</li>
+                <li>To comply with legal obligations</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Legal Bases (GDPR)</h2>
               <p className="text-gray-700 leading-relaxed">
-                If you have any questions about this Privacy Policy, please contact us:
+                When GDPR applies, we process personal data on these bases:
               </p>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700 mt-3">
+                <li>
+                  <strong>Legitimate interests</strong> (operating and securing our website; understanding aggregate usage;
+                  improving performance).
+                </li>
+                <li>
+                  <strong>Consent</strong> (when you choose to contact us by email and provide information).
+                </li>
+                <li>
+                  <strong>Legal obligation</strong> (where processing is required by applicable law).
+                </li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Sharing and International Transfers</h2>
+              <p className="text-gray-700 leading-relaxed">
+                We do not sell personal data. We may share limited data with service providers who help us run the site,
+                such as our hosting/analytics provider (Vercel). Embedded content providers (like YouTube/Google) may
+                receive data directly from your browser when you view embedded videos.
+              </p>
+              <p className="text-gray-700 leading-relaxed mt-4">
+                These providers may process data outside Latvia/the EEA. Where required, transfers rely on appropriate
+                safeguards.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Data Retention</h2>
+              <p className="text-gray-700 leading-relaxed">
+                We keep email correspondence only as long as needed to respond and for reasonable record-keeping.
+                Analytics and performance data is used in aggregate to improve the site.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Your Rights Under GDPR</h2>
+              <p className="text-gray-700 leading-relaxed">
+                If you are in the EEA, you may have rights including access, rectification, erasure, restriction,
+                portability, and objection. To exercise your rights, contact us at info@necom.lv.
+              </p>
+              <p className="text-gray-700 leading-relaxed mt-4">
+                You can also lodge a complaint with Latvia’s supervisory authority: Datu valsts inspekcija (Data State
+                Inspectorate).
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Contact Us</h2>
+              <p className="text-gray-700 leading-relaxed">If you have any questions about this Privacy Policy, contact:</p>
               <div className="bg-gray-50 rounded-2xl p-6 mt-4">
                 <p className="text-gray-700">
                   <strong>Nords Event Communications SIA</strong>
