@@ -511,13 +511,10 @@ export default function ByTheNumbersSection() {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  // Show the scroll hint when entering mobile + idle/playing states.
+  // Show the scroll hint only on mobile while idle (hide once game starts)
   useEffect(() => {
-    if (isMobile && (gameState === "idle" || gameState === "playing")) {
-      setShowScrollHint(true)
-    } else {
-      setShowScrollHint(false)
-    }
+    if (isMobile && gameState === "idle") setShowScrollHint(true)
+    else setShowScrollHint(false)
   }, [isMobile, gameState])
 
   useEffect(() => {
@@ -702,10 +699,10 @@ export default function ByTheNumbersSection() {
                 </p>
                 <p className="text-[10px] text-neutral-400 mt-1">Office best: {officeBestTime}s</p>
               </div>
-              {gameState === "idle" && !isMobile && (
+              {gameState === "idle" && (
                 <button
                   onClick={startGame}
-                  className="px-4 py-2 bg-neutral-900 text-white text-xs rounded-full hover:bg-neutral-800 transition-colors"
+                  className="w-full md:w-auto px-4 py-2 bg-neutral-900 text-white text-xs rounded-full hover:bg-neutral-800 transition-colors"
                 >
                   Start Challenge
                 </button>
@@ -754,7 +751,7 @@ export default function ByTheNumbersSection() {
                   </div>
                 </div>
 
-                {gameState === "idle" && (
+                {showScrollHint && (
                   <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pointer-events-none">
                     <div className="bg-white/80 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
                       <p className="text-[10px] font-medium text-neutral-500">Scroll horizontally →</p>
@@ -818,7 +815,7 @@ export default function ByTheNumbersSection() {
           <div className="rounded-2xl p-5 md:p-6 flex flex-col justify-between bg-neutral-50">
             <div className="text-3xl mb-3">🍷🥂🧀 🍇</div>
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-neutral-900">4,000</p>
+              <p className="text-3xl md:text-4xl font-bold text-neutral-900">5,000</p>
               <p className="text-xs md:text-sm text-neutral-600 mt-1">
                 gourmets & wine lovers attend Riga Wine & Champagne annually
               </p>
