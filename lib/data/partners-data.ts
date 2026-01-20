@@ -56,9 +56,9 @@ export const partnerLogos: Partner[] = [
     link: "https://www.sportland.lv",
   },
   {
-    name: "Audi",
-    logo: "/partners/audi.svg",
-    link: "https://www.audi.lv",
+    name: "Signet Bank",
+    logo: "/partners/signetbank.svg",
+    link: "https://signetbank.com",
   },
   {
     name: "Spice",
@@ -154,5 +154,10 @@ export const partnerLogos: Partner[] = [
     name: "Bērnu slimnīcas fonds",
     logo: "/partners/bsf.svg",
     link: "https://www.bsf.lv",
+  },
+  {
+    name: "State Culture Capital Foundation",
+    logo: "/partners/VKKF.svg",
+    link: "https://www.kkf.lv",
   },
 ]
