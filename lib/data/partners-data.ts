@@ -21,11 +21,6 @@ export const partnerLogos: Partner[] = [
     link: "https://toyota.wess.lv",
   },
   {
-    name: "Electrolux",
-    logo: "/partners/electrolux.svg",
-    link: "https://www.electrolux.com",
-  },
-  {
     name: "Garmin",
     logo: "/partners/garmin.svg",
     link: "https://www.garmin.com",
@@ -99,11 +94,6 @@ export const partnerLogos: Partner[] = [
     name: "Rietumu Banka",
     logo: "/partners/rietumu-banka.svg",
     link: "https://www.rietumu.lv",
-  },
-  {
-    name: "Indexo",
-    logo: "/partners/indexo.svg",
-    link: "https://www.indexo.lv",
   },
   {
     name: "WESS Motors",
