@@ -38,7 +38,7 @@ export default function HomePage() {
       <main className="min-h-screen">
         <HeroSection />
         <ByNordsMarquee
-          className="bg-[#B79A70]"
+          className="bg-[#B79A7075]"
           textClassName="text-gray-700 tracking-wide"
           pillClassName="bg-[#111] shadow-sm"
         />
