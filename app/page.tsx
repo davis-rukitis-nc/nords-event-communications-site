@@ -11,34 +11,12 @@ import { generateBreadcrumbStructuredData } from "@/lib/seo/structured-data"
 
 export const metadata: Metadata = generatePageMetadata(pageMetaConfigs.home)
 
-const ASCII_COMMENT = [
-  "`7MN.   `7MF'`7MM\"\"\"YMM    .g8\"\"\"bgd",
-  "  MMN.    M    MM    `7  .dP'     `M",
-  "  M YMb   M    MM   d    dM'       ` ,pW\"Wq.`7MMpMMMb.pMMMb.",
-  "  M  `MN. M    MMmmMM    MM         6W'   `Wb MM    MM    MM",
-  "  M   `MM.M    MM   Y  , MM.        8M     M8 MM    MM    MM",
-  "  M     YMM    MM     ,M `Mb.     ,'YA.   ,A9 MM    MM    MM",
-  ".JML.    YM  .JMMmmmmMMM   `\"bmmmd'  `Ybmd9'.JMML  JMML  JMML.",
-].join("\n")
-
 export default function HomePage() {
-  const breadcrumbData = generateBreadcrumbStructuredData([
-    { name: "Home", url: "https://www.necom.lv/" },
-  ])
+  const breadcrumbData = generateBreadcrumbStructuredData([{ name: "Home", url: "https://www.necom.lv/" }])
 
   return (
     <>
-      {/* This renders a REAL HTML comment into the output HTML */}
-      <div
-        aria-hidden="true"
-        style={{ display: "none" }}
-        dangerouslySetInnerHTML={{
-          __html: `<!--\n${ASCII_COMMENT}\n-->`,
-        }}
-      />
-
       <StructuredData data={breadcrumbData} />
-
       <main className="min-h-screen">
         <HeroSection />
         <AboutSection />
