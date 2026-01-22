@@ -29,7 +29,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Render the ASCII art as a real HTML comment so it appears in the DOM */}
       <div
         dangerouslySetInnerHTML={{ __html: asciiComment }}
         aria-hidden="true"
