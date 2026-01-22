@@ -28,7 +28,7 @@ export default function ByNordsMarquee({
   className = "",
   textClassName = "",
   pillClassName = "",
-  pauseOnHover = true,
+  pauseOnHover = false,
 }: ByNordsMarqueeProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number | null>(null)
@@ -186,8 +186,8 @@ export default function ByNordsMarquee({
         onMouseEnter={
           pauseOnHover
             ? () => {
-                setIsPaused(true)
-                isPausedRef.current = true
+                setIsPaused(false)
+                isPausedRef.current = false
               }
             : undefined
         }
@@ -202,8 +202,8 @@ export default function ByNordsMarquee({
         onFocusCapture={
           pauseOnHover
             ? () => {
-                setIsPaused(true)
-                isPausedRef.current = true
+                setIsPaused(false)
+                isPausedRef.current = false
               }
             : undefined
         }
