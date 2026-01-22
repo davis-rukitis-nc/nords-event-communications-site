@@ -16,9 +16,7 @@ export default function HomePage() {
 
   return (
     <>
-      <!--
-
-
+{/*
 `7MN.   `7MF'`7MM"""YMM    .g8"""bgd                          
   MMN.    M    MM    `7  .dP'     `M                          
   M YMb   M    MM   d    dM'       ` ,pW"Wq.`7MMpMMMb.pMMMb.  
@@ -26,9 +24,7 @@ export default function HomePage() {
   M   `MM.M    MM   Y  , MM.        8M     M8 MM    MM    MM  
   M     YMM    MM     ,M `Mb.     ,'YA.   ,A9 MM    MM    MM  
 .JML.    YM  .JMMmmmmMMM   `"bmmmd'  `Ybmd9'.JMML  JMML  JMML.                                                                  
-
-
-  -->
+*/}
       <StructuredData data={breadcrumbData} />
       <main className="min-h-screen">
         <HeroSection />
