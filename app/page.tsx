@@ -14,7 +14,7 @@ export const metadata: Metadata = generatePageMetadata(pageMetaConfigs.home)
 export default function HomePage() {
   const breadcrumbData = generateBreadcrumbStructuredData([{ name: "Home", url: "https://www.necom.lv/" }])
 
-  // ASCII art comment lines (exactly as in necom.txt)
+  // ASCII art comment lines
   const asciiLines = [
     "`7MN.   `7MF'`7MM\"\"\"YMM    .g8\"\"\"bgd                          ",
     "  MMN.    M    MM     7  .dP'     `M                          ",
