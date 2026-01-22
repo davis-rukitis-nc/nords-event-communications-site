@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import HeroSection from "@/components/sections/hero-section"
-import ByNordsMarquee from "@/components/ByNordsMarquee"
+import ByNordsMarquee from "@/components/sections/ByNordsMarquee"
 import AboutSection from "@/components/sections/about-section"
 import NewsSection from "@/components/sections/news-section"
 import EventsShowcaseSection from "@/components/sections/events-showcase-section"
