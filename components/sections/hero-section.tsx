@@ -144,7 +144,7 @@ export default function HeroSection() {
           loop
           playsInline
           preload="none"
-          poster="/images/design-mode/hero-video-2025.png"
+          poster="/images/design-mode/hero-video-2025.webp"
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? "opacity-80" : "opacity-0"
           }`}
