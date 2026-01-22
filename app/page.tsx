@@ -14,8 +14,26 @@ export const metadata: Metadata = generatePageMetadata(pageMetaConfigs.home)
 export default function HomePage() {
   const breadcrumbData = generateBreadcrumbStructuredData([{ name: "Home", url: "https://www.necom.lv/" }])
 
+  // ASCII art comment lines (exactly as in necom.txt)
+  const asciiLines = [
+    "`7MN.   `7MF'`7MM\"\"\"YMM    .g8\"\"\"bgd                          ",
+    "  MMN.    M    MM     7  .dP'     `M                          ",
+    "  M YMb   M    MM   d    dM'       ` ,pW\"Wq.`7MMpMMMb.pMMMb.  ",
+    "  M  `MN. M    MMmmMM    MM         6W'   `Wb MM    MM    MM  ",
+    "  M   `MM.M    MM   Y  , MM.        8M     M8 MM    MM    MM  ",
+    "  M     YMM    MM     ,M `Mb.     ,'YA.   ,A9 MM    MM    MM  ",
+    ".JML.    YM  .JMMmmmmMMM   `\"bmmmd'  `Ybmd9'.JMML  JMML  JMML. ",
+  ]
+
+  const asciiComment = "<!--\n" + asciiLines.join("\n") + "\n-->"
+
   return (
     <>
+      {/* Render the ASCII art as a real HTML comment so it appears in the DOM */}
+      <div
+        dangerouslySetInnerHTML={{ __html: asciiComment }}
+        aria-hidden="true"
+      />
       <StructuredData data={breadcrumbData} />
       <main className="min-h-screen">
         <HeroSection />
