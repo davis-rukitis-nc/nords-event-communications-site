@@ -17,9 +17,9 @@ type ByNordsMarqueeProps = {
 
 export default function ByNordsMarquee({
   phrases = [
-    "Moved by Nords Event Communications.",
-    "Inspired by Nords Event Communications.",
-    "Elevated by Nords Event Communications.",
+    "Moved by Nords Event Communications",
+    "Inspired by Nords Event Communications",
+    "Elevated by Nords Event Communications",
   ],
   logoSrc = "/logo-light.svg",
   speed = 0.25, // slower baseline
