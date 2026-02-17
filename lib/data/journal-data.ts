@@ -51,12 +51,12 @@ export const journalArticles: JournalArticle[] = [
   
   ## Festival’s Program
   
-  - Wednesday, February 25 | "Size Matters! It's Magnum Apéro!" Opening night at "Wine Collectors" dedicated exclusively to Magnum bottles. Led by Peter Liem, Aigars Nords, and Raimonds Tomsons.
-  - Thursday, February 26 | "The Magic of Blanc de Blancs. Spectacular, Spectacular!" A parade of 100% Chardonnay champagnes at "Truffle Pig" bar. Features over 30 selections, ranging from mature vintages to high-energy "single vineyard" grower champagnes.
-  - Friday, February 27 | "Champagne Gala Dinner: Bring me Champagne when I’m Thirsty" The annual Grand Dinner at "SMOR" bistro. Hosted by Kaspars Barsukovs and featuring all visiting winemakers. Guests are also invited to bring their own favorite bottles to share.
-  - Saturday, February 28 | "Chefs + Champagne 2026" A unique symposium demonstrating the art of pairing champagne with food. A jury and the public will vote to crown the best gastronomic pairing of the year.
-  - Saturday, February 28 | "Great Bubble Parade 2026" The Baltics' largest bubbly tasting event at "Hanzas Perons." Over 200 champagnes, masterclasses, and direct interaction with winemakers.
-  - Sunday, March 1 | "Kind of Blue: Tribute to Frédéric Panaïotis" A closing lunch-dinner dedicated to the late Ruinart cellar master and friend of the festival, Frédéric Panaïotis. Featuring legendary Dom Ruinart magnums (from 1964 up to 2013) and 1960s jazz from the "Blue Note" label.
+  - **Wednesday, February 25 | "Size Matters! It's Magnum Apéro!"** Opening night at "Wine Collectors" dedicated exclusively to Magnum bottles. Led by Peter Liem, Aigars Nords, and Raimonds Tomsons.
+  - **Thursday, February 26 | "The Magic of Blanc de Blancs. Spectacular, Spectacular!"** A parade of 100% Chardonnay champagnes at "Truffle Pig" bar. Features over 30 selections, ranging from mature vintages to high-energy "single vineyard" grower champagnes.
+  - **Friday, February 27 | "Champagne Gala Dinner: Bring me Champagne when I’m Thirsty"** The annual Grand Dinner at "SMOR" bistro. Hosted by Kaspars Barsukovs and featuring all visiting winemakers. Guests are also invited to bring their own favorite bottles to share.
+  - **Saturday, February 28 | "Chefs + Champagne 2026"** A unique symposium demonstrating the art of pairing champagne with food. A jury and the public will vote to crown the best gastronomic pairing of the year.
+  - **Saturday, February 28 | "Great Bubble Parade 2026"** The Baltics' largest bubbly tasting event at "Hanzas Perons." Over 200 champagnes, masterclasses, and direct interaction with winemakers.
+  - **Sunday, March 1 | "Kind of Blue: Tribute to Frédéric Panaïotis"** A closing lunch-dinner dedicated to the late Ruinart cellar master and friend of the festival, Frédéric Panaïotis. Featuring legendary Dom Ruinart magnums (from 1964 up to 2013) and 1960s jazz from the "Blue Note" label.
   
   ---
   
