@@ -20,7 +20,7 @@ export const journalArticles: JournalArticle[] = [
     date: "2026-02-17",
     category: "Food & Drink",
     tags: ["Bubble Parade", "Champagne", "Festival"],
-    image: "https://www.rigawinechampagne.lv/storage/a611d0c973b5b488305701708b356cf04e6e423c.png",
+    image: "https://rimirigamarathon.com/wp-content/uploads/2026/02/top100-wineschefs-2024.webp",
     content: `
 
   The annual "Riga Wine & Champagne" festival has unveiled the program for its 14th "Bubble Parade." From February 25 to March 1, the festival will offer a world-class celebration for champagne and gastronomy enthusiasts, and Riga will once again become an international gourmet destination, bringing together Champagne’s chef de caves, Latvia’s top chefs, and champagne and sparkling wine lovers from around the globe.
@@ -87,7 +87,7 @@ export const journalArticles: JournalArticle[] = [
     "Pink Noise Riga Announces First 2026 Season Highlights: Wynton Marsalis and Nubya Garcia to Perform in Riga",
   excerpt:
     "Riga’s Pink Noise Riga music festival has announced the first highlights of its 2026 season and launched ticket sales: British jazz star Nubya Garcia will perform at Palladium on 11 April, while Wynton Marsalis and the Jazz at Lincoln Center Orchestra will make their Baltic debut at Dailes Theatre on 29 November as the festival shifts to spring and autumn sessions.",
-  date: "2026-12-12",
+  date: "2025-12-12",
   category: "Music",
   tags: [
     "Jazz",
