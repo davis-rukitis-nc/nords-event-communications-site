@@ -10,7 +10,77 @@ export interface JournalArticle {
 }
 
 export const journalArticles: JournalArticle[] = [
+
+    {
+    id: "riga-wine-champagne-bubble-parade-2026-program",
+    title:
+      "Riga Wine & Champagne Festival Announces the Baltics' Most Ambitious Champagne Program",
+    excerpt:
+      "The annual Riga Wine & Champagne festival has unveiled the program for its 14th Bubble Parade. From February 25 to March 1, the festival will offer a world-class celebration for champagne and gastronomy enthusiasts, and Riga will once again become an international gourmet destination, bringing together Champagne’s chef de caves, Latvia’s top chefs, and champagne and sparkling wine lovers from around the globe.",
+    date: "2026-02-17",
+    category: "Food & Drink",
+    tags: ["Bubble Parade", "Champagne", "Festival"],
+    image: "https://www.rigawinechampagne.lv/storage/a611d0c973b5b488305701708b356cf04e6e423c.png",
+    content: `
+
+  The annual "Riga Wine & Champagne" festival has unveiled the program for its 14th "Bubble Parade." From February 25 to March 1, the festival will offer a world-class celebration for champagne and gastronomy enthusiasts, and Riga will once again become an international gourmet destination, bringing together Champagne’s chef de caves, Latvia’s top chefs, and champagne and sparkling wine lovers from around the globe.
   
+  The festival’s highlights include the popular "Bubble Parade," which will gather over a thousand guests at "Hanzas Perons," as well as a series of champagne-themed dinners, masterclasses, and tastings. In collaboration with Liebherr, the festival will also host the second "Chefs + Champagne" competition. This event features top Latvian chefs and an international jury to publicly determine the best pairings of champagne and gastronomy.
+  
+  > "When we started the 'Bubble Parade' tradition in the spring of 2013, we had no idea it would become one of the first events of its kind globally to honor champagne culture, chefs, and sommelier arts at such a high level outside of Champagne and France. Over the years, the number of international visitors from the Baltics, Europe, and the USA has grown significantly. It is symbolic, but it simply means that at the end of February, Riga becomes the 'Champagne Capital,'" comments Aigars Nords, founder of Riga Wine & Champagne.
+  
+  ---
+  
+  ## The Main Event: The Bubble Parade
+  
+  The festival's central event offers a unique opportunity to taste and discover favorites from a selection of nearly 200 champagnes and sparkling wines. Attendees can seek advice from top sommeliers and importers while enjoying delicacies created by Latvia’s finest chefs.
+  
+  In addition to tastings, the program features in-depth masterclasses led by the festival’s guest of honor—world-renowned Champagne expert Peter Liem—and founder Aigars Nords. This year’s educational opportunities feature owners and Chefs de Cave from prestigious houses and growers, including:
+  
+  - Gilles de la Bassetière (President of Champagne De Venoge)
+  - Étienne Calsac (Champagne Calsac)
+  - Mickaël Rodez (Champagne Eric Rodez)
+  - Jean-Pierre Vazart (Champagne Vazart-Coquart)
+  - Francis Orban (Champagne Francis Orban)
+  - Pierre Gheusi (Moët & Chandon)
+  - Juliena Lardy (AR Lenoble)
+  
+  Representatives from  Champagne Gallimard, and other historic families.
+  
+  ---
+  
+  ## Festival’s Program
+  
+  - Wednesday, February 25 | "Size Matters! It's Magnum Apéro!" Opening night at "Wine Collectors" dedicated exclusively to Magnum bottles. Led by Peter Liem, Aigars Nords, and Raimonds Tomsons.
+  - Thursday, February 26 | "The Magic of Blanc de Blancs. Spectacular, Spectacular!" A parade of 100% Chardonnay champagnes at "Truffle Pig" bar. Features over 30 selections, ranging from mature vintages to high-energy "single vineyard" grower champagnes.
+  - Friday, February 27 | "Champagne Gala Dinner: Bring me Champagne when I’m Thirsty" The annual Grand Dinner at "SMOR" bistro. Hosted by Kaspars Barsukovs and featuring all visiting winemakers. Guests are also invited to bring their own favorite bottles to share.
+  - Saturday, February 28 | "Chefs + Champagne 2026" A unique symposium demonstrating the art of pairing champagne with food. A jury and the public will vote to crown the best gastronomic pairing of the year.
+  - Saturday, February 28 | "Great Bubble Parade 2026" The Baltics' largest bubbly tasting event at "Hanzas Perons." Over 200 champagnes, masterclasses, and direct interaction with winemakers.
+  - Sunday, March 1 | "Kind of Blue: Tribute to Frédéric Panaïotis" A closing lunch-dinner dedicated to the late Ruinart cellar master and friend of the festival, Frédéric Panaïotis. Featuring legendary Dom Ruinart magnums (from 1964 up to 2013) and 1960s jazz from the "Blue Note" label.
+  
+  ---
+  
+  ## Tickets & Information
+  
+  Organizers advise purchasing tickets early as demand is high.
+  
+  Tickets: www.rigawinechampagne.lv and fienta.com
+  
+  Media Contacts: Inese Ķīkule: +371 29666110, inese.kikule@necom.lv, Baiba Bože: +371 29865238, baiba.boze@necom.lv
+  
+  ---
+  
+  ## About the Festival
+  
+  About the Festival: Since 2012, Riga Wine & Champagne has been a leader in developing wine & champagne culture in the Baltics. Beyond the Bubble Parade, the organizers have introduced new concepts as the "Top 100 Wines + Chefs" parade, the "Wine of the Year" competition, and the "Baltic Wine & Drinks Awards." The festival is organized by SIA Nords Event Communications, the team behind the "Rimi Riga Marathon" and the "Pink Noise Riga" music festival.
+  
+  ---
+  
+  ## Major Supporters
+  
+  Major Supporters: LEXUS Riga Airport and Liebherr, as well as Akvile water.
+  `,
+  },
   {
   id: "pink-noise-riga-2026-season-wynton-marsalis-nubya-garcia",
   title:
