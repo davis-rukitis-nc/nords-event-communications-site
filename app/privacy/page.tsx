@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
                 <br />
                 Nords Event Communications SIA
                 <br />
-                Registration Number: 40203089546
+                Registration Number: 50003981501
                 <br />
                 Address: Riga, Latvia
                 <br />
@@ -182,7 +182,7 @@ export default function PrivacyPolicyPage() {
                   <br />
                   Email: info@necom.lv
                   <br />
-                  Registration Number: 40203089546
+                  Registration Number: 50003981501
                   <br />
                   Location: Riga, Latvia
                 </p>
