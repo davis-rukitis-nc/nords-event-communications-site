@@ -198,7 +198,7 @@ export default function SiteFooter() {
             </Link>
             <div className="text-neutral-500 text-xs leading-relaxed">
               <p>Nords Event Communications SIA</p>
-              <p>Reg. No. 40203089546</p>
+              <p>Reg. No. 50003981501</p>
               <p>Riga, Latvia</p>
             </div>
           </div>
