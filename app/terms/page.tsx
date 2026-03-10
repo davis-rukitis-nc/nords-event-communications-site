@@ -46,7 +46,7 @@ export default function TermsOfServicePage() {
                 <br />
                 Nords Event Communications SIA ("NECom")
                 <br />
-                Registration Number: 40203089546
+                Registration Number: 50003981501
                 <br />
                 Address: Riga, Latvia
                 <br />
@@ -136,7 +136,7 @@ export default function TermsOfServicePage() {
                   <br />
                   Email: info@necom.lv
                   <br />
-                  Registration Number: 40203089546
+                  Registration Number: 50003981501
                   <br />
                   Location: Riga, Latvia
                 </p>
