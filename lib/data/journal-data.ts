@@ -32,7 +32,7 @@ export const journalArticles: JournalArticle[] = [
       "The 14th edition of the Riga Wine & Champagne festival has successfully wrapped up in Riga, marking another milestone year for the event. Over five vibrant days, Riga symbolically became the European capital of Champagne, elevating wine culture and gastronomy in the region to an entirely new level. The festival brought together sparkling wine enthusiasts, gourmets, and industry professionals from around the world, while determining the finest Champagne and Latvian gastronomy pairings.",
     date: "2026-03-12",
     category: "Food & Drink",
-    tags: ["Riga Wine & Champagne", "Bubble Parade", "Chefs + Champagne"],
+    tags: ["Bubble Parade"],
     image: "https://rimirigamarathon.com/wp-content/uploads/2026/03/rwch-2026-1.jpg",
 content: dedent(`
   The 14th edition of the Riga Wine & Champagne festival has successfully wrapped up in Riga, marking another milestone year for the event. Over five vibrant days, Riga symbolically became the European capital of Champagne, elevating wine culture and gastronomy in the region to an entirely new level. The festival brought together sparkling wine enthusiasts, gourmets, and industry professionals from around the world, while determining the finest Champagne and Latvian gastronomy pairings.
