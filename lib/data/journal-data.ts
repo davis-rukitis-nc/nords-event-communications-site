@@ -10,8 +10,6 @@ export interface JournalArticle {
 }
 
 export const journalArticles: JournalArticle[] = [
-
-  
     {
     id: "riga-wine-champagne-festival-concludes-15-countries-2026",
     title:
