@@ -49,7 +49,7 @@ export default function PrivacyPolicyPage() {
                 <br />
                 Registration Number: 50003981501
                 <br />
-                Address: Riga, Latvia
+                Address: Brīvības iela 40–24, Rīga, LV-1050, Latvia
                 <br />
                 Contact Email: info@necom.lv
               </p>
@@ -184,7 +184,7 @@ export default function PrivacyPolicyPage() {
                   <br />
                   Registration Number: 50003981501
                   <br />
-                  Location: Riga, Latvia
+                  Location: Brīvības iela 40–24, Rīga, LV-1050, Latvia
                 </p>
               </div>
             </section>
