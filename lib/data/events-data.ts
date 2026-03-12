@@ -215,15 +215,15 @@ export const upcomingEvents: Event[] = [
     link: "https://rimirigamarathon.com/",
   },
   {
-    id: "bubble-parade-2026",
-    name: "Bubble Parade",
-    type: "Food & Drinks",
-    description: "Wine and food celebration",
+    id: "pink-noise-riga-spring-2026",
+    name: "Pink Noise Riga",
+    type: "Music",
+    description: "Music festival",
     image: "",
     logo: "",
-    date: "February 25 - March 1, 2026",
-    startDate: "2026-02-25",
-    link: "https://rigawinechampagne.lv/",
+    date: "April 10 - 12, 2026",
+    startDate: "2026-04-10",
+    link: "https://pinknoiseriga.com/",
   },
 ]
 
