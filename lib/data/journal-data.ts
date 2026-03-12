@@ -9,6 +9,20 @@ export interface JournalArticle {
   content: string
 }
 
+function dedent(str: string) {
+  const lines = str.replace(/\r\n/g, "\n").split("\n");
+
+  while (lines.length && lines[0].trim() === "") lines.shift();
+  while (lines.length && lines[lines.length - 1].trim() === "") lines.pop();
+
+  const indents = lines
+    .filter((l) => l.trim().length)
+    .map((l) => (l.match(/^\s*/)?.[0].length ?? 0));
+
+  const minIndent = indents.length ? Math.min(...indents) : 0;
+  return lines.map((l) => l.slice(minIndent)).join("\n");
+}
+
 export const journalArticles: JournalArticle[] = [
     {
     id: "riga-wine-champagne-festival-concludes-15-countries-2026",
@@ -20,56 +34,55 @@ export const journalArticles: JournalArticle[] = [
     category: "Food & Drink",
     tags: ["Riga Wine & Champagne", "Bubble Parade", "Chefs + Champagne"],
     image: "https://rimirigamarathon.com/wp-content/uploads/2026/03/rwch-2026-1.jpg",
-    content: `
-  
-    The 14th edition of the Riga Wine & Champagne festival has successfully wrapped up in Riga, marking another milestone year for the event. Over five vibrant days, Riga symbolically became the European capital of Champagne, elevating wine culture and gastronomy in the region to an entirely new level. The festival brought together sparkling wine enthusiasts, gourmets, and industry professionals from around the world, while determining the finest Champagne and Latvian gastronomy pairings.
-    
-    ## An Ambitious Program
-    
-    Across five days, the program featured refined dinners, masterclasses, and public tastings that united top-tier Champagnes with outstanding gastronomy. The highlight of the festival was the region’s grandest “Bubble Parade,” held at Hanzas Perons. The festival also hosted the world-unique and the moving commemorative luncheon “Kind of Blue,” held in tribute to Ruinart legend and esteemed winemaker Frédéric Panaïotis.
-    
-    ## World-Class Winemakers and International Recognition
-    
-    This year, the festival attracted gastronomic tourists and gourmets from 15 countries – primarily from the Baltics, as well as from the Nordic countries, the United Kingdom, Germany, and the United States. Guests had a rare opportunity to experience exceptional beverage quality firsthand and meet industry legends face-to-face. 
-    
-    Among the distinguished guests and masterclass hosts were Champagne stars such as cult winemaker Pascal Agrapart, rising-generation talent Étienne Calsac, President of Champagne de Venoge Gilles de la Bassetière, and the world’s most respected Champagne critic and author Peter Liem.
-    
-    ## The Unique “Chefs + Champagne” competition and its winners
-    
-    One of the festival’s central highlights was the globally unique Champagne and gastronomy pairing symposium and competition “Chefs + Champagne.” The best chef–sommelier duos, known as “The Bubbly Dozen,” demonstrated their mastery before an international jury, showcasing the exceptional standard of Latvian gastronomy.
-    
-    - Grand Prix – Best Pairing: Wine Collectors (Chef Edmondo Vingris & Sommelier Alex Kravčuks | McDuck in the Forest & Champagne Egly-Ouriet Les Vignes de Vrigny Premier Cru)
-    - Excellence Award – Top 3 Pairing: Harper Woolf (Chef Ivans Šmigarevs & Sommelier Yunus Emre Colak | Potato pavé with “Riga Gold” sprats and duck liver mi-cuit & Champagne Roses de Jeanne Côte de Val Vilaine Blanc de Noirs VV/R23)
-    - Excellence Award – Top 3 Pairing: Kest (Chef Māris Jansons & Sommelier Zane Ķiģele | Hot-smoked Latvian eel & Champagne Bollinger Special Cuvée Brut)
-    - Grand Prix – Best Champagne Selection: Harper Woolf (Chef Ivans Šmigarevs & Sommelier Yunus Emre Colak | Potato pavé with “Riga Gold” sprats and duck liver mi-cuit & Champagne Roses de Jeanne Côte de Val Vilaine Blanc de Noirs VV/R23)
-    - Excellence Award – Top 3 Champagne Selection: Pavāru Māja Līgatnē (Chef Juris Dukaļskis & Sommelier Juris Semjonovs | Black salsify with “Soira” hard cheese & Champagne Chartogne-Taillet Cuvée Orizeaux Blanc de Noirs Extra Brut)
-    - Excellence Award – Top 3 Champagne Selection: Wine Collectors (Chef Edmondo Vingris & Sommelier Alex Kravčuks | McDuck in the Forest & Champagne Egly-Ouriet Les Vignes de Vrigny Premier Cru)
-    - Audience Award: Riviera (Chef Jevgēnijs Liskins & Sommelier Ritvars Blūms | Tiger prawn ravioli & Champagne Palmer & Co Rosé Solera)
-    - Presentation & Story Award: Wine Collectors (Chef Edmondo Vingris & Sommelier Alex Kravčuks | McDuck in the Forest & Champagne Egly-Ouriet Les Vignes de Vrigny Premier Cru).
-    
-    ## Industry Unity and the Growth of Beverage Culture
-    
-    The festival, founded by Aigars Nords and organized by the team at Nords Event Communications, is unique in its ability to unite Latvia’s leading wine and Champagne importers. Together, Riga Wine & Champagne not only delivers a world-class event but continues to fulfill its mission of educating the public and elevating wine appreciation culture to unprecedented heights.
-    
-    ## Additional Information:
-    
-    Inese Ķīkule, +371 29666110, inese.kikule@necom.lv  
-    Baiba Bože, +371 29865238, baiba.boze@necom.lv
-    
-    ## About Riga Wine & Champagne
-    
-    Since its launch in 2012 with a Champagne masterclass led by Peter Liem, the festival has undertaken the mission of shaping wine culture in Latvia and the Baltic states. The festival program includes Latvia’s most anticipated gourmet events:
-    
-    - “Top 100 Wines + Chefs,” a parade of the best wines and chefs
-    - The “Wine of the Year” competition, now a trusted guide for Latvian wine lovers
-    - The “Bubble Parade,” which each spring gathers Champagne and sparkling wine enthusiasts
-    - The “Baltic Wine & Drinks Awards,” organized in cooperation with Liebherr, recognizing the most wine-friendly restaurants, bars, and retailers
-    - The festival umbrella has also fostered the “Whisky & Friends” festival, which premiered in 2024 at the Riga Circus.
-    
-    The festival is organized by Nords Event Communications, also known for producing the “Pink Noise Riga” music festival, the Rimi Riga Marathon, the World Athletics Road Running Championships, and other large-scale projects.
-    
-    Key supporters of Riga Wine & Champagne and the Bubble Parade include Liebherr, LEXUS Riga Airport, and Akvile water.
-    `,
+content: dedent(`
+  The 14th edition of the Riga Wine & Champagne festival has successfully wrapped up in Riga, marking another milestone year for the event. Over five vibrant days, Riga symbolically became the European capital of Champagne, elevating wine culture and gastronomy in the region to an entirely new level. The festival brought together sparkling wine enthusiasts, gourmets, and industry professionals from around the world, while determining the finest Champagne and Latvian gastronomy pairings.
+
+  ## An Ambitious Program
+
+  Across five days, the program featured refined dinners, masterclasses, and public tastings that united top-tier Champagnes with outstanding gastronomy. The highlight of the festival was the region’s grandest “Bubble Parade,” held at Hanzas Perons. The festival also hosted the world-unique and the moving commemorative luncheon “Kind of Blue,” held in tribute to Ruinart legend and esteemed winemaker Frédéric Panaïotis.
+
+  ## World-Class Winemakers and International Recognition
+
+  This year, the festival attracted gastronomic tourists and gourmets from 15 countries – primarily from the Baltics, as well as from the Nordic countries, the United Kingdom, Germany, and the United States. Guests had a rare opportunity to experience exceptional beverage quality firsthand and meet industry legends face-to-face. 
+
+  Among the distinguished guests and masterclass hosts were Champagne stars such as cult winemaker Pascal Agrapart, rising-generation talent Étienne Calsac, President of Champagne de Venoge Gilles de la Bassetière, and the world’s most respected Champagne critic and author Peter Liem.
+
+  ## The Unique “Chefs + Champagne” competition and its winners
+
+  One of the festival’s central highlights was the globally unique Champagne and gastronomy pairing symposium and competition “Chefs + Champagne.” The best chef–sommelier duos, known as “The Bubbly Dozen,” demonstrated their mastery before an international jury, showcasing the exceptional standard of Latvian gastronomy.
+
+  - Grand Prix – Best Pairing: Wine Collectors (Chef Edmondo Vingris & Sommelier Alex Kravčuks | McDuck in the Forest & Champagne Egly-Ouriet Les Vignes de Vrigny Premier Cru)
+  - Excellence Award – Top 3 Pairing: Harper Woolf (Chef Ivans Šmigarevs & Sommelier Yunus Emre Colak | Potato pavé with “Riga Gold” sprats and duck liver mi-cuit & Champagne Roses de Jeanne Côte de Val Vilaine Blanc de Noirs VV/R23)
+  - Excellence Award – Top 3 Pairing: Kest (Chef Māris Jansons & Sommelier Zane Ķiģele | Hot-smoked Latvian eel & Champagne Bollinger Special Cuvée Brut)
+  - Grand Prix – Best Champagne Selection: Harper Woolf (Chef Ivans Šmigarevs & Sommelier Yunus Emre Colak | Potato pavé with “Riga Gold” sprats and duck liver mi-cuit & Champagne Roses de Jeanne Côte de Val Vilaine Blanc de Noirs VV/R23)
+  - Excellence Award – Top 3 Champagne Selection: Pavāru Māja Līgatnē (Chef Juris Dukaļskis & Sommelier Juris Semjonovs | Black salsify with “Soira” hard cheese & Champagne Chartogne-Taillet Cuvée Orizeaux Blanc de Noirs Extra Brut)
+  - Excellence Award – Top 3 Champagne Selection: Wine Collectors (Chef Edmondo Vingris & Sommelier Alex Kravčuks | McDuck in the Forest & Champagne Egly-Ouriet Les Vignes de Vrigny Premier Cru)
+  - Audience Award: Riviera (Chef Jevgēnijs Liskins & Sommelier Ritvars Blūms | Tiger prawn ravioli & Champagne Palmer & Co Rosé Solera)
+  - Presentation & Story Award: Wine Collectors (Chef Edmondo Vingris & Sommelier Alex Kravčuks | McDuck in the Forest & Champagne Egly-Ouriet Les Vignes de Vrigny Premier Cru).
+
+  ## Industry Unity and the Growth of Beverage Culture
+
+  The festival, founded by Aigars Nords and organized by the team at Nords Event Communications, is unique in its ability to unite Latvia’s leading wine and Champagne importers. Together, Riga Wine & Champagne not only delivers a world-class event but continues to fulfill its mission of educating the public and elevating wine appreciation culture to unprecedented heights.
+
+  ## Additional Information:
+
+  Inese Ķīkule, +371 29666110, inese.kikule@necom.lv  
+  Baiba Bože, +371 29865238, baiba.boze@necom.lv
+
+  ## About Riga Wine & Champagne
+
+  Since its launch in 2012 with a Champagne masterclass led by Peter Liem, the festival has undertaken the mission of shaping wine culture in Latvia and the Baltic states. The festival program includes Latvia’s most anticipated gourmet events:
+
+  - “Top 100 Wines + Chefs,” a parade of the best wines and chefs
+  - The “Wine of the Year” competition, now a trusted guide for Latvian wine lovers
+  - The “Bubble Parade,” which each spring gathers Champagne and sparkling wine enthusiasts
+  - The “Baltic Wine & Drinks Awards,” organized in cooperation with Liebherr, recognizing the most wine-friendly restaurants, bars, and retailers
+  - The festival umbrella has also fostered the “Whisky & Friends” festival, which premiered in 2024 at the Riga Circus.
+
+  The festival is organized by Nords Event Communications, also known for producing the “Pink Noise Riga” music festival, the Rimi Riga Marathon, the World Athletics Road Running Championships, and other large-scale projects.
+
+  Key supporters of Riga Wine & Champagne and the Bubble Parade include Liebherr, LEXUS Riga Airport, and Akvile water.
+`),
     },
     {
     id: "riga-wine-champagne-bubble-parade-2026-program",
