@@ -93,7 +93,7 @@ export const displayEvents: Event[] = [
     startDate: "2012-11-23T17:00:00",
     yearStarted: 2012,
     annualParticipants: "8,000+",
-    youtubeUrl: "https://www.youtube-nocookie.com/embed/C8hsLCUk-PI?si=jiVDlTq1hZ5KoW37",
+    youtubeUrl: "https://www.youtube-nocookie.com/embed/Dyciphsdvpo?si=2f0buneJTGObr0fr",
     officialSiteUrl: "https://rigawinechampagne.lv/",
     longDescription:
       "Riga Wine & Champagne is the most decadent wine and gastronomy festival in the Baltic region taking place two times a year. This sophisticated event showcases Champagne and exceptional wines from around the world, paired with exquisite culinary creations from top chefs, offering an unparalleled tasting & learning experience.",
@@ -229,20 +229,6 @@ export const upcomingEvents: Event[] = [
 
 // Calendar events for 2026 with proper date parsing
 export const calendarEvents2026: Event[] = [
-  {
-    id: "bubble-parade-2026",
-    name: "Bubble Parade",
-    type: "Food & Drinks",
-    description: "Wine and champagne celebration",
-    image: "",
-    logo: "",
-    date: "25.02. - 01.03.",
-    startDate: "2026-02-25",
-    endDate: "2026-03-01",
-    link: "https://rigawinechampagne.lv/",
-    isToBeAnnounced: false,
-    eventCategory: "food-drinks",
-  },
   {
     id: "pink-noise-riga-spring-2026",
     name: "Pink Noise Riga",
