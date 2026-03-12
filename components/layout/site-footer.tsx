@@ -199,7 +199,7 @@ export default function SiteFooter() {
             <div className="text-neutral-500 text-xs leading-relaxed">
               <p>Nords Event Communications SIA</p>
               <p>Reg. No. 50003981501</p>
-              <p>Riga, Latvia</p>
+              <p>Brīvības iela 40–24, Rīga, LV-1050, Latvia</p>
             </div>
           </div>
 
