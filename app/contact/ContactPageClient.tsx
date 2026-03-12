@@ -88,7 +88,7 @@ export default function ContactPageClient() {
                   <p className="text-secondary-dark">
                     Nords Event Communications SIA
                     <br />
-                    Riga, Latvia
+                    Brīvības iela 40–24, Rīga, LV-1050, Latvia
                     <br />
                     Reg. No. 40203089546
                   </p>
