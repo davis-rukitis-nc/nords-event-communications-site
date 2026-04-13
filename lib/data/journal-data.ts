@@ -24,7 +24,182 @@ function dedent(str: string) {
 }
 
 export const journalArticles: JournalArticle[] = [
-    {
+  {
+  id: "rimi-riga-marathon-top-10-running-destinations-europe",
+  title:
+    "Rimi Riga Marathon Targets Europe’s Top 10 Most Desirable Running Destinations Within Four Years",
+  excerpt:
+    "Ahead of the 2026 race weekend on May 16–17, the Rimi Riga Marathon has announced an ambitious goal: to become one of Europe’s ten most desirable running destinations by 2030, building on a unique blend of sport, culture, and the Riga city experience.",
+  date: "2026-04-09",
+  category: "Sports",
+  tags: [
+    "Rimi Riga Marathon",
+    "Running",
+    "Riga",
+    "World Athletics",
+    "Medals",
+    "Latvian National Museum of Art",
+  ],
+  image:
+    "https://rimirigamarathon.com/wp-content/uploads/2026/04/IMG_8662-1-aspect-ratio-1920-1011-1440x756.jpg",
+  content: `
+Ahead of the 2026 race weekend on **May 16–17**, the **Rimi Riga Marathon**—which plans to welcome a record-breaking field of **40,000+ runners from at least 110 countries**—has officially announced a bold goal: within the next four years, Riga aims to become **one of the ten most desirable running destinations in Europe**. The plan is built on a rare synergy of **sport, culture, and city atmosphere**—something difficult to replicate elsewhere.
+
+## A city investment with an impressive return
+
+Riga Mayor **Viesturs Kleinbergs** emphasized that the city’s co-financing—raised this year to **EUR 300,000**—is a targeted investment in the city’s international visibility and public health.
+
+> “From the City Council’s perspective, the Rimi Riga Marathon has two decisive trump cards: social impact and economic contribution. Calculations show that in the last three years alone, the total economic impact of the marathon is estimated at **EUR 41 million**, of which **EUR 33.5 million** entered Latvia’s and Riga’s economy from foreign funds. Every euro invested by the city has returned **EUR 117** to the economy. That is a phenomenal return…”
+>
+> “One third of participants are young people under 18. By investing in the marathon, we invest in a healthier tomorrow.”
+
+Thanks to the city’s support, **public transport will be free for all participants** during marathon weekend upon showing a bib number.
+
+## Riga as a European running destination
+
+Marathon founder and team lead **Aigars Nords** said that after the 35th anniversary year, the event is entering a new phase—focused on experience and quality points that major metropolises often can’t deliver.
+
+> “By the marathon’s 40th anniversary in 2030, Riga must become one of the **TOP 10** most desirable running destinations in Europe. We won’t surprise the world with 50,000-crowd waves in a single race—but we *can* with a special experience.”
+
+Nords highlighted that Riga offers **four World Athletics-level races in one weekend**, on courses where **three world records** have been set, combined with a distinctly Latvian mix of culture, art, and community—plus the region’s standout kids programme and one of the most numerous foreign runner delegations.
+
+## Four-year medal cycle: collect your “RĪGA”
+
+One of the most anticipated new initiatives is a unique **four-year medal cycle**, created in cooperation with the **Latvian National Museum of Art (LNMM)** and design studio **KID Design**. Over the next four years, each year’s medal will form one letter of the word **“RĪGA”**:
+
+- **2026:** R (art by **Boriss Bērziņš**)  
+- **2027:** I  
+- **2028:** G  
+- **2029:** A  
+
+Director of Latvian National Museum of Art **Māra Lāce** explained the 2026 choice:
+
+> “Boriss Bērziņš was a master of form whose art celebrates the human body in its many expressions. It fits perfectly with the spirit of mass participation sport—at the marathon, everyone runs, not only elite athletes.”
+
+<div style="background-color: #cc2128; padding: 1rem; margin: 0 auto;">
+<div style="margin: 0 auto;">
+<table style="width: 100%; height: 100%;">
+<tbody>
+<tr>
+<td style="vertical-align: middle;">
+<table style="margin: 0 auto; text-align: left;">
+<tbody>
+<tr>
+<td><img decoding="async" style="max-width: 900px; width: 100%; display: block;" src="https://rimirigamarathon.com/wp-content/uploads/2026/03/Boriss-Berzins-In-the-Waves-LNMM-scaled.jpg" alt="Boriss Bērziņš "></td>
+</tr>
+<tr>
+<td>
+<h2 style="font-weight: normal; color: #ffffff; margin: 1rem 0 0; text-align: left; line-height: 1.5; font-size: 1.25rem;">Boriss Bērziņš “In Waves” (1970-2001)</h2>
+<p style="font-weight: normal; color: #ffffff; margin: 0.5rem 0 0; text-align: left; line-height: 1.5;">© Latvian National Museum of Art collection</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+The chosen artwork will appear not only on all finishers’ medals, but also on official **Nike** and special **Art Series** shirts (produced in Latvia).
+
+## Partner highlights and new features
+
+### Rimi: focus on youth and team power
+Rimi leaders pointed to the scale of youth participation: **Kids’ Day** has a **10,000 participant limit** and is filling fast. This year also brings the largest-ever **Schools Cup** (7,000+ students from 100 schools) and the **Rimi Team Cup**, with 600+ companies expected.
+
+### Elektrum: energy and professional support
+The marathon is supported year-round with training plans (with **Jelena Prokopčuka** and **Anita Siliņa**), Sunday community runs in Mežaparks, and a major focus on delivering an **European-level finish** at 11. novembra krastmala.
+
+### Spice: choir-powered atmosphere
+“Spice Choir Alley” returns with hundreds of singers, and runners can also submit a favourite song they’d like to hear on course on **May 17**.
+
+### Signet Bank: relay format
+A new relay option will be available in both the marathon and half-marathon distances. The **21 km relay** will feature Latvian beach volleyball stars **Tīna Graudiņa** and **Anastasija Samoilova**, while the **42 km relay** will include the **Prokopčuks family**. A special mini city concert on the route is also planned as a gift from Signet Bank together with **Carnival Youth**.
+
+## Race weekend programme
+
+- **Saturday, May 16:** Kids’ Day races at 11. novembra krastmala, **DPD Mile** (Latvian Championship), baby crawling tracks, Toyota WESS sprint, and the “Inclusive Marathon” programme (with Mēness aptieka) for participants with special needs.  
+- **Sunday, May 17:** Marathon, half-marathon, **Signet Bank relays**, 10 km and 6 km races, plus “Inclusive Marathon” activities.
+
+<div style="background-color: #f9eacd50; padding: 16px; border-radius: 8px; margin-bottom: 50px;">
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px; border: none;" title="YouTube video player" src="https://www.youtube-nocookie.com/embed/BBisIHm_jWg?si=5yOOsYHnDlFakofC" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+</div>
+
+## Registration
+
+Registration is available for the marathon, half-marathon, Signet Bank **42 km relay**, Signet Bank **21 km relay**, 10 km, 5.7 km, and DPD Mile distances via the Rimi Riga Marathon website. Registration is also open for **Kids’ Day** and the **Inclusive Marathon** programme.
+
+## Media contact
+
+**Inese Ķīkule**  
+inese.kikule@necom.lv
+`.trim(),
+},
+{
+  id: "pink-noise-riga-spring-session-2026-standing-ovations",
+  title:
+    "Pink Noise Riga Spring Session Ends with Standing Ovations and Three Sold-Out Days",
+  excerpt:
+    "With three completely sold-out festival days, standing ovations, and world-class virtuosity, Pink Noise Riga has concluded its spring session—confirming its place as a major fixture in Riga and the Baltic music scene.",
+  date: "2026-04-13",
+  category: "Music",
+  tags: ["Pink Noise Riga", "Nubya Garcia", "Lush Life", "Jazz", "Wynton Marsalis"],
+  image:
+    "https://rimirigamarathon.com/wp-content/uploads/2026/04/LushLife_foto_RenarsKoris2-1.jpg",
+  content: `
+With **three completely sold-out festival days**, standing ovations, and world-class virtuosity, **Pink Noise Riga** has concluded its spring session. In its third year, the capital’s music festival once again proved it is no longer just an ambitious newcomer—it has become an integral part of Riga’s and the Baltic region’s musical life.
+
+From the energy of emerging talents to the sparkle of jazz icons, the festival brought Riga a special “gloss” and emotional charge that left local and international audiences moved.
+
+## London’s saxophone sensation in Riga
+
+London saxophone sensation **Nubya Garcia** delivered a performance at **Palladium Riga** on **April 11** that confirmed her place among today’s jazz elite. The nearly two-hour set was spontaneous, vibrant, and uplifting—taking the audience to a true emotional peak. Performing music from albums *Odyssey* and *Source*, Garcia showcased exceptional interplay with her quartet—**Sam Jones**, **Lyle Barton**, and **Max Luthert**.
+
+<div style="background-color: #f9eacd50; padding: 16px; border-radius: 8px; margin-bottom: 50px;">
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px; border: none;" title="YouTube video player" src="https://www.youtube-nocookie.com/embed/u93XMZpIQOI?si=gRmkgBOjUOMLpTGr" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+</div>
+
+## Lush Life quintet: emotional reunion and a premiere
+
+The festival’s culmination—and its most emotional moment—was the premiere of **Intars Busulis’ “Lush Life”** quintet programme. Two standout personalities reunited on stage: **Intars Busulis** and saxophonist **Gints Pabērzs**, creating a sensual and powerful dialogue between voice and tenor saxophone.
+
+Together with **Toms Poišs**, **Rūdolfs Dankfelds**, and **Matīss Žilinskis**, the musicians masterfully “restored” jazz classics—from Coltrane and Porter to Paul—into a fresh, intimate experience.
+
+A particularly moving moment came with Paul Simon’s **“Still Crazy After All These Years”**, featuring a Gints Pabērzs solo as a tribute to the legendary **Michael Brecker**. In the concert finale, during Ray Charles’ **“Hallelujah I Love Her So”**, the musicians were joined by **Dāvis Jurka** (director of the Latvian Radio Big Band) and festival founder **Aigars Nords**.
+
+## New energy and standout debuts
+
+At **M/House of Jazz**, the festival revealed another side: a showcase of young talent in the **Three Voices Session**. The late-night **Jam Session** became a unique platform where powerful Latvian musicians met members of Nubya Garcia’s quartet—creating yet another unforgettable Riga night.
+
+<div style="background-color: #f9eacd50; padding: 16px; border-radius: 8px; margin-bottom: 50px;">
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px; border: none;" title="YouTube video player" src="https://www.youtube-nocookie.com/embed/lC-0Sta4Z7Y?si=QhREoBd7qwcHGVUM" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+</div>
+
+## Looking ahead: Wynton Marsalis this autumn
+
+Organizers remind audiences that **Pink Noise Riga** returns in autumn from **November 27–29**. The biggest event is expected on the **First Sunday of Advent**, when jazz living legend **Wynton Marsalis** arrives in Riga together with the **Jazz at Lincoln Center Orchestra**. The festival team stresses: don’t delay—most tickets are already sold out.
+
+> “The success of the spring session shows that Riga is ready for a high-quality, emotional, and bold jazz adventure. See you in November!” says festival founder **Aigars Nords**.
+
+## Media contacts
+
+**Valda Petrova** (Festival Director)  
+valda.petrova@necom.lv
+
+**Dāvis Jurka** (Artistic Director)  
+
+**Aigars Nords** (Founder)  
+
+## About Pink Noise Riga
+
+Pink Noise Riga was created by **Aigars Nords** and **Dāvis Jurka** with the idea of placing Riga on the European music tourism map by presenting brilliant, internationally recognized artists in jazz (including electric-jazz, soul-jazz, fusion, and mainstream), improvised music, and other non-academic genres.
+
+In 2026, the festival replaces its summer format with **two sessions**—spring (**April 10–12**) and autumn (**November 27–29**)—and is co-financed by the **State Culture Capital Foundation** and the **Riga City Municipality**.
+`.trim(),
+},  
+  {
     id: "riga-wine-champagne-festival-concludes-15-countries-2026",
     title:
       "With gourmets from 15 countries, the region’s largest champagne and gastronomy festival “Riga Wine & Champagne” concludes in Riga",
