@@ -201,37 +201,69 @@ export const displayEvents: Event[] = [
   },
 ]
 
-
-// Calendar events for 2026 with proper date parsing
-export const calendarEvents2026: Event[] = [
-  {
-    id: "pink-noise-riga-spring-2026",
-    name: "Pink Noise Riga",
-    type: "Music",
-    description: "Music festival",
+// Upcoming events for calendar/footer display (legacy)
+export const upcomingEvents: Event[] = [
+    {
+    id: "riga-whisky-friends-2026",
+    name: "Riga Whisky & Friends",
+    type: "Food & Drinks",
+    description: "Gourmet beloved whisky culture festival",
     image: "",
     logo: "",
-    date: "10.-12.04.",
-    startDate: "2026-04-10",
-    endDate: "2026-04-12",
+    date: "September 11 - 12, 2026",
+    startDate: "2026-09-11",
+    endDate: "2026-09-12",
+    link: "https://rigawhiskyfriends.com/",
+    isToBeAnnounced: false,
+    eventCategory: "food-drinks",
+  },
+  {
+    id: "wine-of-the-year-2026",
+    name: "Annual 'Wine of the Year' competition",
+    type: "Food & Drinks",
+    description: "A guide to wines imported into Latvia",
+    image: "",
+    logo: "",
+    date: "August 26 - 30, 2026",
+    startDate: "2026-07-26",
+    endDate: "2026-07-30",
+    link: "https://rigawinechampagne.lv/",
+    isToBeAnnounced: false,
+    eventCategory: "food-drinks",
+  },
+  {
+    id: "top-100-wines-chefs-2026",
+    name: "TOP 100 Wines + Chefs",
+    type: "Food & Drinks",
+    description: "Premium wine and culinary event",
+    image: "",
+    logo: "",
+    date: "November 18 - 21, 2026",
+    startDate: "2026-11-18",
+    endDate: "2026-11-21",
+    link: "https://rigawinechampagne.lv/",
+    isToBeAnnounced: false,
+    eventCategory: "food-drinks",
+  },
+  {
+    id: "pink-noise-riga-fall-2026",
+    name: "Pink Noise Riga",
+    type: "Music",
+    description: "Electronic music festival",
+    image: "",
+    logo: "",
+    date: "November 27 - 29, 2026",
+    startDate: "2026-11-27",
+    endDate: "2026-11-29",
     link: "https://pinknoiseriga.com/",
     isToBeAnnounced: false,
     eventCategory: "music",
   },
-  {
-    id: "rimi-riga-marathon-2026",
-    name: "Rimi Riga Marathon",
-    type: "Sports",
-    description: "The biggest running event in the Baltics",
-    image: "",
-    logo: "",
-    date: "15.-17.05.",
-    startDate: "2026-05-15",
-    endDate: "2026-05-17",
-    link: "https://rimirigamarathon.com/",
-    isToBeAnnounced: false,
-    eventCategory: "sports",
-  },
+
+]
+
+// Calendar events for 2026 with proper date parsing
+export const calendarEvents2026: Event[] = [
   {
     id: "riga-whisky-friends-2026",
     name: "Riga Whisky & Friends",
