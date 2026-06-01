@@ -525,7 +525,7 @@ export default function ByTheNumbersSection() {
       const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
       setDaysInBusiness(diffDays)
 
-      const marathonDate = new Date("2026-05-17")
+      const marathonDate = new Date("2027-05-16")
       const daysUntil = Math.floor((marathonDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
       setDaysToMarathon(daysUntil > 0 ? daysUntil : 0)
 
@@ -663,13 +663,13 @@ export default function ByTheNumbersSection() {
           {/* Days to Marathon card */}
           <div className="rounded-2xl p-5 md:p-6 text-white flex flex-col justify-between bg-red-700 min-h-[280px] md:min-h-0">
             <div className="mb-6 md:mb-0">
-              <p className="text-xs uppercase tracking-wide mb-3 text-neutral-200">Days to Marathon 2026</p>
+              <p className="text-xs uppercase tracking-wide mb-3 text-neutral-200">Days to Marathon 2027</p>
               <p className="text-5xl md:text-6xl lg:text-7xl font-bold">{daysToMarathon}</p>
             </div>
             <div className="space-y-3 md:space-y-3">
               <div className="flex justify-between text-sm py-1">
-                <span className="text-neutral-100">Runners in 2025</span>
-                <span className="font-semibold">40,122</span>
+                <span className="text-neutral-100">Runners in 2026</span>
+                <span className="font-semibold">46,313</span>
               </div>
               <div className="flex justify-between text-sm py-1">
                 <span className="text-neutral-100">Yearly economic impact</span>
