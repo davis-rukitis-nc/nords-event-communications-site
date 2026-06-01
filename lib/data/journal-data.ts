@@ -32,7 +32,7 @@ export const journalArticles: JournalArticle[] = [
     "A total of 46,313 participants have registered for this year’s Rimi Riga Marathon distances, setting a new participant registration record and reaching a new milestone in international representation. The figures confirm that the goal of placing Riga among Europe’s most sought-after running destinations is becoming a reality.",
   date: "2026-05-17",
   category: "Sports",
-  tags: ["Rimi Riga Marathon", "Running", "Riga", "World Athletics", "Kids’ Day"],
+  tags: ["Running", "Riga", "Kids’ Day"],
   image:
     "https://rimirigamarathon.com/wp-content/uploads/2026/05/1RK3002-renars-koris-1-aspect-ratio-1920-1011-1440x756.jpg",
   content: dedent(`
@@ -103,7 +103,7 @@ export const journalArticles: JournalArticle[] = [
     "Ejgayehu Taye claimed victory in the women’s half marathon at the Rimi Riga Marathon on 17 May, finishing in 1:04:22 and setting a new course record. In the men’s race, Kenya’s Charles Mbatha Matata took the win in 59:15, missing the Rimi Riga Marathon course record by just five seconds.",
   date: "2026-05-17",
   category: "Sports",
-  tags: ["Rimi Riga Marathon", "Half Marathon", "Course Record", "Ejgayehu Taye", "Elite Running"],
+  tags: ["Half Marathon", "Course Record"],
   image:
     "https://rimirigamarathon.com/wp-content/uploads/2026/05/GBA07714-1-scaled-aspect-ratio-1920-1011-1440x756.jpg",
   content: dedent(`
