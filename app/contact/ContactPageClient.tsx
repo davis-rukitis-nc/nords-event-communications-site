@@ -90,7 +90,7 @@ export default function ContactPageClient() {
                     <br />
                     Brīvības iela 40–24, Rīga, LV-1050, Latvia
                     <br />
-                    Reg. No. 40203089546
+                    Reg. No. 50003981501
                   </p>
                 </div>
               </div>
