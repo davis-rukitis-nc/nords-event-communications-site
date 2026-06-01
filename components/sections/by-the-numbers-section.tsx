@@ -683,8 +683,8 @@ export default function ByTheNumbersSection() {
             <FlagMarquee />
             <div className="absolute inset-0 bg-gradient-to-t from-neutral-100 via-neutral-100/60 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6">
-              <p className="text-3xl md:text-4xl font-bold text-neutral-900">109</p>
-              <p className="text-xs md:text-sm text-neutral-600">countries represented at Rimi Riga Marathon 2025</p>
+              <p className="text-3xl md:text-4xl font-bold text-neutral-900">116</p>
+              <p className="text-xs md:text-sm text-neutral-600">countries represented at Rimi Riga Marathon 2026</p>
             </div>
           </div>
 
