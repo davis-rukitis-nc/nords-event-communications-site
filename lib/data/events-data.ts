@@ -201,31 +201,6 @@ export const displayEvents: Event[] = [
   },
 ]
 
-// Upcoming events for calendar/footer display (legacy)
-export const upcomingEvents: Event[] = [
-  {
-    id: "rimi-riga-marathon-2026",
-    name: "Rimi Riga Marathon",
-    type: "Sports",
-    description: "Annual marathon event",
-    image: "",
-    logo: "",
-    date: "May 15-17, 2026",
-    startDate: "2026-05-15",
-    link: "https://rimirigamarathon.com/",
-  },
-  {
-    id: "pink-noise-riga-spring-2026",
-    name: "Pink Noise Riga",
-    type: "Music",
-    description: "Music festival",
-    image: "",
-    logo: "",
-    date: "April 10 - 12, 2026",
-    startDate: "2026-04-10",
-    link: "https://pinknoiseriga.com/",
-  },
-]
 
 // Calendar events for 2026 with proper date parsing
 export const calendarEvents2026: Event[] = [
@@ -275,14 +250,14 @@ export const calendarEvents2026: Event[] = [
     id: "wine-of-the-year-2026",
     name: "Annual 'Wine of the Year' competition",
     type: "Food & Drinks",
-    description: "Event details coming soon",
+    description: "A guide to wines imported into Latvia",
     image: "",
     logo: "",
     date: "",
-    startDate: "2026-08-03",
-    endDate: "2026-08-07",
+    startDate: "2026-07-26",
+    endDate: "2026-07-30",
     link: "https://rigawinechampagne.lv/",
-    isToBeAnnounced: true,
+    isToBeAnnounced: false,
     eventCategory: "food-drinks",
   },
   {
@@ -292,9 +267,9 @@ export const calendarEvents2026: Event[] = [
     description: "Premium wine and culinary event",
     image: "",
     logo: "",
-    date: "12.-15.11.",
-    startDate: "2026-11-12",
-    endDate: "2026-11-15",
+    date: "18.-21.11.",
+    startDate: "2026-11-18",
+    endDate: "2026-11-21",
     link: "https://rigawinechampagne.lv/",
     isToBeAnnounced: false,
     eventCategory: "food-drinks",
@@ -312,6 +287,20 @@ export const calendarEvents2026: Event[] = [
     link: "https://pinknoiseriga.com/",
     isToBeAnnounced: false,
     eventCategory: "music",
+  },
+  {
+    id: "rimi-riga-marathon-2027",
+    name: "Rimi Riga Marathon",
+    type: "Sports",
+    description: "The biggest running event in the Baltics",
+    image: "",
+    logo: "",
+    date: "14.-16.05.",
+    startDate: "2027-05-14",
+    endDate: "2027-05-16",
+    link: "https://rimirigamarathon.com/",
+    isToBeAnnounced: false,
+    eventCategory: "sports",
   },
 ]
 
