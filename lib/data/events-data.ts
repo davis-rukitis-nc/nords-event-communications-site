@@ -43,7 +43,7 @@ export const displayEvents: Event[] = [
     logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/RRM-logo-black.png",
     startDate: "1991-07-27T09:00:00",
     yearStarted: 1991,
-    annualParticipants: "40,000+",
+    annualParticipants: "46,000+",
     youtubeUrl: "https://www.youtube-nocookie.com/embed/loWG5xVfToA?si=ZCnhTOjir3cp7tFU",
     officialSiteUrl: "https://rimirigamarathon.com/",
     longDescription:
