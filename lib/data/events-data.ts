@@ -47,7 +47,7 @@ export const displayEvents: Event[] = [
     youtubeUrl: "https://www.youtube-nocookie.com/embed/loWG5xVfToA?si=ZCnhTOjir3cp7tFU",
     officialSiteUrl: "https://rimirigamarathon.com/",
     longDescription:
-      "The Rimi Riga Marathon is the most internationally recognized running event in the Baltic States. It attracts thousands of runners from all over the world (109 countries in 2025) to a full marathon, half-marathon, 10k, 5k, a DPD mile, and even a huge Kids’ Day. The course runs through the heart of Riga, offering stunning views of the city's historic architecture and the Daugava River.",
+      "The Rimi Riga Marathon is the most internationally recognized running event in the Baltic States. It attracts thousands of runners from all over the world (116 countries in 2026) to a full marathon, half-marathon, 10k, 6k, a DPD mile, Signet Bank Relays and even a huge Kids’ Day. The course runs through the heart of Riga, offering stunning views of the city's historic architecture and the Daugava River.",
     brandColors: {
       primary: "#cc2128",
     },
