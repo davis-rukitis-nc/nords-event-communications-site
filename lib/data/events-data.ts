@@ -93,7 +93,7 @@ export const displayEvents: Event[] = [
     startDate: "2012-11-23T17:00:00",
     yearStarted: 2012,
     annualParticipants: "8,000+",
-    youtubeUrl: "https://www.youtube-nocookie.com/embed/Dyciphsdvpo?si=2f0buneJTGObr0fr",
+    youtubeUrl: "https://www.youtube-nocookie.com/embed/NifqOUXiTgc?si=u2C4Vgwso3S-cBwJ",
     officialSiteUrl: "https://rigawinechampagne.lv/",
     longDescription:
       "Riga Wine & Champagne is the most decadent wine and gastronomy festival in the Baltic region taking place two times a year. This sophisticated event showcases Champagne and exceptional wines from around the world, paired with exquisite culinary creations from top chefs, offering an unparalleled tasting & learning experience.",
@@ -143,13 +143,13 @@ export const displayEvents: Event[] = [
     logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/BWDA-logo.svg",
     startDate: "2018-03-09T19:00:00",
     yearStarted: 2018,
-    youtubeUrl: "https://www.youtube-nocookie.com/embed/Jr_OAtPHuAg?si=_RdgFOSJRqau5TeC",
+    youtubeUrl: "https://www.youtube-nocookie.com/embed/UnqE9E981E8?si=1kia80iakMPeMVsR",
     officialSiteUrl: "https://balticwinelists.com/",
     longDescription:
       "The Baltic Wine & Drinks Awards recognizes and celebrates the finest wine programs across the Baltic region. This prestigious event honors restaurants, bars, and hotels that demonstrate exceptional wine knowledge, curation, and service excellence.",
     brandColors: {
-      primary: "#fad0c5",
-      secondary: "#231F20",
+      primary: "#231F20",
+      secondary: "#fad0c5",
     },
     socialMedia: {
       instagram: "https://www.instagram.com/balticwinedrinksawards",
@@ -189,6 +189,8 @@ export const displayEvents: Event[] = [
     description: "The leading inspirational platform for marketing & brand professionals in the Baltics!",
     image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/BBF-26.09-FIRST-LOOK2-13_websize.jpg",
     logo: "https://balticbrands.eu/storage/app/media/2025/logo.png",
+    startDate: "2019-10-03T09:00:00",
+    yearStarted: 2019,
     youtubeUrl: "https://www.youtube.com/embed/BG3G1SjuxlE?si=BxAO8044hXlwPoKB",
     longDescription:
       "Created by our friends Magic Agency (https://www.magicagency.lv/), Baltic Brand Forum has become the leading inspirational platform for marketing & brand professionals in the Baltics. And we've certainly helped by producing the event since forever...",
