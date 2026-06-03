@@ -34,7 +34,7 @@ export const journalArticles: JournalArticle[] = [
   category: "Sports",
   tags: ["Running", "Riga", "Kids’ Day"],
   image:
-    "https://www.necom.lv/images/design-mode/1RK3002-renars-koris-1-aspect-ratio-1920-1011-1440x756.jpg",
+    "/images/design-mode/1RK3002-renars-koris-1-aspect-ratio-1920-1011-1440x756.jpg",
   content: dedent(`
     A total of 46,313 participants have registered for this year’s Rimi Riga Marathon distances, setting a new participant registration record and reaching a new milestone in international representation. The figures confirm that the goal of placing Riga among Europe’s most sought-after running destinations is becoming a reality.
 
