@@ -144,12 +144,12 @@ export default function HeroSection() {
           loop
           playsInline
           preload="none"
-          poster="/images/design-mode/hero-video-2025.webp"
+          poster="/images/design-mode/hero-still.avif"
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
             videoLoaded ? "opacity-80" : "opacity-0"
           }`}
         >
-          <source src="https://rimirigamarathon.com/wp-content/uploads/2025/05/264-web.mp4" type="video/mp4" />
+          <source src="https://rimirigamarathon.com/wp-content/uploads/2026/06/2026web.mp4" type="video/mp4" />
         </video>
       )}
 
@@ -159,7 +159,7 @@ export default function HeroSection() {
         }`}
       >
         <Image
-          src="/images/design-mode/hero-video-2025.png"
+          src="/images/design-mode/hero-still-sq.jpg"
           alt="Hero background"
           fill
           className="object-cover"
