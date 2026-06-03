@@ -34,7 +34,7 @@ export const journalArticles: JournalArticle[] = [
   category: "Sports",
   tags: ["Running", "Riga", "Kids’ Day"],
   image:
-    "https://rimirigamarathon.com/wp-content/uploads/2026/05/1RK3002-renars-koris-1-aspect-ratio-1920-1011-1440x756.jpg",
+    "https://www.necom.lv/images/design-mode/1RK3002-renars-koris-1-aspect-ratio-1920-1011-1440x756.jpg",
   content: dedent(`
     A total of 46,313 participants have registered for this year’s Rimi Riga Marathon distances, setting a new participant registration record and reaching a new milestone in international representation. The figures confirm that the goal of placing Riga among Europe’s most sought-after running destinations is becoming a reality.
 
@@ -50,7 +50,7 @@ export const journalArticles: JournalArticle[] = [
 
     **The total number of registered participants across all distances on Saturday and Sunday has reached 46,313, making this the largest Rimi Riga Marathon in history and surpassing last year’s record of 40,122 participants.**
 
-    <img src="https://rimirigamarathon.com/wp-content/uploads/2026/05/0RK_9223-renars-koris-1-1440x960.jpg" alt="Record-breaking 46,313 participants from 116 countries for the largest Rimi Riga Marathon in history!" />
+    <img src="https://www.necom.lv/images/design-mode/0RK_9223-renars-koris-1-1440x960.jpg" alt="Record-breaking 46,313 participants from 116 countries for the largest Rimi Riga Marathon in history!" />
 
     ## Up to 17,000 international visitors in Riga this weekend
 
@@ -105,7 +105,7 @@ export const journalArticles: JournalArticle[] = [
   category: "Sports",
   tags: ["Half Marathon", "Course Record"],
   image:
-    "https://rimirigamarathon.com/wp-content/uploads/2026/05/GBA07714-1-scaled-aspect-ratio-1920-1011-1440x756.jpg",
+    "https://www.necom.lv/images/design-mode/GBA07714-1-scaled-aspect-ratio-1920-1011-1440x756.jpg",
   content: dedent(`
     Ejgayehu Taye claimed victory in the women’s half marathon at the Rimi Riga Marathon on 17 May, finishing in 1:04:22 and setting a new course record. In the men’s race, Kenya’s Charles Mbatha Matata took the win in 59:15, missing the Rimi Riga Marathon course record by just five seconds.
 
@@ -124,7 +124,7 @@ export const journalArticles: JournalArticle[] = [
     </div>
     </article>
 
-    <img src="https://rimirigamarathon.com/wp-content/uploads/2026/05/GBA07397-1-1440x960.jpg" alt="Ejgayehu Taye Breaks Rimi Riga Marathon Course Record in the Women’s Half Marathon" />
+    <img src="https://www.necom.lv/images/design-mode/2026/05/GBA07397-1-1440x960.jpg" alt="Ejgayehu Taye Breaks Rimi Riga Marathon Course Record in the Women’s Half Marathon" />
 
     In the men’s race, Matata was followed by Kenya’s James Kipkogei, who finished second in 59:50, while Benson Tunyo Murkomen, also from Kenya, claimed bronze in 1:00:29.
 
@@ -190,7 +190,7 @@ export const journalArticles: JournalArticle[] = [
     "Latvian National Museum of Art",
   ],
   image:
-    "https://rimirigamarathon.com/wp-content/uploads/2026/04/IMG_8662-1-aspect-ratio-1920-1011-1440x756.jpg",
+    "https://www.necom.lv/images/design-mode/IMG_8662-1-aspect-ratio-1920-1011-1440x756.jpg",
   content: `
 Ahead of the 2026 race weekend on **May 16–17**, the **Rimi Riga Marathon**—which plans to welcome a record-breaking field of **40,000+ runners from at least 110 countries**—has officially announced a bold goal: within the next four years, Riga aims to become **one of the ten most desirable running destinations in Europe**. The plan is built on a rare synergy of **sport, culture, and city atmosphere**—something difficult to replicate elsewhere.
 
@@ -234,7 +234,7 @@ Director of Latvian National Museum of Art **Māra Lāce** explained the 2026 ch
 <table style="margin: 0 auto; text-align: left;">
 <tbody>
 <tr>
-<td><img decoding="async" style="max-width: 900px; width: 100%; display: block;" src="https://rimirigamarathon.com/wp-content/uploads/2026/03/Boriss-Berzins-In-the-Waves-LNMM-scaled.jpg" alt="Boriss Bērziņš "></td>
+<td><img decoding="async" style="max-width: 900px; width: 100%; display: block;" src="https://www.necom.lv/images/design-mode/2026/03/Boriss-Berzins-In-the-Waves-LNMM-scaled.jpg" alt="Boriss Bērziņš "></td>
 </tr>
 <tr>
 <td>
@@ -296,7 +296,7 @@ inese.kikule@necom.lv
   category: "Music",
   tags: ["Pink Noise Riga", "Nubya Garcia", "Lush Life", "Jazz", "Wynton Marsalis"],
   image:
-    "https://rimirigamarathon.com/wp-content/uploads/2026/04/LushLife_foto_RenarsKoris2-1.jpg",
+    "https://www.necom.lv/images/design-mode/LushLife_foto_RenarsKoris2-1.jpg",
   content: `
 With **three completely sold-out festival days**, standing ovations, and world-class virtuosity, **Pink Noise Riga** has concluded its spring session. In its third year, the capital’s music festival once again proved it is no longer just an ambitious newcomer—it has become an integral part of Riga’s and the Baltic region’s musical life.
 
@@ -357,7 +357,7 @@ In 2026, the festival replaces its summer format with **two sessions**—spring 
     date: "2026-03-12",
     category: "Food & Drink",
     tags: ["Bubble Parade"],
-    image: "https://rimirigamarathon.com/wp-content/uploads/2026/03/rwch-2026-1.jpg",
+    image: "https://www.necom.lv/images/design-mode/rwch-2026-1%20(1).jpg",
 content: dedent(`
   The 14th edition of the Riga Wine & Champagne festival has successfully wrapped up in Riga, marking another milestone year for the event. Over five vibrant days, Riga symbolically became the European capital of Champagne, elevating wine culture and gastronomy in the region to an entirely new level. The festival brought together sparkling wine enthusiasts, gourmets, and industry professionals from around the world, while determining the finest Champagne and Latvian gastronomy pairings.
 
@@ -417,7 +417,7 @@ content: dedent(`
     date: "2026-02-17",
     category: "Food & Drink",
     tags: ["Bubble Parade", "Champagne", "Festival"],
-    image: "https://rimirigamarathon.com/wp-content/uploads/2026/02/top100-wineschefs-2024.webp",
+    image: "https://www.necom.lv/images/design-mode/top100-wineschefs-2024%20(1).webp",
     content: `
 
   The annual "Riga Wine & Champagne" festival has unveiled the program for its 14th "Bubble Parade." From February 25 to March 1, the festival will offer a world-class celebration for champagne and gastronomy enthusiasts, and Riga will once again become an international gourmet destination, bringing together Champagne’s chef de caves, Latvia’s top chefs, and champagne and sparkling wine lovers from around the globe.
@@ -492,7 +492,7 @@ content: dedent(`
     "Wynton Marsalis",
     "Festivals",
   ],
-  image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/1RK2880.jpg",
+  image: "https://www.necom.lv/images/design-mode/1RK2880.jpg",
   content: `
 
 Riga’s city music festival **Pink Noise Riga** has announced its 2026 festival dates and the first glimpse of a star-studded programme. From today, tickets are available for two major concerts: British jazz star and saxophonist **Nubya Garcia** at *Palladium* on **11 April**, and the **Baltic debut** of legendary American musician **Wynton Marsalis** together with the world-famous **Jazz at Lincoln Center Orchestra (JLCO)** at **Dailes Theatre** on **29 November 2026**.
@@ -560,7 +560,7 @@ Further events in the spring and autumn sessions, along with ticket information,
     date: "2025-12-05",
     category: "Sports",
     tags: ["Marathon", "Signet Bank", "Christmas Run", "Charity", "Relay"],
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/1-160.webp",
+    image: "https://www.necom.lv/images/design-mode/1-160%20(1).webp",
     content: `
 
 Thanks to a new partnership with **Signet Bank**, the **Rimi Riga Marathon** 2025–2026 running season will bring a series of events in brand-new formats.
@@ -649,7 +649,7 @@ Detailed information and **registration** for the **half-marathon and marathon r
     date: "2025-11-24",
     category: "Food & Drink",
     tags: ["Wine", "Restaurants", "Baltics", "Awards", "Sommeliers"],
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/1-209-1.webp",
+    image: "https://www.necom.lv/images/design-mode/1-209-1.webp",
     content: `
 
 As part of the **Baltic Wine & Drinks Awards**, an international jury has selected the top restaurants for wine lovers across the Baltic states. Organized in association with **Liebherr**, the competition is now in its sixth year and is led by a team of Baltic and internationally recognized professionals. Its mission is to highlight restaurants, bars, and hotels with good, great, and exceptional wine lists, while supporting the development of Baltic wine culture.
@@ -738,7 +738,7 @@ The Baltic region was represented by:
 - **Time To Wine Bar & Shop Rotermanni (Estonia)** – The **best sparkling wine collection in the Baltics**; the **best wine retailer in Estonia**; a special mention for **Italy & sweet wines**; a special mention for **value-for-money**.  
 
 > All competition results and ratings for restaurants and wine bars in the Baltics are available at  
-> 👉 [balticwinelists.com](http://balticwinelists.com/)
+> 👉 [balticwinelists.com](https://balticwinelists.com/)
 
 ---
 
@@ -770,7 +770,7 @@ In an effort to promote the understanding and prestige of the sommelier professi
 10. **Ritvars Blūms** (Latvia)  
 
 The full **Top 50 sommeliers** list can be found here:  
-👉 [balticwinelists.com](http://balticwinelists.com/)
+👉 [balticwinelists.com](https://balticwinelists.com/)
 
 ---
 
@@ -792,7 +792,7 @@ Since its founding in **2018**, the competition’s aim has been to:
     category: "Sports",
     tags: ["Marathon", "Riga", "Running", "Charity"],
     image:
-      "https://rimirigamarathon.com/wp-content/uploads/2025/06/Lauris_Viksne_DPD_Judze-34-scaled-aspect-ratio-1920-1011-1440x756.jpg",
+      "https://www.necom.lv/images/design-mode/Lauris_Viksne_DPD_Judze-34-scaled-aspect-ratio-1920-1011-1440x756.jpg",
     content: `Registration for the 2026 Rimi Riga Marathon—the most significant mass sports event in the Baltics—has officially opened today, 11 months ahead of next year's event.
 
 The annual marathon will take place on May 16–17, 2026, when Riga will once again welcome thousands of running enthusiasts for whom running is both a lifestyle and a celebration, as well as world-class elite athletes competing for top results and prize money in a World Athletics Road Race Label event.
@@ -807,7 +807,7 @@ Since the first starting shot at the Freedom Monument on July 27, 1991, the 2026
 
 Starting June 18, registration is open for the Marathon, Half Marathon, 10 km, 5.7 km, and DPD Mile. Registration for the Kids' Day events will open in spring 2026, closer to the event. Organizers remind participants that entry fees are lowest at launch, so it's a great time to register now.
 
-![Runners at the Rimi Riga Marathon](https://rimirigamarathon.com/wp-content/uploads/2025/06/0RK_8855-1440x960.jpg)
+![Runners at the Rimi Riga Marathon](https://www.necom.lv/images/design-mode/0RK_8855-1440x960.jpg)
 
 ## Don't forget to support the "Movement for Movement" charity campaign!
 
@@ -827,7 +827,7 @@ See you soon at the Rimi Riga Marathon!`,
     date: "2025-07-15",
     category: "Food & Drinks",
     tags: ["Awards"],
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/07/DSC9993-1-1.jpg",
+    image: "https://www.necom.lv/images/design-mode/DSC9993-1-1.jpg",
     content: `The **Baltic Wine & Drinks Awards 2025**, in partnership with **LIEBHERR**, are now open! This annual celebration honors the best in Baltic wine and drinks culture — from top sommeliers and wine lists to standout bars, restaurants, and retailers.
 
 **Early Bird Registration:** July 15 – August 15  
@@ -851,7 +851,7 @@ This year's edition also includes the **Top 50 Baltic Sommeliers Award**. All ap
 
 **The Grand Finale:** November 22, 2025, at **Hanzas Perons**, Riga – right before the *Top 100 Wines + Chefs* show!
 
-![Top 50 Baltic Sommeliers 2024 winners](https://rimirigamarathon.com/wp-content/uploads/2025/07/rwch-top50-image-1-scaled.png)
+![Top 50 Baltic Sommeliers 2024 winners](https://www.necom.lv/images/design-mode/rwch-top50-image-1-scaled.png)
 
 ### Meet the Judges
 
@@ -889,7 +889,7 @@ Join the celebration of the best wine & drinks minds in the Baltics. Apply, nomi
     date: "2025-06-21",
     category: "Partnerships",
     tags: ["Pink Noise Riga", "Partner"],
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/11/dongfeng-2.webp",
+    image: "https://www.necom.lv/images/design-mode/dongfeng-2%20(1).webp",
     content: `**Dongfeng Auto** has officially joined the **Pink Noise Riga 2025** music festival as a strategic partner and will support one of its biggest highlights: the **Kamasi Washington "Fearless Movement" concert** on **July 26** at **Palladium Riga**.
 
 The concert is part of Kamasi Washington's latest European tour, promoting his new album *Fearless Movement*, which celebrates rhythm, dance, and embodiment through spiritual jazz and electronic fusion.
@@ -927,7 +927,7 @@ This performance marks Washington's return to Riga following his acclaimed 2023 
     date: "2025-06-20",
     category: "Music",
     tags: ["Pink Noise Riga", "Festival"],
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/07/KW_VincentHaycock_1-1.jpg",
+    image: "https://www.necom.lv/images/design-mode/KW_VincentHaycock_1-1.jpg",
     content: `The Pink Noise Riga music festival returns on **July 25–26** to the **Palladium Riga concert hall**, bringing together world-class jazz, experimental fusion, and electronic music talents from across the globe.
 
 ### Kamasi Washington Headlines the Festival
