@@ -8,10 +8,10 @@ interface EventStatsProps {
 
 const StatCard = ({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) => (
   <div className="rounded-2xl flex items-center gap-4">
-    <div className="bg-gray-200 text-gray-700 p-3 rounded-xl">{icon}</div>
+    <div className="bg-neutral-200 text-neutral-700 p-3 rounded-xl">{icon}</div>
     <div>
-      <p className="text-sm text-gray-600">{label}</p>
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
+      <p className="text-sm text-neutral-600">{label}</p>
+      <p className="text-2xl font-bold text-neutral-900">{value}</p>
     </div>
   </div>
 )

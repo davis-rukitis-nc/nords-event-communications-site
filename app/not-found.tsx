@@ -1,9 +1,15 @@
 import Link from "next/link"
 import Image from "next/image"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false },
+}
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-neutral-950 flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-neutral-950 flex items-center justify-center relative overflow-hidden">
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <Image
@@ -18,13 +24,13 @@ export default function NotFound() {
       <div className="relative z-10 text-center px-4">
         <h1 className="text-8xl md:text-9xl font-bold text-white mb-4">404</h1>
         <h2 className="text-2xl md:text-3xl font-semibold text-white mb-4">Page Not Found</h2>
-        <p className="text-gray-400 mb-8 max-w-md mx-auto">
+        <p className="text-neutral-400 mb-8 max-w-md mx-auto">
           {"The page you're looking for doesn't exist or has been moved. Let's get you back on track."}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 bg-white text-neutral-900 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-white text-neutral-900 px-6 py-3 rounded-full font-medium hover:bg-neutral-100 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -44,6 +50,6 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

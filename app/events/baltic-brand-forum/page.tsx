@@ -14,9 +14,6 @@ export const metadata: Metadata = generatePageMetadata({
   description: "The leading inspirational platform for marketing & brand professionals in the Baltics!",
   keywords: ["marketing", "branding", "conference", "Latvia", "Baltics", "advertising"],
   url: "/events/baltic-brand-forum",
-  type: "article",
-  section: "Advertisement",
-  tags: ["Advertisement", "Events", "Latvia"],
 })
 
 export default function BalticBrandForumPage() {
@@ -29,7 +26,7 @@ export default function BalticBrandForumPage() {
   return (
     <>
       <StructuredData data={breadcrumbData} />
-      <main className="bg-white">
+      <div className="bg-white">
         {/* Header */}
         <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
           <Image
@@ -76,7 +73,7 @@ export default function BalticBrandForumPage() {
         </div>
 
         <OtherEvents currentEventId="baltic-brand-forum" />
-      </main>
+      </div>
     </>
   )
 }

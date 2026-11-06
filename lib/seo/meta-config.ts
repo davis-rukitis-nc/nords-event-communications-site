@@ -24,11 +24,9 @@ export const baseSEOConfig = {
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   language: "en-US",
   locale: "en_US",
-  themeColor: "#000000",
-  colorScheme: "light dark",
 }
 
-// Generate page metadata
+// Generate page metadata. Titles are bare; the root layout template appends " | NECom".
 export function generatePageMetadata({
   title,
   description,
@@ -54,36 +52,24 @@ export function generatePageMetadata({
   tags?: string[]
   noIndex?: boolean
 }): Metadata {
-  const fullTitle = title === baseSEOConfig.defaultTitle ? title : `${title} | NECom`
-  const fullUrl = `${baseSEOConfig.siteUrl}${url}`
-  const imageUrl = image || `${baseSEOConfig.siteUrl}/og-image.jpg`
-
-  const allKeywords = [...baseSEOConfig.keywords, ...keywords].join(", ")
+  const isHome = title === baseSEOConfig.defaultTitle
+  const fullTitle = isHome ? title : `${title} | NECom`
+  const imageUrl = image || "/og-image.jpg"
 
   return {
-    title: fullTitle,
+    title: isHome ? { absolute: title } : title,
     description,
-    keywords: allKeywords,
-    authors: [{ name: baseSEOConfig.author }],
-    creator: baseSEOConfig.creator,
-    publisher: baseSEOConfig.publisher,
+    keywords: [...baseSEOConfig.keywords, ...keywords],
     robots: noIndex ? "noindex, nofollow" : baseSEOConfig.robots,
     alternates: {
-      canonical: fullUrl,
+      canonical: url,
     },
     openGraph: {
       title: fullTitle,
       description,
-      url: fullUrl,
+      url,
       siteName: baseSEOConfig.siteName,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      images: [{ url: imageUrl, alt: title }],
       locale: baseSEOConfig.locale,
       type,
       ...(type === "article" && {
@@ -94,10 +80,11 @@ export function generatePageMetadata({
         authors: [baseSEOConfig.author],
       }),
     },
-    other: {
-      "theme-color": baseSEOConfig.themeColor,
-      "color-scheme": baseSEOConfig.colorScheme,
-      "format-detection": "telephone=no",
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description,
+      images: [imageUrl],
     },
   }
 }

@@ -19,6 +19,15 @@ const nextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/events/world-athletics-road-running-championships-riga23",
+        destination: "/events/world-athletics-riga23",
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }]
   },

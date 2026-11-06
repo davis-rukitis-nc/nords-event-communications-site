@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useCallback, useRef } from "react"
+import { useEffect, useState, useCallback, useRef, useSyncExternalStore } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
@@ -311,56 +311,60 @@ const FlagMarquee = () => {
       initializedRef.current = true
     }
 
+    // Static when reduced motion is requested; paused while off-screen.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (row2Ref.current) row2Ref.current.style.transform = `translate3d(${position2Ref.current}px, 0, 0)`
+      return
+    }
+
     let lastTime = performance.now()
+    let visible = false
     const speed = 30 // pixels per second
 
     const animate = (currentTime: number) => {
-      const deltaTime = (currentTime - lastTime) / 1000
+      const deltaTime = Math.min((currentTime - lastTime) / 1000, 0.1)
       lastTime = currentTime
 
-      // Row 1: Move left (negative direction)
       if (row1Ref.current) {
         const container = row1Ref.current
         const contentWidth = container.scrollWidth / 3
-
         position1Ref.current -= speed * deltaTime
-
-        if (Math.abs(position1Ref.current) >= contentWidth) {
-          position1Ref.current += contentWidth
-        }
-
+        if (Math.abs(position1Ref.current) >= contentWidth) position1Ref.current += contentWidth
         container.style.transform = `translate3d(${position1Ref.current}px, 0, 0)`
       }
 
-      // Row 2: Move right (positive direction)
       if (row2Ref.current) {
         const container = row2Ref.current
         const contentWidth = container.scrollWidth / 3
-
         position2Ref.current += speed * deltaTime
-
-        if (position2Ref.current >= 0) {
-          position2Ref.current -= contentWidth
-        }
-
+        if (position2Ref.current >= 0) position2Ref.current -= contentWidth
         container.style.transform = `translate3d(${position2Ref.current}px, 0, 0)`
       }
 
-      animationRef.current = requestAnimationFrame(animate)
+      if (visible) animationRef.current = requestAnimationFrame(animate)
     }
 
-    animationRef.current = requestAnimationFrame(animate)
-    return () => {
-      if (animationRef.current) {
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting
+      if (visible) {
+        lastTime = performance.now()
+        animationRef.current = requestAnimationFrame(animate)
+      } else if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }
+    })
+    if (row1Ref.current?.parentElement) observer.observe(row1Ref.current.parentElement)
+
+    return () => {
+      observer.disconnect()
+      if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
   }, [])
 
   const tripleFlags = [...countryFlags, ...countryFlags, ...countryFlags]
 
   return (
-    <div className="absolute inset-0 -rotate-6 scale-125 flex flex-col justify-center gap-4">
+    <div className="absolute inset-0 -rotate-6 scale-125 flex flex-col justify-center gap-4" aria-hidden="true">
       {/* Row 1 - Moving Left */}
       <div className="overflow-hidden">
         <div
@@ -397,12 +401,19 @@ const FlagMarquee = () => {
   )
 }
 
-export default function ByTheNumbersSection() {
-  const [daysInBusiness, setDaysInBusiness] = useState(0)
-  const [daysToMarathon, setDaysToMarathon] = useState(0)
-  const [error, setError] = useState<string | null>(null)
-  const [eventYears, setEventYears] = useState<Record<string, number>>({})
+function yearsRunning(startDate?: string) {
+  if (!startDate) return undefined
+  return Math.max(new Date().getFullYear() - new Date(startDate).getFullYear() + 1, 1)
+}
 
+const MOBILE_QUERY = "(max-width: 767px)"
+const subscribeMobile = (cb: () => void) => {
+  const mq = window.matchMedia(MOBILE_QUERY)
+  mq.addEventListener("change", cb)
+  return () => mq.removeEventListener("change", cb)
+}
+
+export default function ByTheNumbersSection({ daysToMarathon }: { daysToMarathon: number }) {
   const [gameState, setGameState] = useState<"idle" | "playing" | "won" | "lost">("idle")
   const [poppedBottles, setPoppedBottles] = useState<Set<number>>(new Set())
   const [timeLeft, setTimeLeft] = useState(60)
@@ -410,61 +421,22 @@ export default function ByTheNumbersSection() {
   const gameStartTime = useRef<number>(0)
   const timerInterval = useRef<NodeJS.Timeout | null>(null)
 
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobile = useSyncExternalStore(
+    subscribeMobile,
+    () => window.matchMedia(MOBILE_QUERY).matches,
+    () => false,
+  )
   const officeBestTime = isMobile ? 45 : 27
 
-  // Mobile scroll hint for the bottle game
+  // Mobile scroll hint for the bottle game: shown while idle until the row is scrolled.
   const mobileScrollRef = useRef<HTMLDivElement>(null)
-  const [showScrollHint, setShowScrollHint] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
-
-  // Show the scroll hint only on mobile while idle (hide once game starts)
-  useEffect(() => {
-    if (isMobile && gameState === "idle") setShowScrollHint(true)
-    else setShowScrollHint(false)
-  }, [isMobile, gameState])
-
-  useEffect(() => {
-    try {
-      const startDate = new Date("2008-01-04")
-      const today = new Date()
-      const diffTime = Math.abs(today.getTime() - startDate.getTime())
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-      setDaysInBusiness(diffDays)
-
-      const marathonDate = new Date("2027-05-16")
-      const daysUntil = Math.floor((marathonDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-      setDaysToMarathon(daysUntil > 0 ? daysUntil : 0)
-
-      const years: Record<string, number> = {}
-      displayEvents.forEach((event) => {
-        if (event.startDate) {
-          const eventStartDate = new Date(event.startDate)
-          if (!isNaN(eventStartDate.getTime())) {
-            const yearsSince = today.getFullYear() - eventStartDate.getFullYear() + 1
-            years[event.id] = Math.max(yearsSince, 1)
-          }
-        }
-      })
-      setEventYears(years)
-      setError(null)
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Unknown error calculating dates"
-      setError(errorMessage)
-    }
-  }, [])
+  const [hintDismissed, setHintDismissed] = useState(false)
+  const showScrollHint = isMobile && gameState === "idle" && !hintDismissed
 
   const startGame = useCallback(() => {
     setPoppedBottles(new Set())
     setTimeLeft(60)
     setFinalTime(0)
-    setShowScrollHint(true)
     setGameState("playing")
     gameStartTime.current = Date.now()
 
@@ -519,35 +491,24 @@ export default function ByTheNumbersSection() {
 
   const rimiMarathon = displayEvents.find((e) => e.id === "rimi-riga-marathon")
   const wineChampagne = displayEvents.find((e) => e.id === "riga-wine-champagne")
-  const pinkNoise = displayEvents.find((e) => e.id === "pink-noise-riga")
 
-  if (error) {
-    return (
-      <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
-        <h3 className="text-xl font-semibold text-red-800 mb-2">Error Loading Statistics</h3>
-        <p className="text-red-600 mb-4">{error}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="px-6 py-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition"
-        >
-          Retry
-        </button>
-      </div>
-    )
+  const eventYears: Record<string, number | undefined> = {
+    [rimiMarathon?.id ?? ""]: yearsRunning(rimiMarathon?.startDate),
+    [wineChampagne?.id ?? ""]: yearsRunning(wineChampagne?.startDate),
   }
 
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="max-w-7xl mx-auto lg:px-8 px-0">
+    <section aria-labelledby="by-the-numbers" className="bg-white pb-16 md:pb-24">
+      <div className="mx-auto max-w-7xl px-6 md:px-8">
         <div className="mb-8">
-          <h3 className="text-2xl lg:text-3xl font-semibold">By the Numbers</h3>
+          <h2 id="by-the-numbers" className="text-2xl font-semibold tracking-tight md:text-3xl">By the Numbers</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-auto">
           {/* Rimi Marathon card */}
           {rimiMarathon && (
             <Link
-              href={`/events/${rimiMarathon.id}`}
+              href={`/events/${rimiMarathon.slug}`}
               className="col-span-1 md:col-span-2 relative rounded-2xl overflow-hidden group cursor-pointer aspect-[16/9] md:aspect-[2/1]"
             >
               <Image
@@ -645,14 +606,14 @@ export default function ByTheNumbersSection() {
                 <div
                   ref={mobileScrollRef}
                   onScroll={(e) => {
-                    if (e.currentTarget.scrollLeft > 12) setShowScrollHint(false)
+                    if (e.currentTarget.scrollLeft > 12) setHintDismissed(true)
                   }}
                   className="overflow-x-auto overflow-y-hidden w-full h-full pb-4"
                   style={{
                     WebkitOverflowScrolling: "touch",
                   }}
                 >
-                  <div className="flex gap-3 items-center justify-start h-full px-2">
+                  <div className="flex gap-3 items-center justify-start h-full px-2" aria-hidden="true">
                     {Array.from({ length: 71 }).map((_, index) => {
                       const BottleComponent = bottleComponents[index % 4]
                       return (
@@ -675,7 +636,7 @@ export default function ByTheNumbersSection() {
             ) : (
               <div className="flex-1 min-h-0 flex items-center justify-center">
                 <div className="w-full h-full">
-                  <div className="grid h-full auto-rows-fr grid-cols-[repeat(24,minmax(0,1fr))] lg:grid-cols-[repeat(28,minmax(0,1fr))] gap-0.5 md:gap-1">
+                  <div className="grid h-full auto-rows-fr grid-cols-[repeat(24,minmax(0,1fr))] lg:grid-cols-[repeat(28,minmax(0,1fr))] gap-0.5 md:gap-1" aria-hidden="true">
                     {Array.from({ length: 71 }).map((_, index) => {
                       const BottleComponent = bottleComponents[index % 4]
                       return (
@@ -738,7 +699,7 @@ export default function ByTheNumbersSection() {
           {/* Wine & Champagne card */}
           {wineChampagne && (
             <Link
-              href={`/events/${wineChampagne.id}`}
+              href={`/events/${wineChampagne.slug}`}
               className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/3]"
             >
               <Image

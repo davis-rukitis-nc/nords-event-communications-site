@@ -47,7 +47,7 @@ return (
         <div className="mb-20 text-right">
           <a
             href="mailto:info@necom.lv"
-            className="inline-flex items-center gap-3 bg-black text-white px-10 py-5 rounded-full text-lg font-medium hover:bg-gray-800 transition-all hover:scale-105 shadow-lg"
+            className="inline-flex items-center gap-3 bg-black text-white px-10 py-5 rounded-full text-lg font-medium hover:bg-neutral-800 transition-all hover:scale-105 shadow-lg"
           >
             <Mail className="w-5 h-5" />
             Send us an email

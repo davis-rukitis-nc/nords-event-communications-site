@@ -47,7 +47,7 @@ export default function GetInTouchContent() {
         {/* Team Members */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {/* Aigars Nords */}
-          <div className="bg-gray-50 rounded-3xl overflow-hidden p-8">
+          <div className="bg-neutral-50 rounded-3xl overflow-hidden p-8">
             <div className="flex flex-col items-center text-center">
               <div className="w-40 h-40 rounded-full overflow-hidden mb-6">
                 <Image
@@ -69,7 +69,7 @@ export default function GetInTouchContent() {
           </div>
 
           {/* Inese Kikule */}
-          <div className="bg-gray-50 rounded-3xl overflow-hidden p-8">
+          <div className="bg-neutral-50 rounded-3xl overflow-hidden p-8">
             <div className="flex flex-col items-center text-center">
               <div className="w-40 h-40 rounded-full overflow-hidden mb-6">
                 <Image
@@ -94,7 +94,7 @@ export default function GetInTouchContent() {
         <div className="flex justify-center mb-20">
           <a
             href="mailto:info@necom.lv"
-            className="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full hover:bg-gray-800 transition-colors text-lg font-medium"
+            className="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full hover:bg-neutral-800 transition-colors text-lg font-medium"
           >
             <Mail className="w-5 h-5" />
             Get in Touch
@@ -104,21 +104,21 @@ export default function GetInTouchContent() {
         {/* Stats Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Days in Business - Large Block */}
-          <div className="md:col-span-2 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 text-white">
-            <h3 className="text-lg font-medium mb-4 text-gray-300">Days in Business</h3>
+          <div className="md:col-span-2 bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-3xl p-8 text-white">
+            <h3 className="text-lg font-medium mb-4 text-neutral-300">Days in Business</h3>
             <div className="text-6xl font-bold mb-2">{daysInBusiness.toLocaleString()}</div>
-            <p className="text-gray-400 text-sm">Since January 4, 2008</p>
+            <p className="text-neutral-400 text-sm">Since January 4, 2008</p>
           </div>
 
           {/* Years Existed - Visual Lines */}
-          <div className="bg-gray-100 rounded-3xl p-8 flex flex-col justify-between">
-            <h3 className="text-lg font-medium mb-4 text-gray-700">{"Years We've Existed"}</h3>
+          <div className="bg-neutral-100 rounded-3xl p-8 flex flex-col justify-between">
+            <h3 className="text-lg font-medium mb-4 text-neutral-700">{"Years We've Existed"}</h3>
             <div className="flex flex-wrap gap-1 mb-4">
               {Array.from({ length: yearsSinceStart }).map((_, i) => (
                 <div key={i} className="w-2 h-12 bg-black rounded-full" />
               ))}
             </div>
-            <div className="text-4xl font-bold text-gray-900">{yearsSinceStart}</div>
+            <div className="text-4xl font-bold text-neutral-900">{yearsSinceStart}</div>
           </div>
 
           {/* Days Until Rimi Riga Marathon */}

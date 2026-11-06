@@ -19,7 +19,7 @@ export default function JournalPage() {
   return (
     <>
       <StructuredData data={breadcrumbData} />
-      <main className="bg-gray-50">
+      <div className="bg-neutral-50">
         <PageHeader
           title="Journal"
           subtitle="Insights, stories, and news from the world of Nords Event Communications."
@@ -35,7 +35,7 @@ export default function JournalPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   )
 }

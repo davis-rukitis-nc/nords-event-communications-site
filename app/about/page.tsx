@@ -4,13 +4,7 @@ import StructuredData from "@/components/seo/structured-data"
 import { generatePageMetadata, pageMetaConfigs } from "@/lib/seo/meta-config"
 import { generateBreadcrumbStructuredData } from "@/lib/seo/structured-data"
 
-export const metadata: Metadata = {
-  ...generatePageMetadata(pageMetaConfigs.about),
-  robots: {
-    index: false,
-    follow: true,
-  },
-}
+export const metadata: Metadata = generatePageMetadata(pageMetaConfigs.about)
 
 export default function AboutPage() {
   const breadcrumbData = generateBreadcrumbStructuredData([
@@ -21,7 +15,7 @@ export default function AboutPage() {
   return (
     <>
       <StructuredData data={breadcrumbData} />
-      <main className="bg-white">
+      <div className="bg-white">
         <PageHeader
           title="About Us"
           subtitle="Nords Event Communications (NECom) is an event production, marketing and sponsorship agency creating experiences that are moving Riga and Latvia - literally and figuratively! Can you keep up?"
@@ -38,22 +32,22 @@ export default function AboutPage() {
             </section>
 
             <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
-              <div className="bg-gray-50 rounded-2xl p-6">
+              <div className="bg-neutral-50 rounded-2xl p-6">
                 <div className="text-4xl font-bold text-primary-dark mb-2">{new Date().getFullYear() - 1999}+ years</div>
                 <p className="text-secondary-dark">in the industry </p>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl p-6">
+              <div className="bg-neutral-50 rounded-2xl p-6">
                 <div className="text-4xl font-bold text-primary-dark mb-2">100K+</div>
                 <p className="text-secondary-dark">Annual Participants</p>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl p-6">
+              <div className="bg-neutral-50 rounded-2xl p-6">
                 <div className="text-4xl font-bold text-primary-dark mb-2">€20M+</div>
                 <p className="text-secondary-dark">Annual Economic Impact</p>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl p-6">
+              <div className="bg-neutral-50 rounded-2xl p-6">
                 <div className="text-4xl font-bold text-primary-dark mb-2">10</div>
                 <p className="text-secondary-dark">
                   People on the team <span className="block text-xs text-neutral-500">(+2 dogs)</span>
@@ -78,7 +72,7 @@ export default function AboutPage() {
             </section>
           </div>
         </div>
-      </main>
+      </div>
     </>
   )
 }

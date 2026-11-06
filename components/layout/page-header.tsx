@@ -8,7 +8,7 @@ interface PageHeaderProps {
 
 export default function PageHeader({ title, subtitle, imageUrl }: PageHeaderProps) {
   return (
-    <header className="relative w-full h-[50vh] md:h-[60vh] lg:h-[65vh] rounded-b-2xl overflow-hidden bg-gray-900">
+    <header className="relative w-full h-[50vh] md:h-[60vh] lg:h-[65vh] rounded-b-2xl overflow-hidden bg-neutral-900">
       <Image
         src={imageUrl}
         alt={`Header image for ${title}`}

@@ -46,15 +46,15 @@ export default function OtherEvents({ currentEventId }: OtherEventsProps) {
   return (
     <section
       ref={sectionRef}
-      className={`py-16 md:py-24 bg-gray-50 transition-all duration-1000 ease-out ${
+      className={`py-16 md:py-24 bg-neutral-50 transition-all duration-1000 ease-out ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Section Header */}
         <div className="text-left mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Explore Other Events</h2>
-          <p className="text-gray-600 max-w-2xl ">
+          <h2 className="text-3xl font-bold text-neutral-900 mb-4">Explore Other Events</h2>
+          <p className="text-neutral-600 max-w-2xl ">
             Discover more premium experiences from our diverse portfolio of events across the Baltics.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function OtherEvents({ currentEventId }: OtherEventsProps) {
         <div className="mt-12 text-left">
           <Link
             href="/events"
-            className="inline-flex items-center space-x-2 bg-gray-900 text-white px-8 py-4 rounded-xl font-medium hover:bg-gray-700 transition-colors duration-200"
+            className="inline-flex items-center space-x-2 bg-neutral-900 text-white px-8 py-4 rounded-xl font-medium hover:bg-neutral-700 transition-colors duration-200"
           >
             <span>View All Events</span>
             <ArrowRight className="w-5 h-5" />

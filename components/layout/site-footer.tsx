@@ -1,10 +1,9 @@
-"use client"
-
-import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Copy, Check, ArrowUpRight } from "lucide-react"
-import { displayEvents, getSortedUpcomingEvents } from "@/lib/data/events-data"
+import { ArrowUpRight } from "lucide-react"
+import { getNavigationEvents } from "@/lib/data/events-data"
+import { formatEventDate, getUpcomingCalendarEvents } from "@/lib/data/calendar"
+import CopyEmailButton from "./copy-email-button"
 
 const footerNavigationItems = [
   { href: "/about", label: "About" },
@@ -20,46 +19,16 @@ const socialLinks = [
 ]
 
 export default function SiteFooter() {
-  const [copied, setCopied] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
-  const footerRef = useRef<HTMLElement>(null)
   const email = "info@necom.lv"
-
-  const sortedUpcomingEvents = getSortedUpcomingEvents()
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1, rootMargin: "50px" },
-    )
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(email).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
-  }
+  const upcoming = getUpcomingCalendarEvents().slice(0, 4)
 
   return (
-    <footer ref={footerRef} className="bg-neutral-950 text-white relative mx-4 my-4 rounded-2xl">
+    <footer className="relative mx-4 mb-28 mt-4 rounded-2xl bg-neutral-950 text-white md:mb-4">
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
         {/* Top section - CTA */}
         <div
-          className={`mb-20 transition-all duration-700 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`mb-20`}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-white mb-8 max-w-2xl leading-tight">
             Contact us
@@ -70,15 +39,12 @@ export default function SiteFooter() {
               className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 rounded-full text-sm hover:bg-white hover:text-neutral-950 transition-all duration-300"
             >
               Get in Touch
-              <ArrowUpRight className="w-4 h-4" />
+              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
             </a>
-            <button
-              onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 rounded-full text-sm text-neutral-400 hover:bg-white/10 transition-all duration-300"
-            >
-              {email}
-              {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-            </button>
+            <CopyEmailButton
+              email={email}
+              className="inline-flex items-center gap-2 rounded-full bg-white/5 px-6 py-3 text-sm text-neutral-300 transition-colors duration-300 hover:bg-white/10"
+            />
           </div>
         </div>
 
@@ -87,13 +53,11 @@ export default function SiteFooter() {
 
         {/* Links grid */}
         <div
-          className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12 mb-20 transition-all duration-700 delay-100 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12 mb-20`}
         >
           {/* Navigation */}
           <div>
-            <p className="text-neutral-500 text-xs uppercase tracking-widest mb-6">Navigation</p>
+            <p className="text-neutral-400 text-xs uppercase tracking-widest mb-6">Navigation</p>
             <ul className="space-y-3">
               {footerNavigationItems.map((item) => (
                 <li key={item.label}>
@@ -107,12 +71,12 @@ export default function SiteFooter() {
 
           {/* Events */}
           <div>
-            <p className="text-neutral-500 text-xs uppercase tracking-widest mb-6">Events</p>
+            <p className="text-neutral-400 text-xs uppercase tracking-widest mb-6">Events</p>
             <ul className="space-y-3">
-              {displayEvents.slice(0, 4).map((event) => (
+              {getNavigationEvents().map((event) => (
                 <li key={event.id}>
                   <Link
-                    href={`/events/${event.id}`}
+                    href={`/events/${event.slug}`}
                     className="text-neutral-300 hover:text-white transition-colors text-sm"
                   >
                     {event.name}
@@ -124,17 +88,26 @@ export default function SiteFooter() {
 
           {/* Upcoming */}
           <div>
-            <p className="text-neutral-500 text-xs uppercase tracking-widest mb-6">Upcoming</p>
+            <p className="text-neutral-400 text-xs uppercase tracking-widest mb-6">Upcoming</p>
             <ul className="space-y-3">
-              {sortedUpcomingEvents.map((event) => (
+              {upcoming.map((event) => (
                 <li key={event.id}>
-                  <Link
-                    href={event.link || "#"}
-                    className="text-neutral-300 hover:text-white transition-colors text-sm block"
-                  >
-                    <span className="block">{event.name}</span>
-                    <span className="text-xs text-neutral-500">{event.date}</span>
-                  </Link>
+                  {event.link ? (
+                    <a
+                      href={event.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-sm text-neutral-300 transition-colors hover:text-white"
+                    >
+                      <span className="block">{event.name}</span>
+                      <span className="text-xs text-neutral-400">{formatEventDate(event)}</span>
+                    </a>
+                  ) : (
+                    <span className="block text-sm text-neutral-300">
+                      <span className="block">{event.name}</span>
+                      <span className="text-xs text-neutral-400">{formatEventDate(event)}</span>
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
@@ -142,7 +115,7 @@ export default function SiteFooter() {
 
           {/* Social */}
           <div>
-            <p className="text-neutral-500 text-xs uppercase tracking-widest mb-6">Social</p>
+            <p className="text-neutral-400 text-xs uppercase tracking-widest mb-6">Social</p>
             <ul className="space-y-3">
               {socialLinks.map((link) => (
                 <li key={link.label}>
@@ -153,7 +126,7 @@ export default function SiteFooter() {
                     className="text-neutral-300 hover:text-white transition-colors text-sm inline-flex items-center gap-1 group"
                   >
                     {link.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                    <ArrowUpRight className="h-3 w-3 opacity-50 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                   </a>
                 </li>
               ))}
@@ -162,7 +135,7 @@ export default function SiteFooter() {
 
           {/* Legal */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <p className="text-neutral-500 text-xs uppercase tracking-widest mb-6">Legal</p>
+            <p className="text-neutral-400 text-xs uppercase tracking-widest mb-6">Legal</p>
             <ul className="space-y-3">
               <li>
                 <Link href="/privacy" className="text-neutral-300 hover:text-white transition-colors text-sm">
@@ -180,9 +153,7 @@ export default function SiteFooter() {
 
         {/* Bottom section */}
         <div
-          className={`flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 transition-all duration-700 delay-200 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className={`flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8`}
         >
           {/* Logo and company info */}
           <div className="flex flex-col gap-6">
@@ -196,7 +167,7 @@ export default function SiteFooter() {
                 draggable={false}
               />
             </Link>
-            <div className="text-neutral-500 text-xs leading-relaxed">
+            <div className="text-neutral-400 text-xs leading-relaxed">
               <p>Nords Event Communications SIA</p>
               <p>Reg. No. 50003981501</p>
               <p>Brīvības iela 40–24, Rīga, LV-1050, Latvia</p>
@@ -204,7 +175,7 @@ export default function SiteFooter() {
           </div>
 
           {/* Copyright */}
-          <p className="text-neutral-600 text-xs">&copy; {new Date().getFullYear()} NECom. All rights reserved.</p>
+          <p className="text-neutral-400 text-xs">&copy; {new Date().getFullYear()} NECom. All rights reserved.</p>
         </div>
       </div>
     </footer>

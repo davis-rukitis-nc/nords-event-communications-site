@@ -16,9 +16,6 @@ export const metadata: Metadata = generatePageMetadata({
   description: "The Inaugural World Champs of Riga, the World Road Running Capital!",
   keywords: ["athletics", "running", "world championships", "Latvia", "Riga", "sports"],
   url: "/events/world-athletics-riga23",
-  type: "article",
-  section: "Sports",
-  tags: ["Sports", "Events", "Latvia", "World Athletics"],
 })
 
 export default function WorldAthleticsRiga23Page() {
@@ -31,7 +28,7 @@ export default function WorldAthleticsRiga23Page() {
   return (
     <>
       <StructuredData data={breadcrumbData} />
-      <main className="bg-white">
+      <div className="bg-white">
         {/* Header - same style as other event pages */}
         <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
           <Image
@@ -75,9 +72,9 @@ export default function WorldAthleticsRiga23Page() {
             {/* Sidebar - only social media archives */}
             <aside className="lg:col-span-1">
               {(event.socialMedia?.instagram || event.socialMedia?.facebook) && (
-                <div className="bg-gray-50 p-6 rounded-2xl">
+                <div className="bg-neutral-50 p-6 rounded-2xl">
                   <h3 className="text-lg font-bold text-primary-dark mb-4">Event Archives</h3>
-                  <p className="text-sm text-gray-600 mb-4">Relive the memories from Riga23</p>
+                  <p className="text-sm text-neutral-600 mb-4">Relive the memories from Riga23</p>
                   <div className="flex gap-3">
                     {event.socialMedia?.instagram && (
                       <a
@@ -109,7 +106,7 @@ export default function WorldAthleticsRiga23Page() {
         </div>
 
         <OtherEvents currentEventId="world-athletics-road-running-championships-riga23" />
-      </main>
+      </div>
     </>
   )
 }

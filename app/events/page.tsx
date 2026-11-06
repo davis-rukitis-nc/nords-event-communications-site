@@ -5,9 +5,12 @@ import { ArrowRight, ExternalLink } from "lucide-react"
 import { getAllEvents } from "@/lib/data/events-data"
 import StructuredData from "@/components/seo/structured-data"
 import { generatePageMetadata, pageMetaConfigs } from "@/lib/seo/meta-config"
-import { generateBreadcrumbStructuredData } from "@/lib/seo/structured-data"
+import { generateBreadcrumbStructuredData, generateCalendarEventStructuredData } from "@/lib/seo/structured-data"
 import EventCalendar from "@/components/event-calendar"
 import EventCountdown from "@/components/event-countdown"
+import { calendarLabel, daysUntil, getNextCalendarEvent, getUpcomingCalendarEvents } from "@/lib/data/calendar"
+
+export const revalidate = 3600
 
 function getShortUrl(url: string): string {
   try {
@@ -27,11 +30,18 @@ export default function EventsPage() {
   ])
 
   const allEvents = getAllEvents()
+  const upcoming = getUpcomingCalendarEvents()
+  const nextEvent = getNextCalendarEvent()
 
   return (
     <>
-      <StructuredData data={breadcrumbData} />
-      <main className="bg-white pt-24 md:pt-32">
+      <StructuredData
+        data={[
+          breadcrumbData,
+          ...upcoming.filter((e) => !e.isToBeAnnounced).map(generateCalendarEventStructuredData),
+        ]}
+      />
+      <div className="bg-white pt-24 md:pt-32">
         <section className="py-8 md:py-12 rounded-2xl bg-neutral-100 mx-4 md:mx-6 lg:mx-8">
           <div className="container mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -58,16 +68,16 @@ export default function EventsPage() {
                       d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                     />
                   </svg>
-                  <span className="text-sm font-medium">2026 Calendar</span>
+                  <span className="text-sm font-medium">{calendarLabel(upcoming)}</span>
                 </div>
                 <div className="flex-1">
-                  <EventCalendar year={2026} initialCount={4} />
+                  <EventCalendar events={upcoming} initialCount={4} />
                 </div>
               </div>
 
               {/* Right: Countdown bento box */}
               <div className="md:col-span-2 lg:col-span-1 h-full min-h-[280px] md:min-h-[320px]">
-                <EventCountdown />
+                <EventCountdown event={nextEvent} daysLeft={nextEvent ? daysUntil(nextEvent.start) : 0} />
               </div>
             </div>
           </div>
@@ -93,13 +103,7 @@ export default function EventsPage() {
                 >
                   {/* Image Column */}
                   <Link
-                    href={
-                      event.id === "baltic-brand-forum"
-                        ? `/events/baltic-brand-forum`
-                        : event.id === "world-athletics-road-running-championships-riga23"
-                          ? `/events/world-athletics-riga23`
-                          : `/events/${event.id}`
-                    }
+                    href={`/events/${event.slug}`}
                     className={`relative aspect-[16/9] rounded-xl overflow-hidden shadow-lg group ${index % 2 === 1 ? "lg:col-start-2" : ""}`}
                   >
                     <Image
@@ -114,20 +118,14 @@ export default function EventsPage() {
 
                   {/* Content Column */}
                   <div className={`space-y-4 ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                    <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">{event.type}</span>
+                    <span className="text-xs font-medium text-neutral-500 uppercase tracking-wide">{event.type}</span>
                     <h3 className="font-semibold text-foreground leading-tight text-3xl">{event.name}</h3>
                     <p className="text-muted-foreground leading-relaxed text-base">{event.description}</p>
 
                     <div className="flex flex-wrap gap-3 items-start my-0">
                       <Link
-                        href={
-                          event.id === "baltic-brand-forum"
-                            ? `/events/baltic-brand-forum`
-                            : event.id === "world-athletics-road-running-championships-riga23"
-                              ? `/events/world-athletics-riga23`
-                              : `/events/${event.id}`
-                        }
-                        className="inline-flex items-center space-x-2 text-primary-foreground bg-gray-900 px-6 py-3 rounded-xl font-medium hover:bg-gray-800 hover:shadow-lg transition-all duration-200 my-3 group"
+                        href={`/events/${event.slug}`}
+                        className="inline-flex items-center space-x-2 text-primary-foreground bg-neutral-900 px-6 py-3 rounded-xl font-medium hover:bg-neutral-800 hover:shadow-lg transition-all duration-200 my-3 group"
                       >
                         <span className="text-white">Learn more</span>
                         <ArrowRight className="w-4 h-4 text-white transition-transform group-hover:translate-x-1" />
@@ -139,12 +137,12 @@ export default function EventsPage() {
                             href={event.officialSiteUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center space-x-2 text-gray-900 bg-gray-100 px-6 py-3 rounded-xl font-medium hover:bg-gray-200 hover:shadow-md transition-all duration-200 group"
+                            className="inline-flex items-center space-x-2 text-neutral-900 bg-neutral-100 px-6 py-3 rounded-xl font-medium hover:bg-neutral-200 hover:shadow-md transition-all duration-200 group"
                           >
                             <span>Visit Site</span>
                             <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                           </a>
-                          <span className="text-xs text-gray-500 mt-1 ml-1">{getShortUrl(event.officialSiteUrl)}</span>
+                          <span className="text-xs text-neutral-500 mt-1 ml-1">{getShortUrl(event.officialSiteUrl)}</span>
                         </div>
                       )}
                     </div>
@@ -154,7 +152,7 @@ export default function EventsPage() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   )
 }

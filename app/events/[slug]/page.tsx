@@ -1,5 +1,5 @@
 import type React from "react"
-import { notFound, redirect } from "next/navigation"
+import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
@@ -12,7 +12,7 @@ import PartnerCTA from "@/components/event-detail/partner-cta"
 import OtherEvents from "@/components/event-detail/other-events"
 import StructuredData from "@/components/seo/structured-data"
 import { generatePageMetadata } from "@/lib/seo/meta-config"
-import { generateEventStructuredData, generateBreadcrumbStructuredData } from "@/lib/seo/structured-data"
+import { generateBreadcrumbStructuredData } from "@/lib/seo/structured-data"
 
 interface EventPageProps {
   params: Promise<{
@@ -20,15 +20,18 @@ interface EventPageProps {
   }>
 }
 
+export const dynamicParams = false
+
 export async function generateStaticParams() {
-  return displayEvents.map((event) => ({
-    slug: event.id,
-  }))
+  // baltic-brand-forum and world-athletics-riga23 have their own routes.
+  return displayEvents
+    .filter((event) => !["baltic-brand-forum", "world-athletics-riga23"].includes(event.slug))
+    .map((event) => ({ slug: event.slug }))
 }
 
 export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
   const { slug } = await params
-  const event = displayEvents.find((e) => e.id === slug)
+  const event = displayEvents.find((e) => e.slug === slug)
 
   if (!event) {
     return {
@@ -42,31 +45,23 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
     description: event.description,
     keywords: [event.type, "event", "Latvia", "Riga", "premium experience"],
     image: event.image,
-    url: `/events/${event.id}`,
-    type: "article",
-    section: event.type,
-    tags: [event.type, "Events", "Latvia"],
+    url: `/events/${event.slug}`,
   })
 }
 
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params
 
-  if (slug === "world-athletics-road-running-championships-riga23") {
-    redirect("/events/world-athletics-riga23")
-  }
-
-  const event = displayEvents.find((e) => e.id === slug)
+  const event = displayEvents.find((e) => e.slug === slug)
 
   if (!event) {
     notFound()
   }
 
-  const eventStructuredData = generateEventStructuredData(event)
   const breadcrumbData = generateBreadcrumbStructuredData([
     { name: "Home", url: "https://www.necom.lv/" },
     { name: "Events", url: "https://www.necom.lv/events" },
-    { name: event.name, url: `https://www.necom.lv/events/${event.id}` },
+    { name: event.name, url: `https://www.necom.lv/events/${event.slug}` },
   ])
 
   const brandColorStyle = event.brandColors?.primary
@@ -79,8 +74,8 @@ export default async function EventPage({ params }: EventPageProps) {
 
   return (
     <>
-      <StructuredData data={[eventStructuredData, breadcrumbData]} />
-      <main className="bg-white" style={brandColorStyle as React.CSSProperties}>
+      <StructuredData data={breadcrumbData} />
+      <div className="bg-white" style={brandColorStyle as React.CSSProperties}>
         <EventHeader event={event} />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -96,7 +91,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
             {/* Sidebar */}
             <aside className="space-y-8 order-first lg:order-last">
-              <div className="bg-gray-50 p-6 rounded-2xl">
+              <div className="bg-neutral-50 p-6 rounded-2xl">
                 <h3 className="text-xl font-bold text-primary-dark mb-4">Event Details</h3>
                 <EventStats event={event} />
                 {event.officialSiteUrl && (
@@ -115,8 +110,8 @@ export default async function EventPage({ params }: EventPageProps) {
                 )}
 
                 {(event.socialMedia?.instagram || event.socialMedia?.facebook) && (
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <h4 className="text-sm font-semibold text-gray-600 mb-3">Follow on Social Media</h4>
+                  <div className="mt-6 pt-6 border-t border-neutral-200">
+                    <h4 className="text-sm font-semibold text-neutral-600 mb-3">Follow on Social Media</h4>
                     <div className="flex gap-3">
                       {event.socialMedia?.instagram && (
                         <Link
@@ -150,7 +145,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
         {/* Other Events Section */}
         <OtherEvents currentEventId={event.id} />
-      </main>
+      </div>
     </>
   )
 }

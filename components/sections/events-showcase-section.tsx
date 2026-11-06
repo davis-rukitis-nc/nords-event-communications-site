@@ -1,6 +1,3 @@
-"use client"
-
-import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ExternalLink } from "lucide-react"
@@ -16,39 +13,13 @@ function getShortUrl(url: string): string {
 }
 
 export default function EventsShowcaseSection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    const currentRef = sectionRef.current
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef)
-      }
-    }
-  }, [])
 
   const homepageEvents = getHomepageEvents()
 
   return (
     <section
-      ref={sectionRef}
-      className={`py-16 md:py-24 transition-all duration-1000 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
+      className={`py-16 md:py-24`}
     >
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
         {/* Section Header */}
@@ -68,7 +39,7 @@ export default function EventsShowcaseSection() {
               key={event.id}
               className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
                 index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
-              } ${isVisible ? "animate-fade-in" : ""}`}
+              }`}
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {/* Image Column */}
@@ -87,14 +58,14 @@ export default function EventsShowcaseSection() {
 
               {/* Content Column */}
               <div className={`space-y-4 ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">{event.type} Series</span>
+                <span className="text-xs font-medium text-neutral-500 uppercase tracking-wide">{event.type} Series</span>
                 <h3 className="font-semibold text-foreground leading-tight text-3xl">{event.name}</h3>
                 <p className="text-muted-foreground leading-relaxed text-base">{event.description}</p>
 
                 <div className="flex flex-wrap gap-3 items-start my-0">
                   <Link
                     href={`/events/${event.id}`}
-                    className="inline-flex items-center space-x-2 text-primary-foreground bg-gray-900 px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors duration-200 my-3"
+                    className="inline-flex items-center space-x-2 text-primary-foreground bg-neutral-900 px-6 py-3 rounded-xl font-medium hover:bg-neutral-800 transition-colors duration-200 my-3"
                   >
                     <span className="text-white">Learn more</span>
                     <ArrowRight className="w-4 h-4 text-white" />
@@ -106,12 +77,12 @@ export default function EventsShowcaseSection() {
                         href={event.officialSiteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-2 text-gray-900 bg-gray-100 px-6 py-3 rounded-xl font-medium hover:bg-gray-200 transition-colors duration-200"
+                        className="inline-flex items-center space-x-2 text-neutral-900 bg-neutral-100 px-6 py-3 rounded-xl font-medium hover:bg-neutral-200 transition-colors duration-200"
                       >
                         <span>Visit Site</span>
                         <ExternalLink className="w-4 h-4" />
                       </a>
-                      <span className="text-xs text-gray-500 mt-1 ml-1">{getShortUrl(event.officialSiteUrl)}</span>
+                      <span className="text-xs text-neutral-500 mt-1 ml-1">{getShortUrl(event.officialSiteUrl)}</span>
                     </div>
                   )}
                 </div>

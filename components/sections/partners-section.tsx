@@ -240,10 +240,10 @@ export default function PartnersSection() {
       }`}
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-12 text-left">Trusted By</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-neutral-900 mb-12 text-left">Trusted By</h2>
 
         <div
-          className="relative overflow-hidden rounded-xl bg-gray-100"
+          className="relative overflow-hidden rounded-xl bg-neutral-100"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => {
             setIsPaused(false)
@@ -306,12 +306,12 @@ export default function PartnersSection() {
         </div>
 
         <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto text-center">
+          <p className="text-neutral-600 mb-6 max-w-2xl mx-auto text-center">
             Join our network of trusted partners and create unforgettable experiences together.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center space-x-2 bg-gray-900 text-white px-8 py-4 rounded-xl font-medium hover:bg-gray-700 transition-colors duration-200"
+            className="inline-flex items-center space-x-2 bg-neutral-900 text-white px-8 py-4 rounded-xl font-medium hover:bg-neutral-700 transition-colors duration-200"
           >
             <span>Become a Partner</span>
           </Link>

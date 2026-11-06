@@ -5,77 +5,39 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-interface SiteLogoProps {
-  showOnMobile?: boolean
-}
-
-export default function SiteLogo({ showOnMobile }: SiteLogoProps) {
-  const [isVisible, setIsVisible] = useState(true)
+// Fixed logo for inner pages. The home hero renders its own logo.
+// Mobile: hides while scrolling down, returns on scroll up. Desktop: always visible.
+export default function SiteLogo() {
   const pathname = usePathname()
-  const isHomePage = pathname === "/"
-  const lastScrollY = useRef(0)
-  const [isMobile, setIsMobile] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const lastY = useRef(0)
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
+    const onScroll = () => {
+      const y = window.scrollY
+      if (y < 100 || y < lastY.current) setHidden(false)
+      else if (y > lastY.current + 10) setHidden(true)
+      lastY.current = y
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  useEffect(() => {
-    if (isHomePage) return
-
-    // If showOnMobile prop is provided, use it for mobile visibility
-    if (isMobile && showOnMobile !== undefined) {
-      setIsVisible(showOnMobile)
-      return
-    }
-
-    const onScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (isMobile) {
-        // Mobile: show on scroll up, hide on scroll down
-        if (currentScrollY < 100) {
-          setIsVisible(true)
-        } else if (currentScrollY < lastScrollY.current) {
-          setIsVisible(true)
-        } else if (currentScrollY > lastScrollY.current + 10) {
-          setIsVisible(false)
-        }
-      } else {
-        // Desktop: always visible
-        setIsVisible(true)
-      }
-
-      lastScrollY.current = currentScrollY
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [isHomePage, isMobile, showOnMobile])
-
-  if (isHomePage) return null
+  if (pathname === "/") return null
 
   return (
     <div
-      className={`
-        fixed z-[100] transition-all duration-300
-        top-8 left-8
-        ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}
-      `}
-      style={{ mixBlendMode: "difference" }}
+      className={`fixed left-6 top-6 z-[60] mix-blend-difference transition-[opacity,transform] duration-300 md:left-8 md:top-8 md:translate-y-0 md:opacity-100 ${
+        hidden ? "pointer-events-none -translate-y-4 opacity-0 md:pointer-events-auto" : "translate-y-0 opacity-100"
+      }`}
     >
-      <Link href="/" className="block transition-opacity duration-200 hover:opacity-80">
+      <Link href="/" aria-label="NECom home" className="block transition-opacity duration-200 hover:opacity-80">
         <Image
           src="/logo-light.svg"
-          alt="NECom official logo"
+          alt=""
           width={100}
           height={32}
           priority
-          sizes="100px"
           draggable={false}
           className="brightness-0 invert"
         />

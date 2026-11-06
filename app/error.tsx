@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <main className="min-h-screen bg-neutral-950 flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-neutral-950 flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-red-950/20 via-neutral-950 to-neutral-950" />
 
       <div className="relative z-10 text-center px-4">
@@ -19,7 +19,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           </svg>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Something Went Wrong</h1>
-        <p className="text-gray-400 mb-8 max-w-md mx-auto">
+        <p className="text-neutral-400 mb-8 max-w-md mx-auto">
           {"We encountered an unexpected error. Please try again or return to the homepage."}
         </p>
         {error?.message && (
@@ -30,7 +30,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => reset()}
-            className="inline-flex items-center justify-center gap-2 bg-white text-neutral-900 px-6 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-white text-neutral-900 px-6 py-3 rounded-full font-medium hover:bg-neutral-100 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -50,6 +50,6 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

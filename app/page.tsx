@@ -6,14 +6,15 @@ import EventsShowcaseSection from "@/components/sections/events-showcase-section
 import GetInTouchSection from "@/components/sections/get-in-touch-section"
 import ByTheNumbersSection from "@/components/sections/by-the-numbers-section"
 import PartnersSection from "@/components/sections/partners-section"
-import StructuredData from "@/components/seo/structured-data"
 import { generatePageMetadata, pageMetaConfigs } from "@/lib/seo/meta-config"
-import { generateBreadcrumbStructuredData } from "@/lib/seo/structured-data"
+import { daysUntil, getCalendarEvent } from "@/lib/data/calendar"
 
 export const metadata: Metadata = generatePageMetadata(pageMetaConfigs.home)
+export const revalidate = 3600
 
 export default function HomePage() {
-  const breadcrumbData = generateBreadcrumbStructuredData([{ name: "Home", url: "https://www.necom.lv/" }])
+  const marathon = getCalendarEvent("rimi-riga-marathon-2027")
+  const daysToMarathon = marathon ? daysUntil(marathon.end ?? marathon.start) : 0
 
   // ASCII art comment lines
   const asciiLines = [
@@ -30,20 +31,14 @@ export default function HomePage() {
 
   return (
     <>
-      <div
-        dangerouslySetInnerHTML={{ __html: asciiComment }}
-        aria-hidden="true"
-      />
-      <StructuredData data={breadcrumbData} />
-      <main className="min-h-screen">
-        <HeroSection />
-        <AboutSection />
-        <NewsSection />
-        <EventsShowcaseSection />
-        <GetInTouchSection />
-        <ByTheNumbersSection />
-        <PartnersSection />
-      </main>
+      <div hidden dangerouslySetInnerHTML={{ __html: asciiComment }} />
+      <HeroSection />
+      <AboutSection />
+      <NewsSection />
+      <EventsShowcaseSection />
+      <GetInTouchSection />
+      <ByTheNumbersSection daysToMarathon={daysToMarathon} />
+      <PartnersSection />
     </>
   )
 }

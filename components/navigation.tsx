@@ -8,384 +8,293 @@ import { usePathname } from "next/navigation"
 import { getNavigationEvents } from "@/lib/data/events-data"
 import SiteLogo from "@/components/ui/site-logo"
 
+const navItems = [
+  { href: "/about", label: "About" },
+  { href: "/events", label: "Events", hasDropdown: true },
+  { href: "/journal", label: "Journal" },
+  { href: "/contact", label: "Contact" },
+]
+
+const navigationEvents = getNavigationEvents()
+
+function isCurrent(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
+
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isDesktopEventsOpen, setIsDesktopEventsOpen] = useState(false)
-  const [isMobileEventsOpen, setIsMobileEventsOpen] = useState(false)
-  const [isMobileView, setIsMobileView] = useState(false)
-  const [shouldAnimate, setShouldAnimate] = useState(false)
   const pathname = usePathname()
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [desktopOpen, setDesktopOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [openedFor, setOpenedFor] = useState(pathname)
   const menuRef = useRef<HTMLDivElement>(null)
   const eventsButtonRef = useRef<HTMLButtonElement>(null)
-  const lastScrollY = useRef(0)
-  const [showMobileLogo, setShowMobileLogo] = useState(true)
-  const lastScrollYMobile = useRef(0)
+  const mobileEventsButtonRef = useRef<HTMLButtonElement>(null)
+  const mobileDialogRef = useRef<HTMLDialogElement>(null)
+  const scrollAtOpen = useRef(0)
 
-  const navItems = [
-    { href: "/about", label: "About" },
-    { href: "/events", label: "Events", hasDropdown: true },
-    { href: "/journal", label: "Journal" },
-    { href: "/contact", label: "Contact" },
-  ]
+  // Close menus on route change (state derived during render, no effect needed).
+  if (openedFor !== pathname) {
+    setOpenedFor(pathname)
+    setDesktopOpen(false)
+    setMobileOpen(false)
+  }
 
-  const closeDesktopEvents = useCallback(() => {
-    setIsDesktopEventsOpen(false)
-    setShouldAnimate(false)
+  const closeDesktop = useCallback((returnFocus = false) => {
+    setDesktopOpen(false)
+    if (returnFocus) eventsButtonRef.current?.focus()
   }, [])
 
-  const toggleDesktopEvents = useCallback(() => {
-    if (isDesktopEventsOpen) {
-      closeDesktopEvents()
-    } else {
-      setIsDesktopEventsOpen(true)
-      setShouldAnimate(true)
-      lastScrollY.current = window.scrollY
-    }
-  }, [isDesktopEventsOpen, closeDesktopEvents])
-
-  // Prevent background scroll when mobile events open
+  // Nav background opacity on scroll; close desktop menu after a real scroll.
   useEffect(() => {
-    document.body.style.overflow = isMobileEventsOpen ? "hidden" : ""
-    return () => {
-      document.body.style.overflow = ""
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+      if (Math.abs(window.scrollY - scrollAtOpen.current) > 80) setDesktopOpen(false)
     }
-  }, [isMobileEventsOpen])
-
-  // Track scroll for desktop nav opacity
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // Desktop menu: Escape and click-outside close it.
   useEffect(() => {
-    const handleScrollClose = () => {
-      if (isDesktopEventsOpen && Math.abs(window.scrollY - lastScrollY.current) > 50) {
-        closeDesktopEvents()
-      }
+    if (!desktopOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeDesktop(true)
     }
-    if (isDesktopEventsOpen) {
-      window.addEventListener("scroll", handleScrollClose, { passive: true })
-    }
-    return () => window.removeEventListener("scroll", handleScrollClose)
-  }, [isDesktopEventsOpen, closeDesktopEvents])
-
-  useEffect(() => {
-    const handleMobileScroll = () => {
-      const currentScrollY = window.scrollY
-      if (currentScrollY < 50) {
-        setShowMobileLogo(true)
-      } else if (currentScrollY < lastScrollYMobile.current) {
-        setShowMobileLogo(true)
-      } else if (currentScrollY > lastScrollYMobile.current) {
-        setShowMobileLogo(false)
-      }
-      lastScrollYMobile.current = currentScrollY
-    }
-    window.addEventListener("scroll", handleMobileScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleMobileScroll)
-  }, [])
-
-  // Determine view size and reset menus on crossover
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)")
-    const handler = (e: MediaQueryListEvent | MediaQueryList) => {
-      const mobile = !e.matches
-      setIsMobileView(mobile)
-      setIsDesktopEventsOpen(false)
-      setIsMobileEventsOpen(false)
-      setShouldAnimate(false)
-    }
-    handler(mq)
-    mq.addEventListener("change", handler)
-    return () => mq.removeEventListener("change", handler)
-  }, [])
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const onPointer = (e: PointerEvent) => {
       const target = e.target as Node
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(target) &&
-        eventsButtonRef.current &&
-        !eventsButtonRef.current.contains(target)
-      ) {
-        closeDesktopEvents()
-      }
+      if (!menuRef.current?.contains(target) && !eventsButtonRef.current?.contains(target)) closeDesktop()
     }
-    if (isDesktopEventsOpen) document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [isDesktopEventsOpen, closeDesktopEvents])
+    document.addEventListener("keydown", onKey)
+    document.addEventListener("pointerdown", onPointer)
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      document.removeEventListener("pointerdown", onPointer)
+    }
+  }, [desktopOpen, closeDesktop])
 
+  // Mobile events panel is a native modal <dialog>: focus trap, Escape and inert background for free.
   useEffect(() => {
-    closeDesktopEvents()
-    setIsMobileEventsOpen(false)
-  }, [pathname, closeDesktopEvents])
+    const dialog = mobileDialogRef.current
+    if (!dialog) return
+    if (mobileOpen && !dialog.open) dialog.showModal()
+    if (!mobileOpen && dialog.open) dialog.close()
+  }, [mobileOpen])
 
-  const openMobileEvents = () => {
-    setIsMobileEventsOpen(true)
-    setShouldAnimate(true)
+  const toggleDesktop = () => {
+    scrollAtOpen.current = window.scrollY
+    setDesktopOpen((open) => !open)
   }
-  const closeMobileEvents = () => {
-    setIsMobileEventsOpen(false)
-    setShouldAnimate(false)
-  }
-
-  const navigationEvents = getNavigationEvents()
 
   return (
     <>
-      <SiteLogo showOnMobile={showMobileLogo} />
+      <a
+        href="#content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-neutral-950"
+      >
+        Skip to content
+      </a>
 
-      {/* Desktop Nav */}
+      <SiteLogo />
+
+      {/* Desktop nav */}
       <nav
-        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 hidden md:flex items-center rounded-2xl backdrop-blur-md transition-all duration-300 shadow-xl border border-white/10 px-3 py-1.5 ${
-          isScrolled ? "bg-black/80" : "bg-black/60"
+        aria-label="Main"
+        className={`fixed left-1/2 top-6 z-50 hidden -translate-x-1/2 items-center rounded-2xl border border-white/10 px-3 py-1.5 backdrop-blur-md transition-colors duration-300 md:flex ${
+          isScrolled ? "bg-black/85" : "bg-black/65"
         }`}
       >
-        <ul className="flex items-center space-x-1.5">
-          {navItems.map((item) => (
-            <li key={item.label} className="relative">
-              {item.hasDropdown ? (
-                <button
-                  ref={eventsButtonRef}
-                  onClick={toggleDesktopEvents}
-                  className={`text-sm font-medium transition-colors px-3 rounded-xl py-1.5 ${
-                    isDesktopEventsOpen ? "text-white bg-white/20" : "text-white hover:text-white/80 hover:bg-white/10"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ) : (
-                <Link
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors px-3 rounded-xl py-1.5 ${
-                    pathname === item.href
-                      ? "text-white bg-white/20"
-                      : "text-white/80 hover:text-white hover:bg-white/10"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              )}
-            </li>
-          ))}
+        <ul className="flex items-center gap-1.5">
+          {navItems.map((item) => {
+            const current = isCurrent(pathname, item.href)
+            const base = "block rounded-xl px-3 py-1.5 text-sm font-medium text-white transition-colors"
+            return (
+              <li key={item.label}>
+                {item.hasDropdown ? (
+                  <button
+                    ref={eventsButtonRef}
+                    type="button"
+                    onClick={toggleDesktop}
+                    aria-expanded={desktopOpen}
+                    aria-controls="events-menu"
+                    className={`${base} ${desktopOpen || current ? "bg-white/20" : "hover:bg-white/10"}`}
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    aria-current={current ? "page" : undefined}
+                    className={`${base} ${current ? "bg-white/20" : "hover:bg-white/10"}`}
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            )
+          })}
         </ul>
       </nav>
 
-      {/* Desktop Mega Menu */}
-      {isDesktopEventsOpen && (
-        <div
-          ref={menuRef}
-          className="fixed top-20 left-1/2 -translate-x-1/2 w-[95vw] max-w-[1000px] max-h-[75vh] bg-black/90 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden border border-white/10 z-40 animate-in fade-in slide-in-from-top-2 duration-200"
-        >
-          <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-            <h2 className="text-sm font-medium text-white/80 uppercase tracking-wider">Our Events</h2>
+      {/* Desktop events menu */}
+      <div
+        id="events-menu"
+        ref={menuRef}
+        hidden={!desktopOpen}
+        className="fixed left-1/2 top-20 z-40 w-[95vw] max-w-[1000px] -translate-x-1/2 overflow-hidden rounded-2xl border border-white/10 bg-black/90 backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200"
+      >
+        <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
+          <h2 className="text-sm font-medium uppercase tracking-wider text-white/80">Our Events</h2>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/events"
+              onClick={() => closeDesktop()}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium text-white hover:bg-white/10"
+            >
+              View All
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
             <button
-              onClick={closeDesktopEvents}
-              className="text-white/60 hover:text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+              type="button"
+              onClick={() => closeDesktop(true)}
+              className="rounded-full p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
               aria-label="Close events menu"
             >
-              <X className="w-5 h-5" />
+              <X className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
+        </div>
 
-          <div className="overflow-y-auto max-h-[calc(75vh-60px)] p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {navigationEvents.map((event, index) => (
-                <Link
-                  key={event.id}
-                  href={`/events/${event.id}`}
-                  onClick={closeDesktopEvents}
-                  className="relative rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-200 overflow-hidden min-h-[220px] flex flex-col justify-between group"
-                  style={{
-                    animationDelay: shouldAnimate ? `${index * 50}ms` : "0ms",
-                    opacity: shouldAnimate ? 0 : 1,
-                    animation: shouldAnimate ? `fadeSlideIn 0.3s ease-out ${index * 50}ms forwards` : "none",
-                  }}
-                >
-                  <div className="absolute inset-0">
-                    <Image
-                      src={event.image}
-                      alt={event.name}
-                      fill
-                      className="object-cover opacity-20 group-hover:opacity-30 transition-opacity"
-                    />
-                  </div>
-                  <div className="relative z-10 p-4 flex flex-col justify-between h-full">
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs font-medium text-white/60 bg-white/10 px-2 py-1 rounded">
-                          {event.type}
-                        </span>
-                        <div className="w-14 h-6 relative">
-                          <Image
-                            src={event.logo}
-                            alt={`${event.name} logo`}
-                            fill
-                            className="object-contain filter brightness-0 invert"
-                          />
-                        </div>
-                      </div>
-                      <h3 className="text-base font-semibold text-white line-clamp-1">{event.name}</h3>
-                    </div>
-                    <p className="text-sm text-white/70 line-clamp-2 leading-snug mt-4">{event.description}</p>
-                  </div>
-                </Link>
-              ))}
-
+        <ul className="grid max-h-[calc(75vh-60px)] grid-cols-2 gap-4 overflow-y-auto p-6 lg:grid-cols-3">
+          {navigationEvents.map((event, index) => (
+            <li key={event.id} style={{ animation: `fadeSlideIn 0.3s ease-out ${index * 40}ms both` }}>
               <Link
-                href="/events"
-                onClick={closeDesktopEvents}
-                className="relative rounded-xl bg-white/5 hover:bg-white/10 border-2 border-dashed border-white/20 hover:border-white/40 transition-all duration-200 overflow-hidden min-h-[220px] flex flex-col items-center justify-center group"
-                style={{
-                  animationDelay: shouldAnimate ? `${navigationEvents.length * 50}ms` : "0ms",
-                  opacity: shouldAnimate ? 0 : 1,
-                  animation: shouldAnimate
-                    ? `fadeSlideIn 0.3s ease-out ${navigationEvents.length * 50}ms forwards`
-                    : "none",
-                }}
+                href={`/events/${event.slug}`}
+                onClick={() => closeDesktop()}
+                className="group relative flex h-full min-h-[200px] flex-col justify-between overflow-hidden rounded-xl bg-white/5 transition-colors duration-200 hover:bg-white/10"
               >
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-white/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
-                    <ArrowRight className="w-6 h-6 text-white group-hover:translate-x-0.5 transition-transform" />
+                <Image
+                  src={event.image}
+                  alt=""
+                  fill
+                  sizes="320px"
+                  className="object-cover opacity-20 transition-opacity group-hover:opacity-30"
+                />
+                <div className="relative z-10 flex h-full flex-col justify-between p-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium uppercase tracking-wider text-white/60">{event.type}</span>
+                      <div className="relative h-6 w-14">
+                        <Image src={event.logo} alt="" fill sizes="56px" className="object-contain brightness-0 invert" />
+                      </div>
+                    </div>
+                    <h3 className="line-clamp-1 text-base font-semibold text-white">{event.name}</h3>
                   </div>
-                  <span className="text-sm font-medium text-white">View All</span>
+                  <p className="mt-4 line-clamp-2 text-sm leading-snug text-white/70">{event.description}</p>
                 </div>
               </Link>
-            </div>
-          </div>
-        </div>
-      )}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      {/* Mobile Bottom Nav */}
-      {isMobileView && (
-        <nav className="fixed bottom-6 inset-x-4 z-50 w-auto flex justify-between bg-black/90 backdrop-blur-md rounded-2xl border border-white/10 px-6 py-3 md:hidden">
-          {navItems.map((item) =>
-            item.hasDropdown ? (
-              <button
-                key={item.label}
-                onClick={openMobileEvents}
-                className={`text-xs font-medium ${pathname === item.href ? "text-white" : "text-white/80 hover:text-white"}`}
-              >
-                {item.label}
-              </button>
-            ) : (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`text-xs font-medium ${pathname === item.href ? "text-white" : "text-white/80 hover:text-white"}`}
-              >
-                {item.label}
-              </Link>
-            ),
-          )}
-        </nav>
-      )}
-
-      {/* Mobile Events Overlay */}
-      {isMobileEventsOpen && isMobileView && (
-        <div className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="absolute inset-x-4 top-20 bottom-20 bg-black/80 rounded-2xl border border-white/10 flex flex-col animate-in slide-in-from-bottom-4 duration-300">
-            <div className="sticky top-0 z-20 px-6 pt-6 pb-2 bg-black/80 rounded-t-2xl">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-medium text-white">Our events</h2>
-                <button
-                  onClick={closeMobileEvents}
-                  className="text-white p-2 hover:bg-white/10 rounded-full transition"
-                  aria-label="Close events"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <hr className="border-t border-white/20 mt-2" />
-            </div>
-            <div className="flex-1 overflow-y-auto scrollbar-hide px-6 pb-6 pt-4">
-              <div className="space-y-6">
-                {navigationEvents.map((event, index) => (
-                  <Link
-                    key={event.id}
-                    href={`/events/${event.id}`}
-                    onClick={closeMobileEvents}
-                    className="block"
-                    style={{
-                      animationDelay: shouldAnimate ? `${index * 75}ms` : "0ms",
-                      opacity: shouldAnimate ? 0 : 1,
-                      animation: shouldAnimate ? `fadeSlideIn 0.3s ease-out ${index * 75}ms forwards` : "none",
-                    }}
+      {/* Mobile bottom nav (CSS-switched, so it is in the server HTML) */}
+      <nav
+        aria-label="Main"
+        className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-50 rounded-2xl border border-white/10 bg-black/90 backdrop-blur-md md:hidden"
+      >
+        <ul className="flex">
+          {navItems.map((item) => {
+            const current = isCurrent(pathname, item.href)
+            const cls = `flex w-full items-center justify-center py-3.5 text-xs font-medium ${
+              current ? "text-white" : "text-white/75"
+            }`
+            return (
+              <li key={item.label} className="flex-1">
+                {item.hasDropdown ? (
+                  <button
+                    ref={mobileEventsButtonRef}
+                    type="button"
+                    onClick={() => setMobileOpen(true)}
+                    aria-haspopup="dialog"
+                    aria-expanded={mobileOpen}
+                    className={cls}
                   >
-                    <div className="relative rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-200 overflow-hidden">
-                      <div className="absolute inset-0 rounded-xl">
-                        <Image
-                          src={event.image}
-                          alt={event.name}
-                          fill
-                          className="object-cover opacity-20"
-                        />
-                      </div>
-                      <div className="relative z-10 flex flex-col">
-                        <div className="flex items-center justify-between p-6 border-b border-white/10">
-                          <div className="w-28 h-28 relative">
-                            <Image
-                              src={event.logo}
-                              alt={`${event.name} logo`}
-                              fill
-                              className="object-contain filter brightness-0 invert"
-                            />
-                          </div>
-                          <span className="text-xs font-medium text-white/60 bg-white/10 px-2 py-1 rounded">
-                            {event.type}
-                          </span>
-                        </div>
-                        <div className="p-6">
-                          <p className="text-sm text-white/70 leading-snug">{event.description}</p>
-                        </div>
-                      </div>
-                    </div>
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link href={item.href} aria-current={current ? "page" : undefined} className={cls}>
+                    {item.label}
                   </Link>
-                ))}
+                )}
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
 
+      {/* Mobile events panel */}
+      <dialog
+        ref={mobileDialogRef}
+        aria-labelledby="mobile-events-title"
+        onClose={() => {
+          setMobileOpen(false)
+          mobileEventsButtonRef.current?.focus()
+        }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setMobileOpen(false)
+        }}
+        className="m-0 h-full max-h-none w-full max-w-none bg-transparent p-0 backdrop:bg-black/70 backdrop:backdrop-blur-md md:hidden"
+      >
+        <div className="absolute inset-x-4 bottom-24 top-16 flex flex-col rounded-2xl border border-white/10 bg-neutral-950">
+          <div className="flex items-center justify-between border-b border-white/15 px-6 pb-3 pt-5">
+            <h2 id="mobile-events-title" className="text-sm font-medium text-white">
+              Our events
+            </h2>
+            <button
+              type="button"
+              onClick={() => setMobileOpen(false)}
+              className="-mr-2 rounded-full p-2 text-white transition hover:bg-white/10"
+              aria-label="Close events"
+            >
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+          <ul className="scrollbar-hide flex-1 space-y-4 overflow-y-auto px-4 py-4">
+            {navigationEvents.map((event, index) => (
+              <li key={event.id} style={mobileOpen ? { animation: `fadeSlideIn 0.3s ease-out ${index * 50}ms both` } : undefined}>
                 <Link
-                  href="/events"
-                  onClick={closeMobileEvents}
-                  className="block"
-                  style={{
-                    animationDelay: shouldAnimate ? `${navigationEvents.length * 75}ms` : "0ms",
-                    opacity: shouldAnimate ? 0 : 1,
-                    animation: shouldAnimate
-                      ? `fadeSlideIn 0.3s ease-out ${navigationEvents.length * 75}ms forwards`
-                      : "none",
-                  }}
+                  href={`/events/${event.slug}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="relative block overflow-hidden rounded-xl bg-white/5 transition-colors hover:bg-white/10"
                 >
-                  <div className="relative rounded-xl bg-white/5 hover:bg-white/10 border-2 border-dashed border-white/20 hover:border-white/40 transition-all duration-200 overflow-hidden p-8">
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                        <ArrowRight className="w-6 h-6 text-white" />
+                  <Image src={event.image} alt="" fill sizes="100vw" className="object-cover opacity-20" />
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between border-b border-white/10 p-5">
+                      <div className="relative h-16 w-28">
+                        <Image src={event.logo} alt={event.name} fill sizes="112px" className="object-contain object-left brightness-0 invert" />
                       </div>
-                      <div>
-                        <span className="text-sm font-medium text-white block">View All Events</span>
-                      </div>
+                      <span className="text-xs font-medium uppercase tracking-wider text-white/60">{event.type}</span>
                     </div>
+                    <p className="p-5 text-sm leading-snug text-white/75">{event.description}</p>
                   </div>
                 </Link>
-              </div>
-            </div>
-          </div>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/events"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-xl border border-white/15 p-5 text-sm font-medium text-white hover:bg-white/10"
+              >
+                View All Events
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </li>
+          </ul>
         </div>
-      )}
-
-      <style jsx global>{`
-        @keyframes fadeSlideIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+      </dialog>
     </>
   )
 }

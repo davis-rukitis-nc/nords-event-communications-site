@@ -70,7 +70,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
   return (
     <>
       <StructuredData data={[articleStructuredData, breadcrumbData]} />
-      <main className="bg-white">
+      <div className="bg-white">
         <header className="relative w-full h-[50vh] md:h-[60vh] rounded-b-2xl overflow-hidden">
           <Image src={article.image} alt="" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
@@ -104,10 +104,10 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
           <div className="article-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
         </article>
 
-        <div className="bg-gray-50">
+        <div className="bg-neutral-50">
           <NewsSection />
         </div>
-      </main>
+      </div>
     </>
   )
 }
