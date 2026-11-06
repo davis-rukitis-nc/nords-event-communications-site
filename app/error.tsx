@@ -22,11 +22,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         <p className="text-neutral-400 mb-8 max-w-md mx-auto">
           {"We encountered an unexpected error. Please try again or return to the homepage."}
         </p>
-        {error?.message && (
-          <p className="text-sm text-red-400 mb-6 font-mono bg-red-500/10 px-4 py-2 rounded-lg inline-block">
-            {error.message}
-          </p>
-        )}
+        {error?.digest && <p className="mb-6 text-xs text-neutral-500">Reference: {error.digest}</p>}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => reset()}
