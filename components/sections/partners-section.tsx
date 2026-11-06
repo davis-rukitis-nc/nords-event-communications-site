@@ -280,7 +280,7 @@ export default function PartnersSection() {
                     draggable={false}
                   >
                     <Image
-                      src={partner.logo || "/placeholder.svg"}
+                      src={partner.logo}
                       alt={`${partner.name} logo`}
                       width={140}
                       height={80}
@@ -291,7 +291,7 @@ export default function PartnersSection() {
                   </Link>
                 ) : (
                   <Image
-                    src={partner.logo || "/placeholder.svg"}
+                    src={partner.logo}
                     alt={`${partner.name} logo`}
                     width={140}
                     height={80}

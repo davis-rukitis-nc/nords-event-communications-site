@@ -10,7 +10,7 @@ export default function PageHeader({ title, subtitle, imageUrl }: PageHeaderProp
   return (
     <header className="relative w-full h-[50vh] md:h-[60vh] lg:h-[65vh] rounded-b-2xl overflow-hidden bg-gray-900">
       <Image
-        src={imageUrl || "/placeholder.svg"}
+        src={imageUrl}
         alt={`Header image for ${title}`}
         fill
         className="object-cover opacity-50"

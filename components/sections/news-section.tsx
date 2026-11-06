@@ -78,7 +78,7 @@ export default function NewsSection() {
               >
                 <div className="relative aspect-[4/2.5] overflow-hidden rounded-lg">
                   <Image
-                    src={article.image || "/placeholder.svg"}
+                    src={article.image}
                     alt={article.title || "Article image"}
                     fill
                     className="object-cover"

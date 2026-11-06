@@ -206,7 +206,7 @@ export default function Navigation() {
                 >
                   <div className="absolute inset-0">
                     <Image
-                      src={event.image || "/placeholder.svg"}
+                      src={event.image}
                       alt={event.name}
                       fill
                       className="object-cover opacity-20 group-hover:opacity-30 transition-opacity"
@@ -220,7 +220,7 @@ export default function Navigation() {
                         </span>
                         <div className="w-14 h-6 relative">
                           <Image
-                            src={event.logo || "/placeholder.svg"}
+                            src={event.logo}
                             alt={`${event.name} logo`}
                             fill
                             className="object-contain filter brightness-0 invert"
@@ -317,7 +317,7 @@ export default function Navigation() {
                     <div className="relative rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-200 overflow-hidden">
                       <div className="absolute inset-0 rounded-xl">
                         <Image
-                          src={event.image || "/placeholder.svg"}
+                          src={event.image}
                           alt={event.name}
                           fill
                           className="object-cover opacity-20"
@@ -327,7 +327,7 @@ export default function Navigation() {
                         <div className="flex items-center justify-between p-6 border-b border-white/10">
                           <div className="w-28 h-28 relative">
                             <Image
-                              src={event.logo || "/placeholder.svg"}
+                              src={event.logo}
                               alt={`${event.name} logo`}
                               fill
                               className="object-contain filter brightness-0 invert"

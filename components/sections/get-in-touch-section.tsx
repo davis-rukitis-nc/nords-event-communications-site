@@ -1,28 +1,7 @@
-"use client"
-
-import { useState } from "react"
 import Image from "next/image"
-import { Mail, Linkedin, Instagram } from "lucide-react"
-import { teamMembers } from "@/lib/data/team-data"
-import ByTheNumbersSection from "./by-the-numbers-section"
-
-interface TeamMember {
-  name: string
-  role: string
-  image: string
-  description: string
-  linkedin?: string
-  instagram?: string
-}
+import { Mail } from "lucide-react"
 
 export default function GetInTouchSection() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null)
-
-  const isActive = (index: number) => activeIndex === index || hoverIndex === index
-
-  const keyPeople = teamMembers.slice(0, 0)
-
 return (
   <section className="py-16 md:py-24 bg-white">
     <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -65,73 +44,6 @@ return (
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-          {keyPeople.map((member, index) => (
-            <div
-              key={member.name}
-              onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-              onMouseEnter={() => setHoverIndex(index)}
-              onMouseLeave={() => setHoverIndex(null)}
-              className="rounded-[28px] overflow-hidden relative cursor-pointer transition-all min-h-[460px] group"
-            >
-              <div className="absolute inset-0 z-0 transition-all duration-300">
-                {isActive(index) ? (
-                  <div className="w-full h-full bg-black" />
-                ) : (
-                  <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
-                )}
-              </div>
-
-              <div
-                className={`relative z-10 flex flex-col justify-between h-full p-6 text-white transition-all duration-300 ${
-                  isActive(index) ? "bg-black" : "bg-gradient-to-t from-black/60 via-black/30 to-transparent"
-                }`}
-              >
-                {isActive(index) && (
-                  <div>
-                    <p className="text-gray-400 mb-4 leading-relaxed text-base">{member.description}</p>
-                  </div>
-                )}
-
-                <div className="flex items-end justify-between mt-auto pt-4 border-t border-white/10">
-                  <div>
-                    <h3 className="text-base font-semibold">{member.name}</h3>
-                    <p className="text-xs text-gray-300">{member.role}</p>
-                  </div>
-                  {isActive(index) && (
-                    <div className="flex gap-2 ml-2">
-                      {member.linkedin && (
-                        <a
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="w-9 h-9 rounded-full border border-white/40 flex items-center justify-center hover:bg-white/10 transition"
-                          aria-label={`${member.name} on LinkedIn`}
-                        >
-                          <Linkedin className="w-4 h-4 text-white" />
-                        </a>
-                      )}
-                      {member.instagram && (
-                        <a
-                          href={member.instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="w-9 h-9 rounded-full border border-white/40 flex items-center justify-center hover:bg-white/10 transition"
-                          aria-label={`${member.name} on Instagram`}
-                        >
-                          <Instagram className="w-4 h-4 text-white" />
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
         <div className="mb-20 text-right">
           <a
             href="mailto:info@necom.lv"
@@ -142,7 +54,6 @@ return (
           </a>
         </div>
 
-        <ByTheNumbersSection />
       </div>
     </section>
   )

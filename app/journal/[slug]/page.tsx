@@ -72,7 +72,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
       <StructuredData data={[articleStructuredData, breadcrumbData]} />
       <main className="bg-white">
         <header className="relative w-full h-[50vh] md:h-[60vh] rounded-b-2xl overflow-hidden">
-          <Image src={article.image || "/placeholder.svg"} alt="" fill className="object-cover" priority />
+          <Image src={article.image} alt="" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
           <div className="absolute bottom-0 w-full text-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-8 md:pb-12">

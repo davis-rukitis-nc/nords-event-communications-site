@@ -10,7 +10,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
   return (
     <header className="relative aspect-[16/9] md:aspect-[16/7] w-full overflow-hidden rounded-b-2xl">
       <Image
-        src={event.image || "/placeholder.svg"}
+        src={event.image}
         alt={`Promotional image for ${event.name}`}
         fill
         className="object-cover"

@@ -12,7 +12,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       <div className="bg-white rounded-xl overflow-hidden transition-all duration-300">
         <div className="relative aspect-[16/10] overflow-hidden">
           <Image
-            src={article.image || "/placeholder.svg"}
+            src={article.image}
             alt={`Image for ${article.title}`}
             fill
             className="object-cover"

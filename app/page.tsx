@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 import HeroSection from "@/components/sections/hero-section"
-import ByNordsMarquee from "@/components/sections/ByNordsMarquee"
 import AboutSection from "@/components/sections/about-section"
 import NewsSection from "@/components/sections/news-section"
 import EventsShowcaseSection from "@/components/sections/events-showcase-section"
 import GetInTouchSection from "@/components/sections/get-in-touch-section"
+import ByTheNumbersSection from "@/components/sections/by-the-numbers-section"
 import PartnersSection from "@/components/sections/partners-section"
 import StructuredData from "@/components/seo/structured-data"
 import { generatePageMetadata, pageMetaConfigs } from "@/lib/seo/meta-config"
@@ -41,6 +41,7 @@ export default function HomePage() {
         <NewsSection />
         <EventsShowcaseSection />
         <GetInTouchSection />
+        <ByTheNumbersSection />
         <PartnersSection />
       </main>
     </>

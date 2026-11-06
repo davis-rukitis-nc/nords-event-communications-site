@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { displayEvents } from "@/lib/data/events-data"
+import RecordsBoard from "@/components/records-board"
 
 const BottleSVG1 = ({ filled, onClick }: { filled: boolean; onClick: () => void }) => (
   <svg
@@ -396,94 +397,6 @@ const FlagMarquee = () => {
   )
 }
 
-const SevenSegmentDigit = ({ digit }: { digit: string }) => {
-  const patterns: Record<string, boolean[]> = {
-    "0": [true, true, true, true, true, true, false],
-    "1": [false, true, true, false, false, false, false],
-    "2": [true, true, false, true, true, false, true],
-    "3": [true, true, true, true, false, false, true],
-    "4": [false, true, true, false, false, true, true],
-    "5": [true, false, true, true, false, true, true],
-    "6": [true, false, true, true, true, true, true],
-    "7": [true, true, true, false, false, false, false],
-    "8": [true, true, true, true, true, true, true],
-    "9": [true, true, true, true, false, true, true],
-  }
-
-  const segments = patterns[digit] || [false, false, false, false, false, false, false]
-  const onColor = "bg-amber-400"
-  const offColor = "bg-neutral-800"
-
-  return (
-    <div className="relative w-4 h-7 md:w-5 md:h-9">
-      {/* Top */}
-      <div
-        className={`absolute top-0 left-[3px] md:left-1 w-2.5 md:w-3 h-[3px] rounded-sm ${segments[0] ? onColor : offColor}`}
-      />
-      {/* Top Right */}
-      <div
-        className={`absolute top-[3px] right-0 w-[3px] h-2.5 md:h-3 rounded-sm ${segments[1] ? onColor : offColor}`}
-      />
-      {/* Bottom Right */}
-      <div
-        className={`absolute bottom-[3px] right-0 w-[3px] h-2.5 md:h-3 rounded-sm ${segments[2] ? onColor : offColor}`}
-      />
-      {/* Bottom */}
-      <div
-        className={`absolute bottom-0 left-[3px] md:left-1 w-2.5 md:w-3 h-[3px] rounded-sm ${segments[3] ? onColor : offColor}`}
-      />
-      {/* Bottom Left */}
-      <div
-        className={`absolute bottom-[3px] left-0 w-[3px] h-2.5 md:h-3 rounded-sm ${segments[4] ? onColor : offColor}`}
-      />
-      {/* Top Left */}
-      <div
-        className={`absolute top-[3px] left-0 w-[3px] h-2.5 md:h-3 rounded-sm ${segments[5] ? onColor : offColor}`}
-      />
-      {/* Middle */}
-      <div
-        className={`absolute top-1/2 -translate-y-1/2 left-[3px] md:left-1 w-2.5 md:w-3 h-[3px] rounded-sm ${segments[6] ? onColor : offColor}`}
-      />
-    </div>
-  )
-}
-
-const SeikoClock = ({
-  time,
-  label,
-  athlete,
-  country,
-}: { time: string; label: string; athlete?: string; country?: string }) => {
-  return (
-    <div className="flex flex-col">
-      <div className="bg-neutral-950 rounded-lg p-2 md:p-3 border border-neutral-800">
-        <div className="flex items-center gap-[2px] md:gap-1 justify-center">
-          {time.split("").map((char, i) =>
-            char === ":" || char === "." ? (
-              <div key={i} className="flex flex-col gap-1 px-[2px]">
-                <div
-                  className={`w-1 h-1 md:w-1.5 md:h-1.5 rounded-full ${char === ":" ? "bg-amber-400" : "bg-amber-400"}`}
-                />
-                {char === ":" && <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-amber-400" />}
-              </div>
-            ) : (
-              <SevenSegmentDigit key={i} digit={char} />
-            ),
-          )}
-        </div>
-      </div>
-      <div className="mt-2 text-center">
-        <p className="text-[10px] md:text-xs text-neutral-300 font-medium">{label}</p>
-        {athlete && (
-          <p className="text-[9px] md:text-[10px] text-neutral-500 mt-0.5">
-            {athlete} {country && <span className="text-neutral-600">({country})</span>}
-          </p>
-        )}
-      </div>
-    </div>
-  )
-}
-
 export default function ByTheNumbersSection() {
   const [daysInBusiness, setDaysInBusiness] = useState(0)
   const [daysToMarathon, setDaysToMarathon] = useState(0)
@@ -638,7 +551,7 @@ export default function ByTheNumbersSection() {
               className="col-span-1 md:col-span-2 relative rounded-2xl overflow-hidden group cursor-pointer aspect-[16/9] md:aspect-[2/1]"
             >
               <Image
-                src={rimiMarathon.image || "/placeholder.svg"}
+                src={rimiMarathon.image}
                 alt={rimiMarathon.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -829,7 +742,7 @@ export default function ByTheNumbersSection() {
               className="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/3]"
             >
               <Image
-                src={wineChampagne.image || "/placeholder.svg"}
+                src={wineChampagne.image}
                 alt={wineChampagne.name}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -862,24 +775,9 @@ export default function ByTheNumbersSection() {
             </div>
           </div>
 
-          {/* World Records - Seiko timing board */}
-          <div className="col-span-1 md:col-span-3 bg-neutral-900 rounded-2xl p-4 md:p-6">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-4 md:mb-6">
-              <div>
-                <p className="text-xl md:text-2xl font-bold text-white">3 World Records</p>
-                <p className="text-xs md:text-sm text-neutral-400">
-                  World Athletics Road Running Championships Riga 2023
-                </p>
-              </div>
-              <span className="text-xs font-mono text-neutral-500 bg-neutral-800 px-3 py-1.5 rounded">
-                Official Times
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
-              <SeikoClock time="4:20.98" label="Women's Road Mile WR" athlete="Diribe Welteji" country="ETH" />
-              <SeikoClock time="3:56.13" label="Men's Road Mile WR" athlete="Hobbs Kessler" country="USA" />
-              <SeikoClock time="1:26:16" label="F65 Half Marathon WR" athlete="Rosa Mota" country="POR" />
-            </div>
+          {/* World Records timing board */}
+          <div className="col-span-1 md:col-span-3">
+            <RecordsBoard subtitle="World Athletics Road Running Championships Riga 2023" />
           </div>
 
           {/* Donation/Sustainability block */}

@@ -76,7 +76,7 @@ export default function EventsShowcaseSection() {
                 className={`relative aspect-[16/9] rounded-xl overflow-hidden shadow-lg ${index % 2 === 1 ? "lg:col-start-2" : ""}`}
               >
                 <Image
-                  src={event.image || "/placeholder.svg?width=800&height=450"}
+                  src={event.image}
                   alt={`${event.name} event showcase image`}
                   fill
                   className="object-cover"

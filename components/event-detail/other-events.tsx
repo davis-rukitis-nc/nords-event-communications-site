@@ -73,7 +73,7 @@ export default function OtherEvents({ currentEventId }: OtherEventsProps) {
               {/* Background image */}
               <div className="absolute inset-0">
                 <Image
-                  src={event.image || "/placeholder.svg?width=400&height=300"}
+                  src={event.image}
                   alt={`${event.name} background`}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -90,7 +90,7 @@ export default function OtherEvents({ currentEventId }: OtherEventsProps) {
               {/* Event logo */}
               <div className="absolute top-3 right-3 w-12 h-6">
                 <Image
-                  src={event.logo || "/placeholder.svg?width=48&height=24"}
+                  src={event.logo}
                   alt={`${event.name} logo`}
                   fill
                   className="object-contain filter brightness-0 invert"

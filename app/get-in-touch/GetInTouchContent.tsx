@@ -131,7 +131,7 @@ export default function GetInTouchContent() {
           {rimiMarathon && (
             <div className="relative rounded-3xl overflow-hidden min-h-[200px]">
               <Image
-                src={rimiMarathon.image || "/placeholder.svg"}
+                src={rimiMarathon.image}
                 alt="Rimi Riga Marathon"
                 fill
                 className="object-cover"
@@ -150,7 +150,7 @@ export default function GetInTouchContent() {
           {wineChampagne && (
             <div className="relative rounded-3xl overflow-hidden min-h-[200px]">
               <Image
-                src={wineChampagne.image || "/placeholder.svg"}
+                src={wineChampagne.image}
                 alt="Riga Wine and Champagne"
                 fill
                 className="object-cover"
@@ -169,7 +169,7 @@ export default function GetInTouchContent() {
           {balticAwards && (
             <div className="relative rounded-3xl overflow-hidden min-h-[200px]">
               <Image
-                src={balticAwards.image || "/placeholder.svg"}
+                src={balticAwards.image}
                 alt="Baltic Wine and Drinks Awards"
                 fill
                 className="object-cover"
@@ -187,7 +187,7 @@ export default function GetInTouchContent() {
           {/* Pink Noise Years */}
           {pinkNoise && (
             <div className="relative rounded-3xl overflow-hidden min-h-[200px]">
-              <Image src={pinkNoise.image || "/placeholder.svg"} alt="Pink Noise Riga" fill className="object-cover" />
+              <Image src={pinkNoise.image} alt="Pink Noise Riga" fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               <div className="absolute bottom-6 left-6">
                 <span className="inline-block bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-white text-sm mb-2">
@@ -202,7 +202,7 @@ export default function GetInTouchContent() {
           {whiskyFriends && (
             <div className="relative rounded-3xl overflow-hidden min-h-[200px] md:col-span-2">
               <Image
-                src={whiskyFriends.image || "/placeholder.svg"}
+                src={whiskyFriends.image}
                 alt="Riga Whisky and Friends"
                 fill
                 className="object-cover"
