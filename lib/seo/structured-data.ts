@@ -1,96 +1,71 @@
-import type { Event } from "@/lib/data/events-data"
 import type { JournalArticle } from "@/lib/data/journal-data"
+import type { CalendarEvent } from "@/lib/data/calendar"
+
+const SITE = "https://www.necom.lv"
 
 // Organization structured data
 export const organizationStructuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${SITE}/#organization`,
   name: "NECom - Nords Event Communications",
+  legalName: "Nords Event Communications SIA",
   alternateName: "NECom",
-  url: "https://www.necom.lv",
-  logo: "https://www.necom.lv/logo-dark.svg",
+  url: SITE,
+  logo: `${SITE}/icons/icon-512.png`,
+  image: `${SITE}/og-image.jpg`,
   description:
     "Nords Event Communications is not your regular events agency. We're a special force crafting experiences that are moving Riga and Latvia - literally and figuratively!",
+  email: "info@necom.lv",
+  identifier: { "@type": "PropertyValue", propertyID: "LV company registration number", value: "50003981501" },
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Brīvības iela 40–24",
+    addressLocality: "Rīga",
+    postalCode: "LV-1050",
     addressCountry: "LV",
-    addressLocality: "Riga",
-    addressRegion: "Riga",
   },
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer service",
-    email: "info@necom.lv",
-  },
-  sameAs: [
-    "https://www.linkedin.com/company/necom-lv",
-    "https://www.instagram.com/necom.lv",
-    "https://www.facebook.com/necom-lv",
-  ],
   foundingDate: "2008",
-  numberOfEmployees: "10-50",
-  industry: "Event Marketing and Management",
-  areaServed: {
-    "@type": "Place",
-    name: "Baltics",
-  },
+  areaServed: "Baltics",
+  sameAs: [
+    "https://www.instagram.com/necom.lv/",
+    "https://www.linkedin.com/company/necom-lv",
+    "https://www.facebook.com/necom.lv/",
+  ],
 }
 
 // Website structured data
 export const websiteStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${SITE}/#website`,
   name: "NECom - Nords Event Communications",
-  url: "https://www.necom.lv",
-  description:
-    "We're a special force crafting experiences that are moving Riga and Latvia - literally and figuratively!",
-  publisher: {
-    "@type": "Organization",
-    name: "NECom",
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://www.necom.lv/search?q={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
+  url: SITE,
+  inLanguage: "en",
+  publisher: { "@id": `${SITE}/#organization` },
 }
 
-// Event structured data generator
-export function generateEventStructuredData(event: Event) {
+// Dated event (from lib/data/calendar.ts). TBA entries are skipped by callers.
+export function generateCalendarEventStructuredData(event: CalendarEvent) {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
     name: event.name,
-    description: event.description,
-    image: event.image,
-    url: `https://www.necom.lv/events/${event.id}`,
+    ...(event.description && { description: event.description }),
+    startDate: event.start,
+    ...(event.end && { endDate: event.end }),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    organizer: {
-      "@type": "Organization",
-      name: "NECom - Nords Event Communications",
-      url: "https://www.necom.lv",
-    },
+    ...(event.link && { url: event.link }),
     location: {
       "@type": "Place",
-      name: "Riga, Latvia",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Riga",
-        addressCountry: "LV",
-      },
+      name: event.venue ?? "Riga",
+      address: { "@type": "PostalAddress", addressLocality: "Rīga", addressCountry: "LV" },
     },
-    ...(event.yearStarted && {
-      startDate: `${event.yearStarted}-01-01`,
+    organizer: { "@id": `${SITE}/#organization` },
+    ...(event.soldOut && {
+      offers: { "@type": "Offer", availability: "https://schema.org/SoldOut", url: event.link },
     }),
-    ...(event.annualParticipants && {
-      maximumAttendeeCapacity: event.annualParticipants.replace(/[^\d]/g, ""),
-    }),
-    category: event.type,
-    keywords: [event.type, "Latvia", "Riga", "Event", "Marketing", "Sponsorship"],
   }
 }
 
@@ -101,7 +76,7 @@ export function generateArticleStructuredData(article: JournalArticle) {
     "@type": "Article",
     headline: article.title,
     description: article.excerpt,
-    image: article.image,
+    image: article.image.startsWith("/") ? `${SITE}${article.image}` : article.image,
     url: `https://www.necom.lv/journal/${article.id}`,
     datePublished: article.date,
     dateModified: article.date,
@@ -109,14 +84,7 @@ export function generateArticleStructuredData(article: JournalArticle) {
       "@type": "Organization",
       name: "NECom - Nords Event Communications",
     },
-    publisher: {
-      "@type": "Organization",
-      name: "NECom - Nords Event Communications",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://www.necom.lv/logo-light.svg",
-      },
-    },
+    publisher: { "@id": `${SITE}/#organization` },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `https://www.necom.lv/journal/${article.id}`,
@@ -124,7 +92,7 @@ export function generateArticleStructuredData(article: JournalArticle) {
     articleSection: article.category,
     keywords: article.tags.join(", "),
     wordCount: article.content.split(" ").length,
-    inLanguage: "en-US",
+    inLanguage: "en",
   }
 }
 
@@ -138,22 +106,6 @@ export function generateBreadcrumbStructuredData(breadcrumbs: Array<{ name: stri
       position: index + 1,
       name: crumb.name,
       item: crumb.url,
-    })),
-  }
-}
-
-// FAQ structured data generator
-export function generateFAQStructuredData(faqs: Array<{ question: string; answer: string }>) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
     })),
   }
 }

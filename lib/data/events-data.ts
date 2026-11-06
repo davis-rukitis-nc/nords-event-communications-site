@@ -2,15 +2,15 @@
 
 export interface Event {
   id: string
+  /** URL segment under /events/. Defaults to id. */
+  slug: string
   name: string
   type: string
   description: string
   image: string
-  logo: string
-  date?: string
-  link?: string
-  startDate?: string // Full date in ISO format
-  endDate?: string // End date for multi-day events
+  logo?: string
+  /** First edition, used only to compute "years" stats. */
+  startDate?: string
   yearStarted?: number
   annualParticipants?: string
   youtubeUrl?: string
@@ -25,8 +25,6 @@ export interface Event {
     instagram?: string
     facebook?: string
   }
-  isToBeAnnounced?: boolean
-  eventCategory?: "sports" | "food-drinks" | "music" | "awards" | "other"
   showInNavigation?: boolean
   showOnHomepage?: boolean
   isOneTimeEvent?: boolean
@@ -36,11 +34,12 @@ export interface Event {
 export const displayEvents: Event[] = [
   {
     id: "rimi-riga-marathon",
+    slug: "rimi-riga-marathon",
     name: "Rimi Riga Marathon",
     type: "Sports",
     description: "The most impactful and international annual running event in the Baltics!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0-3.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/RRM-logo-black.png",
+    image: "/images/events/rimi-riga-marathon.webp",
+    logo: "/images/logos/rimi-riga-marathon.png",
     startDate: "1991-07-27T09:00:00",
     yearStarted: 1991,
     annualParticipants: "46,000+",
@@ -60,12 +59,13 @@ export const displayEvents: Event[] = [
   },
   {
     id: "pink-noise-riga",
+    slug: "pink-noise-riga",
     name: "Pink Noise Riga",
     type: "Music",
     description:
       "A new kid on the Baltic music scene - a cocktail of world-class jazz, pop-rock, fusion, and contemporary improvised music!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/11/Pink-Noise-Riga-2024.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/Pink-Noise-Riga-black.svg",
+    image: "/images/events/pink-noise-riga.webp",
+    logo: "/images/logos/pink-noise-riga.svg",
     startDate: "2024-11-09T18:00:00",
     yearStarted: 2024,
     annualParticipants: "4,000+",
@@ -85,11 +85,12 @@ export const displayEvents: Event[] = [
   },
   {
     id: "riga-wine-champagne",
+    slug: "riga-wine-champagne",
     name: "Riga Wine & Champagne",
     type: "Food & Drinks",
     description: "The Baltic's most decadent celebration of wine, champagne and gastronomy!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0-2.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/RWCH-Logo-Text-black.png",
+    image: "/images/events/riga-wine-champagne.webp",
+    logo: "/images/logos/riga-wine-champagne.png",
     startDate: "2012-11-23T17:00:00",
     yearStarted: 2012,
     annualParticipants: "8,000+",
@@ -110,11 +111,12 @@ export const displayEvents: Event[] = [
   },
   {
     id: "riga-whisky-friends",
+    slug: "riga-whisky-friends",
     name: "Riga Whisky & Friends",
     type: "Food & Drinks",
     description: "Riga's annual gathering of fine spirits and drinks at the legendary Riga Circus!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/rwf-logo.svg",
+    image: "/images/events/riga-whisky-friends.webp",
+    logo: "/images/logos/riga-whisky-friends.svg",
     startDate: "2024-09-21T16:00:00",
     yearStarted: 2024,
     annualParticipants: "1,000+",
@@ -135,12 +137,13 @@ export const displayEvents: Event[] = [
   },
   {
     id: "baltic-wine-drinks-awards",
+    slug: "baltic-wine-drinks-awards",
     name: "Baltic Wine & Drinks Awards",
     type: "Food & Drinks",
     description:
       "An insider's guide to the best Baltic restaurants, bars, retailers with good, great, and extraordinary wine lists, drinks programmes, and portfolios!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0-1.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/BWDA-logo.svg",
+    image: "/images/events/baltic-wine-drinks-awards.webp",
+    logo: "/images/logos/baltic-wine-drinks-awards.svg",
     startDate: "2018-03-09T19:00:00",
     yearStarted: 2018,
     youtubeUrl: "https://www.youtube-nocookie.com/embed/UnqE9E981E8?si=1kia80iakMPeMVsR",
@@ -160,11 +163,12 @@ export const displayEvents: Event[] = [
   },
   {
     id: "world-athletics-road-running-championships-riga23",
+    slug: "world-athletics-riga23",
     name: "World Athletics Road Running Championships Riga23",
     type: "Sports",
     description: "The Inaugural World Champs of Riga, the World Road Running Capital!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/MEDAL50-1.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/12/R23_H_Black.svg",
+    image: "/images/events/world-athletics-riga23.webp",
+    logo: "/images/logos/world-athletics-riga23.svg",
     startDate: "2023-09-30T09:00:00",
     yearStarted: 2023,
     youtubeUrl: "https://www.youtube.com/embed/iBbepfFzAiM?si=WsajxzIspSq0tKvG",
@@ -184,11 +188,11 @@ export const displayEvents: Event[] = [
   },
   {
     id: "baltic-brand-forum",
+    slug: "baltic-brand-forum",
     name: "Baltic Brand Forum",
     type: "Marketing",
     description: "The leading inspirational platform for marketing & brand professionals in the Baltics!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/BBF-26.09-FIRST-LOOK2-13_websize.jpg",
-    logo: "https://balticbrands.eu/storage/app/media/2025/logo.png",
+    image: "/images/events/baltic-brand-forum.jpg",
     startDate: "2019-10-03T09:00:00",
     yearStarted: 2019,
     youtubeUrl: "https://www.youtube.com/embed/BG3G1SjuxlE?si=BxAO8044hXlwPoKB",
@@ -202,196 +206,6 @@ export const displayEvents: Event[] = [
     showOnHomepage: false,
   },
 ]
-
-// Upcoming events for calendar/footer display (legacy)
-export const upcomingEvents: Event[] = [
-    {
-    id: "riga-whisky-friends-2026",
-    name: "Riga Whisky & Friends",
-    type: "Food & Drinks",
-    description: "Gourmet beloved whisky culture festival",
-    image: "",
-    logo: "",
-    date: "September 11 - 12, 2026",
-    startDate: "2026-09-11",
-    endDate: "2026-09-12",
-    link: "https://rigawhiskyfriends.com/",
-    isToBeAnnounced: false,
-    eventCategory: "food-drinks",
-  },
-  {
-    id: "wine-of-the-year-2026",
-    name: "Annual 'Wine of the Year' competition",
-    type: "Food & Drinks",
-    description: "A guide to wines imported into Latvia",
-    image: "",
-    logo: "",
-    date: "August 26 - 30, 2026",
-    startDate: "2026-07-26",
-    endDate: "2026-07-30",
-    link: "https://rigawinechampagne.lv/",
-    isToBeAnnounced: false,
-    eventCategory: "food-drinks",
-  },
-  {
-    id: "top-100-wines-chefs-2026",
-    name: "TOP 100 Wines + Chefs",
-    type: "Food & Drinks",
-    description: "Premium wine and culinary event",
-    image: "",
-    logo: "",
-    date: "November 18 - 21, 2026",
-    startDate: "2026-11-18",
-    endDate: "2026-11-21",
-    link: "https://rigawinechampagne.lv/",
-    isToBeAnnounced: false,
-    eventCategory: "food-drinks",
-  },
-  {
-    id: "pink-noise-riga-fall-2026",
-    name: "Pink Noise Riga",
-    type: "Music",
-    description: "Electronic music festival",
-    image: "",
-    logo: "",
-    date: "November 27 - 29, 2026",
-    startDate: "2026-11-27",
-    endDate: "2026-11-29",
-    link: "https://pinknoiseriga.com/",
-    isToBeAnnounced: false,
-    eventCategory: "music",
-  },
-
-]
-
-// Calendar events for 2026 with proper date parsing
-export const calendarEvents2026: Event[] = [
-  {
-    id: "riga-whisky-friends-2026",
-    name: "Riga Whisky & Friends",
-    type: "Food & Drinks",
-    description: "Gourmet beloved whisky culture festival",
-    image: "",
-    logo: "",
-    date: "11.-12.09.",
-    startDate: "2026-09-11",
-    endDate: "2026-09-12",
-    link: "https://rigawhiskyfriends.com/",
-    isToBeAnnounced: false,
-    eventCategory: "food-drinks",
-  },
-  {
-    id: "wine-of-the-year-2026",
-    name: "Annual 'Wine of the Year' competition",
-    type: "Food & Drinks",
-    description: "A guide to wines imported into Latvia",
-    image: "",
-    logo: "",
-    date: "",
-    startDate: "2026-07-26",
-    endDate: "2026-07-30",
-    link: "https://rigawinechampagne.lv/",
-    isToBeAnnounced: false,
-    eventCategory: "food-drinks",
-  },
-  {
-    id: "top-100-wines-chefs-2026",
-    name: "TOP 100 Wines + Chefs",
-    type: "Food & Drinks",
-    description: "Premium wine and culinary event",
-    image: "",
-    logo: "",
-    date: "18.-21.11.",
-    startDate: "2026-11-18",
-    endDate: "2026-11-21",
-    link: "https://rigawinechampagne.lv/",
-    isToBeAnnounced: false,
-    eventCategory: "food-drinks",
-  },
-  {
-    id: "pink-noise-riga-fall-2026",
-    name: "Pink Noise Riga",
-    type: "Music",
-    description: "Electronic music festival",
-    image: "",
-    logo: "",
-    date: "27.-29.11.",
-    startDate: "2026-11-27",
-    endDate: "2026-11-29",
-    link: "https://pinknoiseriga.com/",
-    isToBeAnnounced: false,
-    eventCategory: "music",
-  },
-  {
-    id: "rimi-riga-marathon-2027",
-    name: "Rimi Riga Marathon",
-    type: "Sports",
-    description: "The biggest running event in the Baltics",
-    image: "",
-    logo: "",
-    date: "14.-16.05.",
-    startDate: "2027-05-14",
-    endDate: "2027-05-16",
-    link: "https://rimirigamarathon.com/",
-    isToBeAnnounced: false,
-    eventCategory: "sports",
-  },
-]
-
-export function getSortedUpcomingEvents(events: Event[] = upcomingEvents): Event[] {
-  return [...events].sort((a, b) => {
-    const dateA = a.startDate ? new Date(a.startDate).getTime() : 0
-    const dateB = b.startDate ? new Date(b.startDate).getTime() : 0
-    return dateA - dateB
-  })
-}
-
-export function getSortedCalendarEvents(year?: number): Event[] {
-  const events = calendarEvents2026 // In the future, can filter by year
-  return [...events].sort((a, b) => {
-    const dateA = a.startDate ? new Date(a.startDate).getTime() : 0
-    const dateB = b.startDate ? new Date(b.startDate).getTime() : 0
-    return dateA - dateB
-  })
-}
-
-export function getEventCategoryColor(category?: string): string {
-  switch (category) {
-    case "sports":
-      return "#cc2128" // Red for sports
-    case "food-drinks":
-      return "#8B5CF6" // Purple for food & drinks
-    case "music":
-      return "#fa4100" // Orange for music
-    case "awards":
-      return "#fad0c5" // Pink for awards
-    default:
-      return "#6B7280" // Gray for TBA/other
-  }
-}
-
-export function getNextUpcomingEvent(): Event | null {
-  const now = new Date()
-  const sortedEvents = getSortedCalendarEvents()
-
-  for (const event of sortedEvents) {
-    if (event.startDate && !event.isToBeAnnounced) {
-      const eventDate = new Date(event.startDate)
-      if (eventDate > now) {
-        return event
-      }
-    }
-  }
-  return sortedEvents[0] || null
-}
-
-export function getDaysUntilEvent(startDate: string): number {
-  const now = new Date()
-  const eventDate = new Date(startDate)
-  const diffTime = eventDate.getTime() - now.getTime()
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-  return Math.max(0, diffDays)
-}
 
 // Helper functions for filtering events
 export function getNavigationEvents(): Event[] {

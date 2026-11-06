@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { marked } from "marked"
-import { journalArticles } from "@/lib/data/journal-data"
+import { formatArticleDate, journalArticles } from "@/lib/data/journal-data"
 import NewsSection from "@/components/sections/news-section"
 import StructuredData from "@/components/seo/structured-data"
 import { generatePageMetadata } from "@/lib/seo/meta-config"
@@ -65,49 +65,39 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
     { name: article.title, url: `https://www.necom.lv/journal/${article.id}` },
   ])
 
-  const contentHtml = await marked.parse(article.content)
+  // Lazy-load images and embeds inside the article body.
+  const contentHtml = (await marked.parse(article.content))
+    .replace(/<img(?![^>]*\bloading=)/g, '<img loading="lazy" decoding="async"')
+    .replace(/<iframe(?![^>]*\bloading=)/g, '<iframe loading="lazy"')
 
   return (
     <>
       <StructuredData data={[articleStructuredData, breadcrumbData]} />
-      <main className="bg-white">
-        <header className="relative w-full h-[50vh] md:h-[60vh] rounded-b-2xl overflow-hidden">
-          <Image src={article.image || "/placeholder.svg"} alt="" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+      <div className="bg-white">
+        <header className="relative h-[60svh] min-h-[360px] w-full overflow-hidden rounded-b-2xl bg-neutral-900 md:h-[60vh]">
+          <Image src={article.image} alt="" fill className="object-cover" priority sizes="100vw" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/50" />
           <div className="absolute bottom-0 w-full text-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-8 md:pb-12">
-              <p className="text-sm font-semibold uppercase tracking-widest text-white/80">{article.category}</p>
-              <h1 className="text-3xl md:text-5xl font-bold mt-2">{article.title}</h1>
+              <p className="text-xs font-medium uppercase tracking-widest text-white/80">{article.category}</p>
+              <h1 className="mt-3 max-w-4xl text-3xl font-bold md:text-5xl">{article.title}</h1>
             </div>
           </div>
         </header>
 
-        <article className="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-16">
-          <div className="flex items-center gap-6 text-sm text-secondary-dark mb-8 border-b pb-4">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              <span>{article.date}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-                <line x1="7" y1="7" x2="7.01" y2="7" />
-              </svg>
-              <span>{article.tags.join(", ")}</span>
-            </div>
-          </div>
+        <article className="mx-auto max-w-3xl px-6 py-12 md:py-16">
+          <p className="mb-10 flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-neutral-200 pb-4 text-sm text-muted-foreground">
+            <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
+            {article.tags.length > 0 && <span aria-hidden="true">·</span>}
+            {article.tags.length > 0 && <span>{article.tags.join(", ")}</span>}
+          </p>
           <div className="article-content" dangerouslySetInnerHTML={{ __html: contentHtml }} />
         </article>
 
-        <div className="bg-gray-50">
-          <NewsSection />
+        <div className="border-t border-neutral-200">
+          <NewsSection excludeId={article.id} />
         </div>
-      </main>
+      </div>
     </>
   )
 }

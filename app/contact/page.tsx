@@ -19,7 +19,7 @@ export default function ContactPage() {
       <PageHeader
         title="Contact Us"
         subtitle="Get in touch with NECom for inquiries about event marketing, sponsorship opportunities, or general questions. We're here to help."
-        imageUrl="https://rimirigamarathon.com/wp-content/uploads/2025/11/necomteam.webp"
+        imageUrl="/images/pages/contact-header.webp"
       />
       <ContactPageClient />
     </>

@@ -1,30 +1,21 @@
-import type React from "react"
 import type { Event } from "@/lib/data/events-data"
-import { Award, Users } from "lucide-react"
 
-interface EventStatsProps {
-  event: Event
-}
+export default function EventStats({ event }: { event: Event }) {
+  const stats = [
+    event.yearStarted && { label: "First Held In", value: event.yearStarted },
+    event.annualParticipants && { label: "Annual Participants", value: event.annualParticipants },
+  ].filter(Boolean) as { label: string; value: string | number }[]
 
-const StatCard = ({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) => (
-  <div className="rounded-2xl flex items-center gap-4">
-    <div className="bg-gray-200 text-gray-700 p-3 rounded-xl">{icon}</div>
-    <div>
-      <p className="text-sm text-gray-600">{label}</p>
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
-    </div>
-  </div>
-)
+  if (!stats.length) return null
 
-export default function EventStats({ event }: EventStatsProps) {
   return (
-    <div className="flex flex-wrap gap-6 mt-8 mb-8">
-      {event.yearStarted && (
-        <StatCard icon={<Award className="w-6 h-6" />} label="First Held In" value={event.yearStarted} />
-      )}
-      {event.annualParticipants && (
-        <StatCard icon={<Users className="w-6 h-6" />} label="Annual Participants" value={event.annualParticipants} />
-      )}
-    </div>
+    <dl className="mt-6 grid grid-cols-2 gap-6">
+      {stats.map((stat) => (
+        <div key={stat.label}>
+          <dt className="text-xs uppercase tracking-wider text-neutral-500">{stat.label}</dt>
+          <dd className="mt-1 text-2xl font-bold tabular-nums text-neutral-950">{stat.value}</dd>
+        </div>
+      ))}
+    </dl>
   )
 }

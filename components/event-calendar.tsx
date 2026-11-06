@@ -1,134 +1,77 @@
 "use client"
 
 import { useState } from "react"
-import { getSortedCalendarEvents, displayEvents } from "@/lib/data/events-data"
+import { ArrowUpRight, ChevronDown } from "lucide-react"
+import { type CalendarEvent, formatEventDate, seriesColor } from "@/lib/data/calendar"
 
 interface EventCalendarProps {
-  year?: number
-  className?: string
+  events: CalendarEvent[]
   initialCount?: number
 }
 
-function getEventSeriesColor(eventName: string): string {
-  const name = eventName.toLowerCase()
-
-  if (name.includes("marathon") || name.includes("rimi")) {
-    const event = displayEvents.find((e) => e.id === "rimi-riga-marathon")
-    return event?.brandColors?.primary || "#cc2128"
-  }
-  if (name.includes("bubble") || name.includes("wine") || name.includes("champagne") || name.includes("top 100")) {
-    const event = displayEvents.find((e) => e.id === "riga-wine-champagne")
-    return event?.brandColors?.primary || "#e40521"
-  }
-  if (name.includes("whisky")) {
-    const event = displayEvents.find((e) => e.id === "riga-whisky-friends")
-    return event?.brandColors?.primary || "#023047"
-  }
-  if (name.includes("pink noise") || name.includes("music")) {
-    const event = displayEvents.find((e) => e.id === "pink-noise-riga")
-    return event?.brandColors?.primary || "#fa4100"
-  }
-  if (name.includes("award")) {
-    const event = displayEvents.find((e) => e.id === "baltic-wine-drinks-awards")
-    return event?.brandColors?.primary || "#fad0c5"
-  }
-
-  return "#6B7280"
-}
-
-function formatDateRange(startDate?: string, endDate?: string): string {
-  if (!startDate || !endDate) return ""
-
-  const start = new Date(startDate)
-  const end = new Date(endDate)
-
-  const startDay = start.getDate().toString().padStart(2, "0")
-  const endDay = end.getDate().toString().padStart(2, "0")
-  const startMonth = start.toLocaleString("en-US", { month: "short" })
-  const endMonth = end.toLocaleString("en-US", { month: "short" })
-
-  if (startMonth === endMonth) {
-    return `${startDay}–${endDay} ${startMonth}`
-  }
-
-  return `${startDay} ${startMonth} – ${endDay} ${endMonth}`
-}
-
-export default function EventCalendar({ year = 2026, className = "", initialCount = 3 }: EventCalendarProps) {
+export default function EventCalendar({ events, initialCount = 4 }: EventCalendarProps) {
   const [expanded, setExpanded] = useState(false)
-  const allEvents = getSortedCalendarEvents(year)
+  const visible = expanded ? events : events.slice(0, initialCount)
+  const hiddenCount = events.length - initialCount
 
-  const visibleEvents = expanded ? allEvents : allEvents.slice(0, initialCount)
-  const hiddenCount = allEvents.length - initialCount
+  if (!events.length) return null
 
   return (
-    <div className={`${className}`}>
-      <div className="relative">
-        <div className="space-y-0">
-          {visibleEvents.map((event, index) => {
-            const color = event.isToBeAnnounced ? "#D1D5DB" : getEventSeriesColor(event.name)
-            const dateStr = formatDateRange(event.startDate, event.endDate)
-
-            return (
-              <div
-                key={event.id}
-                className={`relative flex items-start gap-3 py-2.5 ${
-                  index !== visibleEvents.length - 1 ? "border-b border-neutral-100" : ""
-                }`}
-              >
-                <div className="w-2 h-2 rounded-full shrink-0 mt-1.5" style={{ backgroundColor: color }} />
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span
-                      className={`text-sm leading-tight ${
-                        event.isToBeAnnounced ? "text-neutral-400 italic" : "text-neutral-800 font-medium"
-                      }`}
-                    >
-                      {event.name}
-                    </span>
-
-                    {!event.isToBeAnnounced && event.link && (
-                      <a
-                        href={event.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shrink-0 text-neutral-300 hover:text-neutral-500 transition-colors"
-                      >
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-
-                  <span className="text-xs text-neutral-400 tabular-nums">{dateStr}</span>
-                </div>
+    <div>
+      <ul id="event-calendar-list">
+        {visible.map((event) => (
+          <li key={event.id} className="flex items-start gap-3 border-b border-neutral-100 py-2.5 last:border-b-0">
+            <span
+              className="mt-1.5 h-2 w-2 shrink-0 rounded-full"
+              style={{ backgroundColor: seriesColor[event.series] }}
+              aria-hidden="true"
+            />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-baseline justify-between gap-3">
+                <span
+                  className={`text-sm leading-tight ${
+                    event.isToBeAnnounced ? "italic text-neutral-500" : "font-medium text-neutral-800"
+                  }`}
+                >
+                  {event.name}
+                </span>
+                {event.link && !event.isToBeAnnounced && (
+                  <a
+                    href={event.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${event.name} (opens in a new tab)`}
+                    className="-m-1 shrink-0 p-1 text-neutral-400 transition-colors hover:text-neutral-700"
+                  >
+                    <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  </a>
+                )}
               </div>
-            )
-          })}
-        </div>
-      </div>
+              <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-xs tabular-nums text-neutral-500">
+                <time dateTime={event.start}>{formatEventDate(event)}</time>
+                {event.venue && <span aria-hidden="true">·</span>}
+                {event.venue && <span>{event.venue}</span>}
+                {event.soldOut && (
+                  <span className="ml-0.5 rounded-sm border border-neutral-300 px-1 text-[10px] font-medium uppercase tracking-wide text-neutral-600">
+                    Sold out
+                  </span>
+                )}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
 
       {hiddenCount > 0 && (
         <button
+          type="button"
           onClick={() => setExpanded(!expanded)}
-          className="mt-3 w-full py-2 text-xs font-medium text-neutral-500 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors flex items-center justify-center gap-1"
+          aria-expanded={expanded}
+          aria-controls="event-calendar-list"
+          className="mt-3 flex w-full items-center justify-center gap-1 rounded-lg py-2 text-xs font-medium text-neutral-600 transition-colors hover:bg-neutral-100 hover:text-neutral-900"
         >
           {expanded ? "Show less" : `+${hiddenCount} more`}
-          <svg
-            className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+          <ChevronDown className={`h-3 w-3 transition-transform ${expanded ? "rotate-180" : ""}`} aria-hidden="true" />
         </button>
       )}
     </div>

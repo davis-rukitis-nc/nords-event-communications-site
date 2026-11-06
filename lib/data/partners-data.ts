@@ -136,11 +136,6 @@ export const partnerLogos: Partner[] = [
     link: "https://www.missionlatvia.lv",
   },
   {
-    name: "Izglītības un zinātnes ministrija",
-    logo: "/partners/izm.svg",
-    link: "https://www.izm.gov.lv",
-  },
-  {
     name: "Bērnu slimnīcas fonds",
     logo: "/partners/bsf.svg",
     link: "https://www.bsf.lv",
