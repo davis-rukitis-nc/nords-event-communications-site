@@ -1,22 +1,13 @@
-"use client"
-
-import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Mail } from "lucide-react"
 import { displayEvents } from "@/lib/data/events-data"
+import { daysUntil, getCalendarEvent } from "@/lib/data/calendar"
 
 const FOUNDING_DATE = new Date("2008-01-04")
-const RIMI_MARATHON_DATE = new Date("2025-05-17")
 
 function calculateDaysSince(date: Date): number {
   const now = new Date()
   const diff = now.getTime() - date.getTime()
-  return Math.floor(diff / (1000 * 60 * 60 * 24))
-}
-
-function calculateDaysUntil(date: Date): number {
-  const now = new Date()
-  const diff = date.getTime() - now.getTime()
   return Math.floor(diff / (1000 * 60 * 60 * 24))
 }
 
@@ -25,13 +16,9 @@ function calculateYearsSince(yearStarted: number): number {
 }
 
 export default function GetInTouchContent() {
-  const [daysInBusiness, setDaysInBusiness] = useState(0)
-  const [daysUntilMarathon, setDaysUntilMarathon] = useState(0)
-
-  useEffect(() => {
-    setDaysInBusiness(calculateDaysSince(FOUNDING_DATE))
-    setDaysUntilMarathon(calculateDaysUntil(RIMI_MARATHON_DATE))
-  }, [])
+  const marathon = getCalendarEvent("rimi-riga-marathon-2027")
+  const daysInBusiness = calculateDaysSince(FOUNDING_DATE)
+  const daysUntilMarathon = marathon ? daysUntil(marathon.end ?? marathon.start) : 0
 
   const yearsSinceStart = new Date().getFullYear() - 2008
 
@@ -51,7 +38,7 @@ export default function GetInTouchContent() {
             <div className="flex flex-col items-center text-center">
               <div className="w-40 h-40 rounded-full overflow-hidden mb-6">
                 <Image
-                  src="/images/design-mode/aigarsnords.jpg"
+                  src="/images/team/aigarsnords.jpg"
                   alt="Aigars Nords"
                   width={160}
                   height={160}
@@ -73,7 +60,7 @@ export default function GetInTouchContent() {
             <div className="flex flex-col items-center text-center">
               <div className="w-40 h-40 rounded-full overflow-hidden mb-6">
                 <Image
-                  src="/images/design-mode/inese.jpg"
+                  src="/images/team/inese.jpg"
                   alt="Inese Kikule"
                   width={160}
                   height={160}

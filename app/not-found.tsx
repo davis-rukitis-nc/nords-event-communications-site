@@ -13,7 +13,7 @@ export default function NotFound() {
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <Image
-          src="https://rimirigamarathon.com/wp-content/uploads/2024/05/RRM_2023-40-scaled.jpg"
+          src="/images/pages/journal-header.jpg"
           alt=""
           fill
           className="object-cover opacity-20"

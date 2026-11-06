@@ -8,7 +8,7 @@ export interface Event {
   type: string
   description: string
   image: string
-  logo: string
+  logo?: string
   /** First edition, used only to compute "years" stats. */
   startDate?: string
   yearStarted?: number
@@ -38,8 +38,8 @@ export const displayEvents: Event[] = [
     name: "Rimi Riga Marathon",
     type: "Sports",
     description: "The most impactful and international annual running event in the Baltics!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0-3.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/RRM-logo-black.png",
+    image: "/images/events/rimi-riga-marathon.webp",
+    logo: "/images/logos/rimi-riga-marathon.png",
     startDate: "1991-07-27T09:00:00",
     yearStarted: 1991,
     annualParticipants: "46,000+",
@@ -64,8 +64,8 @@ export const displayEvents: Event[] = [
     type: "Music",
     description:
       "A new kid on the Baltic music scene - a cocktail of world-class jazz, pop-rock, fusion, and contemporary improvised music!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/11/Pink-Noise-Riga-2024.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/Pink-Noise-Riga-black.svg",
+    image: "/images/events/pink-noise-riga.webp",
+    logo: "/images/logos/pink-noise-riga.svg",
     startDate: "2024-11-09T18:00:00",
     yearStarted: 2024,
     annualParticipants: "4,000+",
@@ -89,8 +89,8 @@ export const displayEvents: Event[] = [
     name: "Riga Wine & Champagne",
     type: "Food & Drinks",
     description: "The Baltic's most decadent celebration of wine, champagne and gastronomy!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0-2.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/RWCH-Logo-Text-black.png",
+    image: "/images/events/riga-wine-champagne.webp",
+    logo: "/images/logos/riga-wine-champagne.png",
     startDate: "2012-11-23T17:00:00",
     yearStarted: 2012,
     annualParticipants: "8,000+",
@@ -115,8 +115,8 @@ export const displayEvents: Event[] = [
     name: "Riga Whisky & Friends",
     type: "Food & Drinks",
     description: "Riga's annual gathering of fine spirits and drinks at the legendary Riga Circus!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/rwf-logo.svg",
+    image: "/images/events/riga-whisky-friends.webp",
+    logo: "/images/logos/riga-whisky-friends.svg",
     startDate: "2024-09-21T16:00:00",
     yearStarted: 2024,
     annualParticipants: "1,000+",
@@ -142,8 +142,8 @@ export const displayEvents: Event[] = [
     type: "Food & Drinks",
     description:
       "An insider's guide to the best Baltic restaurants, bars, retailers with good, great, and extraordinary wine lists, drinks programmes, and portfolios!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/02/web-0-1.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/02/BWDA-logo.svg",
+    image: "/images/events/baltic-wine-drinks-awards.webp",
+    logo: "/images/logos/baltic-wine-drinks-awards.svg",
     startDate: "2018-03-09T19:00:00",
     yearStarted: 2018,
     youtubeUrl: "https://www.youtube-nocookie.com/embed/UnqE9E981E8?si=1kia80iakMPeMVsR",
@@ -167,8 +167,8 @@ export const displayEvents: Event[] = [
     name: "World Athletics Road Running Championships Riga23",
     type: "Sports",
     description: "The Inaugural World Champs of Riga, the World Road Running Capital!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/MEDAL50-1.webp",
-    logo: "https://rimirigamarathon.com/wp-content/uploads/2025/12/R23_H_Black.svg",
+    image: "/images/events/world-athletics-riga23.webp",
+    logo: "/images/logos/world-athletics-riga23.svg",
     startDate: "2023-09-30T09:00:00",
     yearStarted: 2023,
     youtubeUrl: "https://www.youtube.com/embed/iBbepfFzAiM?si=WsajxzIspSq0tKvG",
@@ -192,8 +192,7 @@ export const displayEvents: Event[] = [
     name: "Baltic Brand Forum",
     type: "Marketing",
     description: "The leading inspirational platform for marketing & brand professionals in the Baltics!",
-    image: "https://rimirigamarathon.com/wp-content/uploads/2025/12/BBF-26.09-FIRST-LOOK2-13_websize.jpg",
-    logo: "https://balticbrands.eu/storage/app/media/2025/logo.png",
+    image: "/images/events/baltic-brand-forum.jpg",
     startDate: "2019-10-03T09:00:00",
     yearStarted: 2019,
     youtubeUrl: "https://www.youtube.com/embed/BG3G1SjuxlE?si=BxAO8044hXlwPoKB",

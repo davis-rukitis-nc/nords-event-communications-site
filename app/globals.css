@@ -295,3 +295,28 @@
   padding: 0;
   color: inherit;
 }
+
+/* Partner logo marquee: pure CSS, pauses on hover/focus, static + scrollable for reduced motion. */
+.partners-track {
+  animation: partners-scroll 80s linear infinite;
+}
+.partners-marquee:hover .partners-track,
+.partners-marquee:focus-within .partners-track {
+  animation-play-state: paused;
+}
+@keyframes partners-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee {
+    overflow-x: auto;
+  }
+  .partners-track {
+    animation: none;
+  }
+  .partners-track > [aria-hidden="true"] {
+    display: none;
+  }
+}

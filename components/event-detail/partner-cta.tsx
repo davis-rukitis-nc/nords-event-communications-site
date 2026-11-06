@@ -3,18 +3,18 @@ import { ArrowRight } from "lucide-react"
 
 export default function PartnerCTA() {
   return (
-    <div className="bg-neutral-900 text-white p-8 rounded-2xl">
-      <h3 className="text-3xl font-bold mb-2">Become a Partner</h3>
-      <p className="text-white/80 mb-6 max-w-lg">
+    <div className="rounded-2xl bg-neutral-950 p-8 text-white">
+      <h3 className="mb-2 text-2xl font-bold md:text-3xl">Become a Partner</h3>
+      <p className="mb-6 max-w-lg text-white/80">
         Join us in creating unforgettable experiences. We offer unique partnership opportunities to connect your brand
         with a passionate audience.
       </p>
       <Link
         href="/contact"
-        className="inline-flex items-center space-x-2 bg-white text-neutral-900 px-6 py-3 rounded-xl font-medium hover:bg-neutral-200 transition-colors duration-200"
+        className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-neutral-950 transition-colors hover:bg-neutral-200"
       >
-        <span>Contact Us</span>
-        <ArrowRight className="w-4 h-4" />
+        Contact Us
+        <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </Link>
     </div>
   )

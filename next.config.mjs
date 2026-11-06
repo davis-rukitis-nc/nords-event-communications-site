@@ -10,13 +10,8 @@ const securityHeaders = [
 
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "rimirigamarathon.com",
-        pathname: "/wp-content/uploads/**",
-      },
-    ],
+    // Only YouTube thumbnails for the click-to-load video facade; everything else is local.
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {

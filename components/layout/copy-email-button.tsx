@@ -3,7 +3,16 @@
 import { useState } from "react"
 import { Copy, Check } from "lucide-react"
 
-export default function CopyEmailButton({ email, className = "" }: { email: string; className?: string }) {
+export default function CopyEmailButton({
+  email,
+  label,
+  className = "",
+}: {
+  email: string
+  /** Visible text; defaults to the address itself. */
+  label?: string
+  className?: string
+}) {
   const [copied, setCopied] = useState(false)
 
   const copy = async () => {
@@ -18,7 +27,7 @@ export default function CopyEmailButton({ email, className = "" }: { email: stri
 
   return (
     <button type="button" onClick={copy} className={className} aria-label={`Copy ${email}`}>
-      {email}
+      {copied && label ? "Copied" : (label ?? email)}
       {copied ? <Check className="h-4 w-4" aria-hidden="true" /> : <Copy className="h-4 w-4" aria-hidden="true" />}
       <span className="sr-only" aria-live="polite">
         {copied ? "Copied" : ""}

@@ -2,7 +2,7 @@ import type React from "react"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 import { InstagramIcon, FacebookIcon } from "@/components/brand-icons"
 import { displayEvents } from "@/lib/data/events-data"
 import EventHeader from "@/components/event-detail/event-header"
@@ -82,7 +82,7 @@ export default async function EventPage({ params }: EventPageProps) {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8 lg:order-first">
               <div>
-                <h2 className="text-3xl font-bold text-primary-dark mb-4">About the Event</h2>
+                <h2 className="mb-4 text-2xl font-semibold tracking-tight text-primary-dark md:text-3xl">About the Event</h2>
                 <p className="text-secondary-dark leading-relaxed">{event.longDescription}</p>
               </div>
               {event.youtubeUrl && <YouTubeEmbed url={event.youtubeUrl} title={`YouTube video for ${event.name}`} />}
@@ -91,7 +91,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
             {/* Sidebar */}
             <aside className="space-y-8 order-first lg:order-last">
-              <div className="bg-neutral-50 p-6 rounded-2xl">
+              <div className="rounded-2xl bg-neutral-50 p-6">
                 <h3 className="text-xl font-bold text-primary-dark mb-4">Event Details</h3>
                 <EventStats event={event} />
                 {event.officialSiteUrl && (
@@ -99,13 +99,13 @@ export default async function EventPage({ params }: EventPageProps) {
                     href={event.officialSiteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-flex w-full items-center justify-center space-x-2 px-6 py-3 rounded-xl font-medium transition-colors duration-200 text-white"
+                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
                     style={{
                       backgroundColor: event.brandColors?.primary || "#1f2937",
                     }}
                   >
                     <span>Visit Official Site</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 )}
 
@@ -118,7 +118,7 @@ export default async function EventPage({ params }: EventPageProps) {
                           href={event.socialMedia.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-12 h-12 rounded-xl bg-neutral-500 text-white hover:scale-105 transition-transform"
+                          className="flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-950 transition-colors hover:bg-neutral-950 hover:text-white"
                           aria-label={`Follow ${event.name} on Instagram`}
                         >
                           <InstagramIcon className="w-5 h-5" />
@@ -129,7 +129,7 @@ export default async function EventPage({ params }: EventPageProps) {
                           href={event.socialMedia.facebook}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-center w-12 h-12 rounded-xl bg-neutral-500 text-white hover:scale-105 transition-transform"
+                          className="flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-950 transition-colors hover:bg-neutral-950 hover:text-white"
                           aria-label={`Follow ${event.name} on Facebook`}
                         >
                           <FacebookIcon className="w-5 h-5" />

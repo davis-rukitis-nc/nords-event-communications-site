@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
       <PageHeader
         title="Privacy Policy"
         subtitle="How we collect, use, and protect information"
-        imageUrl="https://rimirigamarathon.com/wp-content/uploads/2025/07/0RK_6989.jpg"
+        imageUrl="/images/pages/about-header.jpg"
       />
 
       <div className="py-16 md:py-24">

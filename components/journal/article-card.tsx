@@ -1,43 +1,45 @@
 import Link from "next/link"
 import Image from "next/image"
-import type { JournalArticle } from "@/lib/data/journal-data"
+import { type JournalArticle, formatArticleDate } from "@/lib/data/journal-data"
 
 interface ArticleCardProps {
   article: JournalArticle
+  /** Compact cards (home) hide the excerpt. */
+  compact?: boolean
+  sizes?: string
+  headingLevel?: "h2" | "h3"
 }
 
-export default function ArticleCard({ article }: ArticleCardProps) {
+export default function ArticleCard({
+  article,
+  compact = false,
+  sizes = "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  headingLevel: Heading = "h3",
+}: ArticleCardProps) {
   return (
-    <Link href={`/journal/${article.id}`} className="block">
-      <div className="bg-white rounded-xl overflow-hidden transition-all duration-300">
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <Image
-            src={article.image}
-            alt={`Image for ${article.title}`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        </div>
-        <div className="p-5 bg-neutral-50">
-          <div className="flex items-center text-xs text-neutral-500 mb-2 uppercase tracking-wide">
-            <span>{article.category}</span>
-            <span className="mx-2">|</span>
-            <span>{article.date}</span>
-          </div>
-          <h3 className="text-lg font-semibold text-neutral-900 mb-2 leading-snug">{article.title}</h3>
-          <p className="text-sm text-neutral-600 line-clamp-3 mb-3">{article.excerpt}</p>
-          <div className="flex flex-wrap gap-2">
-            {article.tags.slice(0, 2).map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium text-neutral-800 bg-neutral-200"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+    <Link href={`/journal/${article.id}`} className="group block">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-neutral-100">
+        <Image
+          src={article.image}
+          alt=""
+          fill
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          sizes={sizes}
+        />
+      </div>
+      <div className="pt-4">
+        <p className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-subtle">
+          <span>{article.category}</span>
+          <span aria-hidden="true">·</span>
+          <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
+        </p>
+        <Heading className="text-base font-semibold leading-snug text-neutral-950 underline-offset-4 decoration-1 group-hover:underline md:text-lg">
+          {article.title}
+        </Heading>
+        {!compact && <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{article.excerpt}</p>}
+        {article.tags.length > 0 && (
+          <p className="mt-3 text-xs text-subtle">{article.tags.slice(0, 2).join(" · ")}</p>
+        )}
       </div>
     </Link>
   )

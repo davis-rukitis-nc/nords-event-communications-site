@@ -3,12 +3,15 @@ export default function AboutSection() {
 
   return (
     <section
-      className={`py-16 md:py-24 px-4 md:px-8 max-w-7xl mx-auto`}
+      aria-labelledby="about-us"
+      className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-24"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
         {/* Left Side - Heading */}
         <div>
-          <h2 className="text-3xl font-semibold text-foreground leading-tight lg:text-3xl md:text-3xl">About Us</h2>
+          <h2 id="about-us" className="text-2xl font-semibold leading-tight tracking-tight text-foreground md:text-3xl">
+            About Us
+          </h2>
         </div>
 
         {/* Right Side - Content */}

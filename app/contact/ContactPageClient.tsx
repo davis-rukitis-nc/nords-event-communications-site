@@ -1,62 +1,23 @@
-"use client"
-
-import { useState } from "react"
-import { Copy, Check } from "lucide-react"
+import CopyEmailButton from "@/components/layout/copy-email-button"
 
 function ContactUsBlock() {
-  const [copied, setCopied] = useState(false)
   const email = "info@necom.lv"
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(email)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (err) {
-      console.error("Failed to copy email:", err)
-    }
-  }
-
   return (
-    <div className="bg-neutral-900 text-white p-8 md:p-12 rounded-2xl relative overflow-hidden">
-      <div className="relative z-10">
-        <h3 className="text-2xl md:text-3xl font-bold mb-4">Get in touch</h3>
-
-        <div className="flex flex-wrap items-center gap-4">
-          <a
-            href={`mailto:${email}`}
-            className="text-lg md:text-xl font-medium text-white hover:text-white/80 transition-colors"
-          >
-            {email}
-          </a>
-          <button
-            onClick={handleCopyEmail}
-            className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl transition-colors duration-200"
-            aria-label="Copy email address"
-          >
-            {copied ? (
-              <>
-                <Check className="w-4 h-4 text-green-400" />
-                <span className="text-sm text-green-400">Copied!</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-4 h-4" />
-                <span className="text-sm">Copy Email</span>
-              </>
-            )}
-          </button>
-        </div>
+    <div className="rounded-2xl bg-neutral-950 p-8 text-white md:p-12">
+      <h3 className="mb-4 text-2xl font-bold md:text-3xl">Get in touch</h3>
+      <div className="flex flex-wrap items-center gap-4">
+        <a
+          href={`mailto:${email}`}
+          className="text-lg font-medium text-white underline-offset-4 decoration-1 hover:underline md:text-xl"
+        >
+          {email}
+        </a>
+        <CopyEmailButton
+          email={email}
+          label="Copy Email"
+          className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/20"
+        />
       </div>
-
-      {copied && (
-        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 animate-slide-right">
-          <div className="flex items-center space-x-2">
-            <Check className="w-5 h-5" />
-            <span className="font-medium">Email copied to clipboard!</span>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
@@ -80,7 +41,11 @@ export default function ContactPageClient() {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold text-primary-dark mb-2">Email</h3>
-                  <p className="text-secondary-dark">info@necom.lv</p>
+                  <p className="text-secondary-dark">
+                    <a href="mailto:info@necom.lv" className="underline-offset-4 hover:underline">
+                      info@necom.lv
+                    </a>
+                  </p>
                 </div>
 
                 <div>
@@ -98,7 +63,7 @@ export default function ContactPageClient() {
 
             <div className="space-y-6">
               <div className="bg-neutral-50 p-6 md:p-8 rounded-2xl">
-                <h2 className="text-4xl font-bold text-primary-dark mb-2">{new Date().getFullYear() - 1999}+ Years</h2>
+                <p className="text-4xl font-bold text-primary-dark mb-2">{new Date().getFullYear() - 1999}+ Years</p>
                 <p className="text-secondary-dark">of Experience in Event Marketing</p>
               </div>
 

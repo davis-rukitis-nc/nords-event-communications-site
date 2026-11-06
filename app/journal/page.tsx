@@ -19,18 +19,18 @@ export default function JournalPage() {
   return (
     <>
       <StructuredData data={breadcrumbData} />
-      <div className="bg-neutral-50">
+      <div className="bg-white">
         <PageHeader
           title="Journal"
           subtitle="Insights, stories, and news from the world of Nords Event Communications."
-          imageUrl="https://rimirigamarathon.com/wp-content/uploads/2024/05/RRM_2023-40-scaled.jpg"
+          imageUrl="/images/pages/journal-header.jpg"
         />
 
         <div className="py-16 md:py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
               {sortedArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} />
+                <ArticleCard key={article.id} article={article} headingLevel="h2" />
               ))}
             </div>
           </div>

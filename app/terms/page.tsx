@@ -17,7 +17,7 @@ export default function TermsOfServicePage() {
       <PageHeader
         title="Terms of Service"
         subtitle="The rules for using this website"
-        imageUrl="https://rimirigamarathon.com/wp-content/uploads/2025/07/0RK_6989.jpg"
+        imageUrl="/images/pages/about-header.jpg"
       />
 
       <div className="py-16 md:py-24">

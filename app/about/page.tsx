@@ -19,7 +19,7 @@ export default function AboutPage() {
         <PageHeader
           title="About Us"
           subtitle="Nords Event Communications (NECom) is an event production, marketing and sponsorship agency creating experiences that are moving Riga and Latvia - literally and figuratively! Can you keep up?"
-          imageUrl="https://rimirigamarathon.com/wp-content/uploads/2025/07/0RK_6989.jpg"
+          imageUrl="/images/pages/about-header.jpg"
         />
         <div className="py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">

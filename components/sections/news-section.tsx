@@ -1,79 +1,37 @@
-import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { getSortedArticles } from "@/lib/data/journal-data"
+import ArticleCard from "@/components/journal/article-card"
 
-export default function NewsSection() {
-
-  const latestArticles = getSortedArticles(4)
-
+export default function NewsSection({ excludeId }: { excludeId?: string }) {
+  const latestArticles = getSortedArticles(5)
+    .filter((a) => a.id !== excludeId)
+    .slice(0, 4)
 
   return (
-    <section
-      className={`py-16 md:py-24`}
-    >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mb-8 md:mb-12">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+    <section aria-labelledby="journal-latest" className="py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6 md:px-8">
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between md:mb-14">
           <div>
-            <h2 className="font-semibold text-foreground mb-4 text-2xl lg:text-3xl">Journal</h2>
-            <p className="text-muted-foreground max-w-2xl text-sm">
+            <h2 id="journal-latest" className="mb-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+              Journal
+            </h2>
+            <p className="max-w-2xl text-sm text-muted-foreground">
               {"Stay updated with the latest insights and stories from our events!"}
             </p>
           </div>
           <Link
             href="/journal"
-            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors whitespace-nowrap mt-2 sm:mt-0"
+            className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium text-neutral-950 underline-offset-4 hover:underline"
           >
             Read All
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
-      </div>
 
-      {/* Static Grid Layout */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {latestArticles.map((article, index) => (
-            <div
-              key={article.id}
-              className={`rounded-xl overflow-hidden transition-opacity duration-500`}
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
-            >
-              <Link
-                href={`/journal/${article.id}`}
-                className="block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-              >
-                <div className="relative aspect-[4/2.5] overflow-hidden rounded-lg">
-                  <Image
-                    src={article.image}
-                    alt={article.title || "Article image"}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                  />
-                </div>
-                <div className="p-3 px-0">
-                  <div className="flex items-center text-xs text-neutral-500 mb-2 uppercase tracking-wide">
-                    <span>{article.category}</span>
-                    <span className="mx-1">|</span>
-                    <span>{article.date}</span>
-                  </div>
-                  <h3 className="text-base font-semibold text-neutral-900 mb-2 leading-snug">{article.title}</h3>
-                  <div className="flex flex-wrap gap-1.5">
-                    {article.tags.slice(0, 2).map((tag, tagIndex) => (
-                      <span
-                        key={tagIndex}
-                        className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-neutral-100 text-neutral-800 uppercase tracking-wide"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            </div>
+        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {latestArticles.map((article) => (
+            <ArticleCard key={article.id} article={article} compact sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
           ))}
         </div>
       </div>

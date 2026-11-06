@@ -40,7 +40,7 @@ export default function HeroSection() {
   return (
     <section ref={sectionRef} className="relative h-svh min-h-[520px] w-full overflow-hidden bg-black">
       <Image
-        src="/images/design-mode/hero-still-sq.jpg"
+        src="/images/hero/hero-still-sq.jpg"
         alt=""
         fill
         priority

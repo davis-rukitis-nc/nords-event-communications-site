@@ -15,7 +15,7 @@ export default function GetInTouchPage() {
       <PageHeader
         title="Get in Touch"
         subtitle="Connect with our experienced team for event marketing, sponsorship opportunities, and partnership inquiries."
-        imageUrl="https://rimirigamarathon.com/wp-content/uploads/2025/07/rwch-1.jpg"
+        imageUrl="/images/pages/get-in-touch-header.jpg"
       />
       <GetInTouchContent />
     </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Image from "next/image"
+import EventHeader from "@/components/event-detail/event-header"
 import { displayEvents } from "@/lib/data/events-data"
 import YouTubeEmbed from "@/components/event-detail/youtube-embed"
 import OtherEvents from "@/components/event-detail/other-events"
@@ -27,26 +27,7 @@ export default function BalticBrandForumPage() {
     <>
       <StructuredData data={breadcrumbData} />
       <div className="bg-white">
-        {/* Header */}
-        <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
-          <Image
-            src="https://rimirigamarathon.com/wp-content/uploads/2025/12/BBF-26.09-FIRST-LOOK2-13_websize.jpg"
-            alt="Baltic Brand Forum"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0">
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-6 md:pb-12">
-              <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs text-white mb-4 uppercase tracking-wide">
-                {event.type}
-              </span>
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">Baltic Brand Forum</h1>
-              <p className="text-lg md:text-xl text-white/80 max-w-2xl">{event.description}</p>
-            </div>
-          </div>
-        </div>
+        <EventHeader event={event} title="Baltic Brand Forum" subtitle={event.description} />
 
         {/* Content */}
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-16">
@@ -59,7 +40,7 @@ export default function BalticBrandForumPage() {
                   href="https://www.magicagency.lv/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 underline"
+                  className="text-neutral-950 underline decoration-1 underline-offset-4 hover:decoration-2"
                 >
                   Magic Agency
                 </a>

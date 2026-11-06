@@ -185,9 +185,11 @@ export default function Navigation() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-medium uppercase tracking-wider text-white/60">{event.type}</span>
-                      <div className="relative h-6 w-14">
-                        <Image src={event.logo} alt="" fill sizes="56px" className="object-contain brightness-0 invert" />
-                      </div>
+                      {event.logo && (
+                        <div className="relative h-6 w-14">
+                          <Image src={event.logo} alt="" fill sizes="56px" className="object-contain brightness-0 invert" />
+                        </div>
+                      )}
                     </div>
                     <h3 className="line-clamp-1 text-base font-semibold text-white">{event.name}</h3>
                   </div>
@@ -272,9 +274,13 @@ export default function Navigation() {
                   <Image src={event.image} alt="" fill sizes="100vw" className="object-cover opacity-20" />
                   <div className="relative z-10">
                     <div className="flex items-center justify-between border-b border-white/10 p-5">
-                      <div className="relative h-16 w-28">
-                        <Image src={event.logo} alt={event.name} fill sizes="112px" className="object-contain object-left brightness-0 invert" />
-                      </div>
+                      {event.logo ? (
+                        <div className="relative h-16 w-28">
+                          <Image src={event.logo} alt={event.name} fill sizes="112px" className="object-contain object-left brightness-0 invert" />
+                        </div>
+                      ) : (
+                        <span className="text-base font-semibold text-white">{event.name}</span>
+                      )}
                       <span className="text-xs font-medium uppercase tracking-wider text-white/60">{event.type}</span>
                     </div>
                     <p className="p-5 text-sm leading-snug text-white/75">{event.description}</p>

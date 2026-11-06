@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Image from "next/image"
+import EventHeader from "@/components/event-detail/event-header"
 import { InstagramIcon, FacebookIcon } from "@/components/brand-icons"
 import RecordsBoard from "@/components/records-board"
 import { displayEvents } from "@/lib/data/events-data"
@@ -29,28 +29,7 @@ export default function WorldAthleticsRiga23Page() {
     <>
       <StructuredData data={breadcrumbData} />
       <div className="bg-white">
-        {/* Header - same style as other event pages */}
-        <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
-          <Image
-            src={event.image}
-            alt="World Athletics Road Running Championships Riga 23"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0">
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-6 md:pb-12">
-              <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs text-white mb-4 uppercase tracking-wide">
-                {event.type}
-              </span>
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">
-                World Athletics Road Running Championships Riga 23
-              </h1>
-              <p className="text-lg md:text-xl text-white/80 max-w-2xl">{event.description}</p>
-            </div>
-          </div>
-        </div>
+        <EventHeader event={event} title="World Athletics Road Running Championships Riga 23" subtitle={event.description} />
 
         {/* Content - wider container */}
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 md:py-16">
@@ -81,7 +60,7 @@ export default function WorldAthleticsRiga23Page() {
                         href={event.socialMedia.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center w-12 h-12 rounded-xl bg-neutral-500 text-white hover:scale-105 transition-transform"
+                        className="flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-950 transition-colors hover:bg-neutral-950 hover:text-white"
                         aria-label="View Instagram archive"
                       >
                         <InstagramIcon className="w-5 h-5" />
@@ -92,7 +71,7 @@ export default function WorldAthleticsRiga23Page() {
                         href={event.socialMedia.facebook}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center w-12 h-12 rounded-xl bg-neutral-500 text-white hover:scale-105 transition-transform"
+                        className="flex h-11 w-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-950 transition-colors hover:bg-neutral-950 hover:text-white"
                         aria-label="View Facebook archive"
                       >
                         <FacebookIcon className="w-5 h-5" />
