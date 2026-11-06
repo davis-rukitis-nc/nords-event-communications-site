@@ -201,7 +201,7 @@ export default function Navigation() {
         <h2 className="sr-only">Our Events</h2>
         <ul className="grid max-h-[calc(100vh-120px)] grid-cols-2 gap-2 overflow-y-auto lg:grid-cols-3">
           {navigationEvents.map((event, index) => (
-            <li key={event.id} style={{ animation: `fadeSlideIn 0.35s cubic-bezier(0.32,0.72,0,1) ${index * 30}ms both` }}>
+            <li key={event.id} style={{ animation: `fadeIn 0.35s ease-out ${index * 30}ms both` }}>
               <Link
                 href={`/events/${event.slug}`}
                 onClick={() => closeDesktop()}
@@ -230,7 +230,7 @@ export default function Navigation() {
               </Link>
             </li>
           ))}
-          <li style={{ animation: `fadeSlideIn 0.35s cubic-bezier(0.32,0.72,0,1) ${navigationEvents.length * 30}ms both` }}>
+          <li style={{ animation: `fadeIn 0.35s ease-out ${navigationEvents.length * 30}ms both` }}>
             <Link
               href="/events"
               onClick={() => closeDesktop()}
