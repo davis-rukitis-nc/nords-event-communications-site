@@ -10,6 +10,62 @@ const EU_ERASMUS_NOTE = `*The visit is carried out with the support of the Europ
 
 export const autumn2026Articles: JournalArticle[] = [
   {
+    id: "rimi-riga-half-joins-superhalfs-europa",
+    title: "Rimi Riga Half joins the prestigious SuperHalfs Europa series",
+    excerpt:
+      "SuperHalfs has launched a new six-race series, SuperHalfs Europa – and the Rimi Riga Half is part of it, alongside Stockholm, Vienna, Warsaw, Belgrade and Naples.",
+    date: "2026-11-06",
+    category: "Sports",
+    tags: ["Running", "SuperHalfs", "Rimi Riga Marathon"],
+    image: "/images/journal/superhalfs-europa-hero.jpg",
+    content: `SuperHalfs, the organisation behind some of the world’s most popular half marathons, today announced its expansion with the launch of a new half marathon series – SuperHalfs Europa.
+
+Six European half marathons with rich running traditions are joining the series: Riga, Stockholm, Vienna, Warsaw, Belgrade and Naples. Starting today, running enthusiasts and marathon tourists from around the world are invited to take on this new challenge, choosing their own order and timeframe to complete all six half marathons and earn the exclusive SuperMedal – a unique award reserved for those who cross the finish line of all six races.
+
+Joining SuperHalfs Europa marks an important milestone for the Rimi Riga Marathon and mass participation sport. The new series is expected not only to attract a significant influx of international running tourists to Riga, but also to further inspire runners from Latvia and the Baltics to discover the joy of running in Riga and across Europe.
+
+![SuperHalfs Europa by Generali – Naples, Warsaw, Belgrade, Vienna, Riga and Stockholm](/images/journal/superhalfs-europa-2027.jpg)
+
+SuperHalfs announced the creation of its new European half marathon series, SuperHalfs Europa, today at the European Athletics Convention. Supported by Generali, the new six-race series will launch in 2027, offering runners an exciting new running tourism experience. SuperHalfs Europa participants will have the opportunity to complete a half marathon in six European capitals and cities: Naples (Italy), Warsaw (Poland), Belgrade (Serbia), Vienna (Austria), Riga (Latvia) and Stockholm (Sweden).
+
+## Riga strengthens its position on the international running map
+
+> Riga’s inclusion in the SuperHalfs Europa series is a historic milestone for the Rimi Riga Marathon. We are confident that joining this prestigious series will help attract more international runners and bring us closer to our ambition of becoming one of Europe’s Top 10 most desirable running destinations. We expect the growing number of international running tourists and their supporters to make a significant contribution to mass participation sport, the hospitality industry and Riga’s international profile!
+>
+> **Aigars Nords**, Head of the Rimi Riga Marathon Organising Team
+
+> I am proud that Riga is becoming part of the prestigious SuperHalfs European half marathon series, opening up even greater opportunities for our city to attract runners and visitors from all over the world. We can see that the city’s investment in the Rimi Riga Marathon is paying off, as the importance of sports tourism and its contribution to Riga’s economy continue to grow year after year. The Rimi Riga Marathon has long been much more than a sporting event. It supports local businesses, promotes a healthy lifestyle and strengthens Riga’s international recognition. Events like this are a wonderful opportunity to show the world that Riga is an open, dynamic and welcoming European city.
+>
+> **Viesturs Kleinbergs**, Mayor of Riga
+
+## Two series. Two journeys. Two SuperMedals.
+
+SuperHalfs Europa builds on the success of the original six SuperHalfs races – Lisbon, Prague, Berlin, Copenhagen, Cardiff and Valencia – which will now carry the name **SuperHalfs Originals**.
+
+The two half marathon series will operate independently, each offering its own six-race challenge and a distinct, exclusive SuperMedal. Runners can choose the journey that suits them best or take on both challenges simultaneously, registering for and completing the races in any order and at their own pace.
+
+The inaugural SuperHalfs Europa season kicks off in 2027, with Naples welcoming runners first on 21 February. However, given the popularity of the SuperHalfs series, runners planning to take on the SuperHalfs Europa challenge are encouraged to register now rather than leave it until the last minute.
+
+> SuperHalfs has always been about much more than just a series of half marathons. For runners around the world, it represents a goal to dream about, new European destinations to discover and a special journey to make their own. With the launch of SuperHalfs Europa, supported by Generali, we are creating a new experience while staying true to the vision and standards we established with SuperHalfs Originals.
+>
+> **Sasho Belovski**, SuperHalfs Director
+
+## SuperHalfs Europa 2027 race calendar
+
+| Date | City |
+| --- | --- |
+| 21 February | Napoli, Italy |
+| 14 March | Warsaw, Poland |
+| 17 April | Belgrade, Serbia |
+| 18 April | Vienna, Austria |
+| 16 May | Riga, Latvia |
+| 21 August | Stockholm, Sweden |
+
+Further information about the new series, SuperPassports, medals and participation opportunities is available on the SuperHalfs website and on the individual race websites. Registration for SuperHalfs Europa races is already open through the respective event websites.
+
+[Register now ↗](https://rimirigamarathon.com/en/portal/) · [Explore SuperHalfs Europa ↗](https://superhalfs.com/)`,
+  },
+  {
     id: "missed-your-r-you-can-still-run-for-it",
     title: "Missed your “R”? Don’t worry – you can still run for it!",
     excerpt:
