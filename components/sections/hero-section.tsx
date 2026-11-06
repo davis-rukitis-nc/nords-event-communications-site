@@ -69,7 +69,7 @@ export default function HeroSection() {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-black/35" />
 
-      <div className="absolute left-6 top-6 z-30 md:left-8 md:top-8">
+      <div className="absolute left-6 top-6 z-30 md:left-8 md:top-[30px]">
         <Image
           src="/logo-light.svg"
           alt="NECom"

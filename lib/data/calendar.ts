@@ -58,7 +58,7 @@ export const calendarEvents: CalendarEvent[] = [
   },
   {
     id: "les-amis-de-bordeaux-2026",
-    name: "Les Amis de Bordeaux: Tūkstošgades mielasts",
+    name: "Les Amis de Bordeaux: a millennium feast",
     start: "2026-11-22T13:00:00+02:00",
     end: "2026-11-22T16:00:00+02:00",
     venue: "B7 restaurant",

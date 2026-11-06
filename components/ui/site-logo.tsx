@@ -27,7 +27,7 @@ export default function SiteLogo() {
 
   return (
     <div
-      className={`fixed left-6 top-6 z-[60] mix-blend-difference transition-[opacity,transform] duration-300 md:left-8 md:top-8 md:translate-y-0 md:opacity-100 ${
+      className={`fixed left-6 top-6 z-[60] mix-blend-difference transition-[opacity,transform] duration-300 md:left-8 md:top-[30px] md:translate-y-0 md:opacity-100 ${
         hidden ? "pointer-events-none -translate-y-4 opacity-0 md:pointer-events-auto" : "translate-y-0 opacity-100"
       }`}
     >
