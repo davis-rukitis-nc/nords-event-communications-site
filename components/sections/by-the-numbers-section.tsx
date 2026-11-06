@@ -571,7 +571,7 @@ export default function ByTheNumbersSection({ daysToMarathon }: { daysToMarathon
                   of champagne sabraged in one minute – a unique world record set during Riga Wine &amp; Champagne
                   event!
                 </p>
-                <p className="text-[10px] text-neutral-400 mt-1">Office best: {officeBestTime}s</p>
+                <p className="text-[10px] text-neutral-500 mt-1">Office best: {officeBestTime}s</p>
               </div>
               {gameState === "idle" && (
                 <button

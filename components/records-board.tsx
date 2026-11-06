@@ -79,7 +79,7 @@ export default function RecordsBoard({ subtitle }: { subtitle?: string }) {
           <p className="text-xl font-bold text-white md:text-2xl">3 World Records</p>
           {subtitle && <p className="text-xs text-neutral-400 md:text-sm">{subtitle}</p>}
         </div>
-        <span className="text-xs uppercase tracking-wider text-neutral-500">Official Times</span>
+        <span className="text-xs uppercase tracking-wider text-neutral-400">Official Times</span>
       </div>
       <ul className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:gap-4">
         {riga23Records.map((record) => (
@@ -91,8 +91,8 @@ export default function RecordsBoard({ subtitle }: { subtitle?: string }) {
               <p className="text-xs font-medium text-neutral-300">
                 {record.label} <span className="sr-only">{record.time}</span>
               </p>
-              <p className="mt-0.5 text-[11px] text-neutral-500">
-                {record.athlete} <span className="text-neutral-600">({record.country})</span>
+              <p className="mt-0.5 text-[11px] text-neutral-400">
+                {record.athlete} <span className="text-neutral-400">({record.country})</span>
               </p>
             </div>
           </li>

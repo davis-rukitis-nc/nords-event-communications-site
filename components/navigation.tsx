@@ -96,13 +96,14 @@ export default function Navigation() {
         Skip to content
       </a>
 
-      <SiteLogo />
+      <header>
+        <SiteLogo />
 
       {/* Desktop nav */}
       <nav
         aria-label="Main"
         className={`fixed left-1/2 top-6 z-50 hidden -translate-x-1/2 items-center rounded-2xl border border-white/10 px-3 py-1.5 backdrop-blur-md transition-colors duration-300 md:flex ${
-          isScrolled ? "bg-black/85" : "bg-black/65"
+          isScrolled ? "bg-black/85" : "bg-black/75"
         }`}
       >
         <ul className="flex items-center gap-1.5">
@@ -136,6 +137,8 @@ export default function Navigation() {
           })}
         </ul>
       </nav>
+
+      </header>
 
       {/* Desktop events menu */}
       <div

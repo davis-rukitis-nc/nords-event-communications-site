@@ -76,7 +76,7 @@ export default async function JournalArticlePage({ params }: JournalArticlePageP
       <div className="bg-white">
         <header className="relative h-[60svh] min-h-[360px] w-full overflow-hidden rounded-b-2xl bg-neutral-900 md:h-[60vh]">
           <Image src={article.image} alt="" fill className="object-cover" priority sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/50" />
           <div className="absolute bottom-0 w-full text-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-8 md:pb-12">
               <p className="text-xs font-medium uppercase tracking-widest text-white/80">{article.category}</p>

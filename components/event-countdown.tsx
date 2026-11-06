@@ -7,15 +7,15 @@ export default function EventCountdown({ event, daysLeft }: { event: CalendarEve
   const content = (
     <>
       <div>
-        <p className="mb-1 text-xs font-medium uppercase tracking-wider text-white/80">Next up</p>
+        <p className="mb-1 text-xs font-medium uppercase tracking-wider text-white">Next up</p>
         <h3 className="text-lg font-bold leading-tight text-white md:text-xl">{event.name}</h3>
-        <p className="mt-1 text-xs text-white/75">{formatFullDate(event.start)}</p>
+        <p className="mt-1 text-xs text-white">{formatFullDate(event.start)}</p>
       </div>
 
       <div className="mt-4 flex items-end justify-between gap-4">
         <p>
           <span className="text-4xl font-bold tabular-nums text-white md:text-5xl">{daysLeft}</span>
-          <span className="ml-2 text-sm text-white/80">days to go</span>
+          <span className="ml-2 text-sm text-white">days to go</span>
         </p>
         {event.link && <span className="rounded-full bg-white/20 px-3 py-1.5 text-xs font-medium text-white">Learn more</span>}
       </div>
