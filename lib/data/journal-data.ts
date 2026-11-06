@@ -1,3 +1,5 @@
+import { autumn2026Articles } from "./journal-autumn-2026"
+
 export interface JournalArticle {
   id: string
   date: string
@@ -23,7 +25,7 @@ function dedent(str: string) {
   return lines.map((l) => l.slice(minIndent)).join("\n");
 }
 
-export const journalArticles: JournalArticle[] = [
+const earlierArticles: JournalArticle[] = [
   {
   id: "record-breaking-46313-participants-largest-rimi-riga-marathon-history",
   title:
@@ -969,6 +971,8 @@ Join us for an unforgettable weekend of music, culture, and community in the hea
   },
 ]
 
+export const journalArticles: JournalArticle[] = [...autumn2026Articles, ...earlierArticles]
+
 export function getSortedArticles(limit?: number): JournalArticle[] {
   const sorted = [...journalArticles].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -980,5 +984,5 @@ const articleDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "s
 
 /** "17 May 2026" */
 export function formatArticleDate(iso: string): string {
-  return articleDate.format(new Date(`${iso}T12:00:00Z`))
+  return articleDate.format(new Date(`${iso}T12:00:00Z`)).replace("Sept", "Sep")
 }

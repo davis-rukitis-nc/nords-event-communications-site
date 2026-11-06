@@ -41,4 +41,14 @@ test.describe("Smoke", () => {
     expect(res?.status()).toBe(404)
     await expect(page.locator("h1")).toContainText("404")
   })
+
+  test("CSP header is set and the home page triggers no violations", async ({ page }) => {
+    const violations: string[] = []
+    page.on("console", (m) => {
+      if (/Content Security Policy/i.test(m.text()) && !m.text().includes("_vercel")) violations.push(m.text())
+    })
+    const res = await page.goto("/", { waitUntil: "networkidle" })
+    expect(res?.headers()["content-security-policy"]).toContain("default-src 'self'")
+    expect(violations).toEqual([])
+  })
 })

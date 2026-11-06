@@ -205,16 +205,10 @@
 }
 
 .article-content blockquote {
-  border-left: 4px solid var(--line-strong);
-  padding-left: 1.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  font-style: italic;
-  color: var(--fg-muted);
-  background-color: var(--surface);
-  border-radius: 0 0.5rem 0.5rem 0;
+  border-left: 2px solid var(--fg);
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  margin: 2.5rem 0;
+  color: var(--fg);
 }
 
 .article-content blockquote p {
@@ -318,5 +312,40 @@
   }
   .partners-track > [aria-hidden="true"] {
     display: none;
+  }
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  margin: 2rem 0;
+}
+.article-content th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  padding: 0 1rem 0.5rem 0;
+  border-bottom: 1px solid var(--fg);
+}
+.article-content td {
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.article-content th:last-child,
+.article-content td:last-child {
+  padding-right: 0;
+}
+/* Long tables scroll inside the column on small screens instead of squeezing. */
+@media (max-width: 640px) {
+  .article-content table {
+    display: block;
+    overflow-x: auto;
   }
 }

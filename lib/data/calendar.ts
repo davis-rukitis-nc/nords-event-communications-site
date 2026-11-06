@@ -173,7 +173,11 @@ export function daysUntil(iso: string, now: Date = new Date()): number {
   return Math.max(0, Math.round(diff / 86_400_000))
 }
 
-const fmt = (opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat("en-GB", { timeZone: TIME_ZONE, ...opts })
+const fmt = (opts: Intl.DateTimeFormatOptions) => {
+  const f = new Intl.DateTimeFormat("en-GB", { timeZone: TIME_ZONE, ...opts })
+  // Some ICU versions abbreviate September as "Sept".
+  return { format: (d: Date) => f.format(d).replace("Sept", "Sep") }
+}
 const dayMonth = fmt({ day: "numeric", month: "short" })
 const time = fmt({ hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
 const weekday = fmt({ weekday: "short" })
