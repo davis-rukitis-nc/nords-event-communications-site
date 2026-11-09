@@ -49,8 +49,23 @@ const nextConfig = {
       },
     ]
   },
+  // Hidden guest guide for Pink Noise Riga: a static page in public/pnr-riga-guide/.
+  // Not linked anywhere and not in the sitemap; noindex keeps it out of search engines.
+  async rewrites() {
+    return [{ source: "/pnr-riga-guide", destination: "/pnr-riga-guide/index.html" }]
+  },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }]
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      {
+        source: "/pnr-riga-guide/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
+      },
+      {
+        source: "/pnr-riga-guide",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
+      },
+    ]
   },
 }
 
