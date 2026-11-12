@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
+import { calendarEvents } from "@/lib/data/legacy/calendar"
 import {
-  calendarEvents,
   calendarLabel,
   daysUntil,
   formatEventDate,
@@ -21,7 +21,7 @@ describe("calendar data", () => {
   })
 
   it("drops events once they have finished", () => {
-    const upcoming = getUpcomingCalendarEvents(at("2026-11-21T15:00:00+02:00"))
+    const upcoming = getUpcomingCalendarEvents(calendarEvents, at("2026-11-21T15:00:00+02:00"))
     const ids = upcoming.map((e) => e.id)
     expect(ids).not.toContain("miles-davis-latvian-all-stars-2026")
     expect(ids).not.toContain("baltic-wine-drinks-awards-2026") // ended 14:00
@@ -29,12 +29,12 @@ describe("calendar data", () => {
   })
 
   it("keeps an event without an end time for a few hours after it starts", () => {
-    const ids = getUpcomingCalendarEvents(at("2026-11-20T20:30:00+02:00")).map((e) => e.id)
+    const ids = getUpcomingCalendarEvents(calendarEvents, at("2026-11-20T20:30:00+02:00")).map((e) => e.id)
     expect(ids).toContain("miles-davis-latvian-all-stars-2026")
   })
 
   it("never picks a TBA entry as the next event", () => {
-    const next = getNextCalendarEvent(at("2027-06-01T00:00:00+03:00"))
+    const next = getNextCalendarEvent(calendarEvents, at("2027-06-01T00:00:00+03:00"))
     expect(next).toBeNull()
   })
 
@@ -51,7 +51,7 @@ describe("calendar data", () => {
   })
 
   it("derives the calendar label from the events shown", () => {
-    expect(calendarLabel(getUpcomingCalendarEvents(at("2026-11-06T12:00:00+02:00")))).toBe("2026–27 Calendar")
-    expect(calendarLabel(getUpcomingCalendarEvents(at("2027-01-10T12:00:00+02:00")))).toBe("2027 Calendar")
+    expect(calendarLabel(getUpcomingCalendarEvents(calendarEvents, at("2026-11-06T12:00:00+02:00")))).toBe("2026–27 Calendar")
+    expect(calendarLabel(getUpcomingCalendarEvents(calendarEvents, at("2027-01-10T12:00:00+02:00")))).toBe("2027 Calendar")
   })
 })

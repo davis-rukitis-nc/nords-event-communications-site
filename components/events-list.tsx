@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
-import type { Event } from "@/lib/data/events-data"
+import type { Event } from "@/lib/cms/types"
 
 function getShortUrl(url: string): string {
   try {

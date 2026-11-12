@@ -28,3 +28,6 @@ next-env.d.ts
 # playwright
 /test-results/
 /playwright-report/
+
+# payload local uploads (production uses Vercel Blob)
+/media/

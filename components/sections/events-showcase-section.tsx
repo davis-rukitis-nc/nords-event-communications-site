@@ -1,8 +1,8 @@
 import EventsList from "@/components/events-list"
-import { getHomepageEvents } from "@/lib/data/events-data"
+import { getHomepageEvents } from "@/lib/cms"
 
-export default function EventsShowcaseSection() {
-  const homepageEvents = getHomepageEvents()
+export default async function EventsShowcaseSection() {
+  const homepageEvents = await getHomepageEvents()
 
   return (
     <section aria-labelledby="our-events" className="py-16 md:py-24">

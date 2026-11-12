@@ -51,4 +51,40 @@ test.describe("Smoke", () => {
     expect(res?.headers()["content-security-policy"]).toContain("default-src 'self'")
     expect(violations).toEqual([])
   })
+
+  test("nested unknown URLs also get the site's 404 page", async ({ page }) => {
+    const res = await page.goto("/no/such/page")
+    expect(res?.status()).toBe(404)
+    await expect(page.locator("h1")).toContainText("404")
+  })
+})
+
+test.describe("CMS", () => {
+  test("admin login page loads without CSP violations", async ({ page }) => {
+    const violations: string[] = []
+    page.on("console", (m) => {
+      if (/Content Security Policy/i.test(m.text())) violations.push(m.text())
+    })
+    const res = await page.goto("/admin/login", { waitUntil: "networkidle" })
+    expect(res?.status()).toBe(200)
+    expect(res?.headers()["x-robots-tag"]).toContain("noindex")
+    await expect(page.locator('input[name="email"]')).toBeVisible()
+    expect(violations).toEqual([])
+  })
+
+  test("public sign-up is disabled", async ({ request }) => {
+    const data = { email: "intruder@example.com", password: "not-allowed-123" }
+    expect((await request.post("/api/users/first-register", { data })).status()).toBe(403)
+    expect((await request.post("/api/users", { data })).status()).toBe(403)
+    expect((await request.get("/api/users")).status()).toBe(403)
+  })
+
+  test("content cannot be written without logging in", async ({ request }) => {
+    expect((await request.post("/api/journal", { data: { title: "x" } })).status()).toBe(403)
+  })
+
+  test("journal content comes from the CMS", async ({ page }) => {
+    await page.goto("/journal")
+    await expect(page.locator("main a[href^='/journal/']").first()).toBeVisible()
+  })
 })

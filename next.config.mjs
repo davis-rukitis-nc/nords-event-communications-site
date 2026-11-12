@@ -1,3 +1,5 @@
+import { withPayload } from "@payloadcms/next/withPayload"
+
 /** @type {import('next').NextConfig} */
 
 const isDev = process.env.NODE_ENV !== "production"
@@ -5,7 +7,10 @@ const isDev = process.env.NODE_ENV !== "production"
 const isPreview = process.env.VERCEL_ENV === "preview"
 const vercelLive = isPreview ? " https://vercel.live" : ""
 
-// Content Security Policy.
+// CMS images are served straight from Vercel Blob's CDN.
+const BLOB_HOST = "https://*.public.blob.vercel-storage.com"
+
+// Content Security Policy for the public site.
 // All pages are statically generated, so per-request nonces are not possible;
 // Next.js injects inline bootstrap scripts, which is why script-src needs 'unsafe-inline'.
 // Everything else (images, video, fonts, analytics) is first-party.
@@ -13,7 +18,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${vercelLive}`,
   `style-src 'self' 'unsafe-inline'${vercelLive}`,
-  `img-src 'self' data: blob:${vercelLive ? " https://vercel.live https://vercel.com" : ""}`,
+  `img-src 'self' data: blob: ${BLOB_HOST}${vercelLive ? " https://vercel.live https://vercel.com" : ""}`,
   "media-src 'self'",
   `font-src 'self'${vercelLive ? " https://vercel.live https://assets.vercel.com" : ""}`,
   `connect-src 'self'${isDev ? " ws:" : ""}${vercelLive ? " https://vercel.live wss://ws-us3.pusher.com" : ""}`,
@@ -25,19 +30,39 @@ const csp = [
   "upgrade-insecure-requests",
 ].join("; ")
 
-const securityHeaders = [
-  { key: "Content-Security-Policy", value: csp },
+// Payload's admin panel (/admin) needs a looser policy: its code editor (Monaco) loads from
+// cdn.jsdelivr.net and it previews uploads from Blob. It is only reachable after login.
+const adminCsp = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net${vercelLive}`,
+  `style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net${vercelLive}`,
+  `img-src 'self' data: blob: ${BLOB_HOST}${vercelLive ? " https://vercel.live https://vercel.com" : ""}`,
+  `font-src 'self' data: https://cdn.jsdelivr.net${vercelLive ? " https://vercel.live https://assets.vercel.com" : ""}`,
+  `connect-src 'self' ${BLOB_HOST} https://blob.vercel-storage.com${isDev ? " ws:" : ""}${vercelLive ? " https://vercel.live wss://ws-us3.pusher.com" : ""}`,
+  `worker-src 'self' blob:`,
+  `frame-src 'self' https://www.youtube-nocookie.com${vercelLive}`,
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+].join("; ")
+
+const baseHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "X-Frame-Options", value: "DENY" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), browsing-topics=()" },
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
 ]
 
 const nextConfig = {
   images: {
-    // Only YouTube thumbnails for the click-to-load video facade; everything else is local.
-    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
+    // YouTube thumbnails (video facade) and CMS uploads on Vercel Blob.
+    remotePatterns: [
+      { protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" },
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
+    // CMS uploads when developing locally without Blob.
+    localPatterns: [{ pathname: "/api/media/file/**" }, { pathname: "/**" }],
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
@@ -56,7 +81,20 @@ const nextConfig = {
   },
   async headers() {
     return [
-      { source: "/:path*", headers: securityHeaders },
+      // Everything except the CMS admin gets the strict site policy.
+      {
+        source: "/:path((?!admin(?:/|$)).*)",
+        headers: [...baseHeaders, { key: "Content-Security-Policy", value: csp }, { key: "X-Frame-Options", value: "DENY" }],
+      },
+      // The admin frames its own live preview, so it may be framed by itself only.
+      {
+        source: "/admin/:path*",
+        headers: [...baseHeaders, { key: "Content-Security-Policy", value: adminCsp }, { key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/admin",
+        headers: [...baseHeaders, { key: "Content-Security-Policy", value: adminCsp }, { key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       {
         source: "/pnr-riga-guide/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
@@ -69,4 +107,4 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withPayload(nextConfig, { devBundleServerPackages: false })

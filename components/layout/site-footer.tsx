@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { getNavigationEvents } from "@/lib/data/events-data"
+import { getCalendarEvents, getNavigationEvents } from "@/lib/cms"
 import { formatEventDate, getUpcomingCalendarEvents } from "@/lib/data/calendar"
 import CopyEmailButton from "./copy-email-button"
 
@@ -18,9 +18,11 @@ const socialLinks = [
   { href: "https://www.facebook.com/necom.lv/", label: "Facebook" },
 ]
 
-export default function SiteFooter() {
+export default async function SiteFooter() {
+  const navigationEvents = await getNavigationEvents()
+  const calendarEvents = await getCalendarEvents()
   const email = "info@necom.lv"
-  const upcoming = getUpcomingCalendarEvents().slice(0, 4)
+  const upcoming = getUpcomingCalendarEvents(calendarEvents).slice(0, 4)
 
   return (
     <footer className="relative mx-4 mb-28 mt-4 rounded-2xl bg-neutral-950 text-white md:mb-4">
@@ -73,7 +75,7 @@ export default function SiteFooter() {
           <div>
             <p className="text-neutral-400 text-xs uppercase tracking-widest mb-6">Events</p>
             <ul className="space-y-3">
-              {getNavigationEvents().map((event) => (
+              {navigationEvents.map((event) => (
                 <li key={event.id}>
                   <Link
                     href={`/events/${event.slug}`}

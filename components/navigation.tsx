@@ -5,7 +5,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { X, ArrowRight, ChevronDown } from "lucide-react"
 import { usePathname } from "next/navigation"
-import { getNavigationEvents } from "@/lib/data/events-data"
+import type { Event } from "@/lib/cms/types"
 import SiteLogo from "@/components/ui/site-logo"
 
 const navItems = [
@@ -14,8 +14,6 @@ const navItems = [
   { href: "/journal", label: "Journal" },
   { href: "/contact", label: "Contact" },
 ]
-
-const navigationEvents = getNavigationEvents()
 
 // Shared glass surface for the desktop pill, the events panel and the mobile bar.
 const glass =
@@ -58,7 +56,7 @@ function useIndicator(activeIndex: number) {
   return { listRef, indicatorRef }
 }
 
-export default function Navigation() {
+export default function Navigation({ events: navigationEvents }: { events: Event[] }) {
   const pathname = usePathname()
   const [desktopOpen, setDesktopOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
