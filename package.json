@@ -66,6 +66,11 @@
       "sharp",
       "@tailwindcss/oxide",
       "unrs-resolver"
+    ],
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "less"
     ]
   }
 }

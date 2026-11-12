@@ -20,6 +20,15 @@ const dirname = path.dirname(filename)
 const INITIAL_ADMIN_EMAIL = "marathon.data@necom.lv"
 const IS_PREVIEW = process.env.VERCEL_ENV === "preview"
 
+/**
+ * Neon's URLs use sslmode=require. The Postgres driver already treats that as full certificate
+ * verification but warns that the next major version will weaken it. Say verify-full explicitly:
+ * same behaviour today, no warning, and it stays strict after future driver upgrades.
+ */
+function databaseUrl(url = "") {
+  return url.replace(/([?&]sslmode=)(require|prefer|verify-ca)\b/, "$1verify-full")
+}
+
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
   admin: {
@@ -35,7 +44,7 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
   db: postgresAdapter({
-    pool: { connectionString: process.env.DATABASE_URL || "" },
+    pool: { connectionString: databaseUrl(process.env.DATABASE_URL) },
     // Schema changes ship as committed migrations; production never auto-pushes.
     push: false,
     migrationDir: path.resolve(dirname, "cms/migrations"),

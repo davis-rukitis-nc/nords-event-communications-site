@@ -45,22 +45,30 @@ async function main() {
   let ok = 0
   let repaired = 0
   const missing: string[] = []
-  for (const doc of docs) {
+
+  // In previews, URLs live under preview/; the same file may already exist at the production path.
+  const productionUrl = (url: string) => url.replace(/\/preview\//, "/")
+
+  async function check(doc: (typeof docs)[number]) {
     const url = doc.url
-    if (!url || !url.startsWith("https://")) continue
-    const head = await fetch(url, { method: "HEAD" })
-    if (head.ok) {
+    if (!url || !url.startsWith("https://")) return
+    if ((await fetch(url, { method: "HEAD" })).ok) {
       ok++
-      continue
+      return
     }
     const filename = doc.filename ?? path.posix.basename(new URL(url).pathname)
     const local = files.get(filename)
-    if (!local) {
+    let body: Buffer | undefined = local ? fs.readFileSync(local) : undefined
+    if (!body && productionUrl(url) !== url) {
+      const res = await fetch(productionUrl(url))
+      if (res.ok) body = Buffer.from(await res.arrayBuffer())
+    }
+    if (!body) {
       missing.push(filename)
-      continue
+      return
     }
     const pathname = decodeURIComponent(new URL(url).pathname.replace(/^\/+/, ""))
-    await put(pathname, fs.readFileSync(local), {
+    await put(pathname, body, {
       access: "public",
       addRandomSuffix: false,
       allowOverwrite: true,
@@ -69,6 +77,14 @@ async function main() {
     })
     repaired++
   }
+
+  // Check a few at a time instead of one by one.
+  const queue = [...docs]
+  await Promise.all(
+    Array.from({ length: 8 }, async () => {
+      for (let doc = queue.shift(); doc; doc = queue.shift()) await check(doc)
+    }),
+  )
 
   payload.logger.info(`Media check: ${ok} ok, ${repaired} repaired, ${missing.length} without a local original.`)
   if (missing.length) payload.logger.warn(`No local original for: ${missing.join(", ")}`)
