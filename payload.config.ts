@@ -45,6 +45,8 @@ export default buildConfig({
     vercelBlobStorage({
       // Locally (no token) files are stored on disk instead.
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      // Keep the database schema identical with and without Blob (local dev has no token).
+      alwaysInsertFields: true,
       // Serve files straight from Vercel's CDN instead of through a function on every view.
       collections: { media: { disablePayloadAccessControl: true } },
       token: process.env.BLOB_READ_WRITE_TOKEN,
