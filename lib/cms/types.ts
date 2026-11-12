@@ -27,6 +27,8 @@ export interface Event {
 export interface Partner {
   name: string
   logo: string
+  /** Logo aspect ratio (width / height), used to give every logo the same visual weight. */
+  logoRatio?: number
   link?: string
 }
 

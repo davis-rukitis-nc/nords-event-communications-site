@@ -95,8 +95,18 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'about-page': AboutPage;
+    'contact-page': ContactPage;
+    'privacy-page': PrivacyPage;
+    'terms-page': TermsPage;
+  };
+  globalsSelect: {
+    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+    'privacy-page': PrivacyPageSelect<false> | PrivacyPageSelect<true>;
+    'terms-page': TermsPageSelect<false> | TermsPageSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -580,6 +590,204 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * The four number blocks (years, participants, impact, team) stay as they are.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page".
+ */
+export interface AboutPage {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  /**
+   * Leave empty to keep the current photo.
+   */
+  headerImage?: (number | null) | Media;
+  missionHeading: string;
+  missionText: string;
+  missionTagline?: string | null;
+  whatWeDoHeading: string;
+  /**
+   * Separate paragraphs with an empty line.
+   */
+  whatWeDoText: string;
+  approachHeading: string;
+  /**
+   * Separate paragraphs with an empty line.
+   */
+  approachText: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * The “years of experience” block stays as it is.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  /**
+   * Leave empty to keep the current photo.
+   */
+  headerImage?: (number | null) | Media;
+  heading: string;
+  /**
+   * Separate paragraphs with an empty line.
+   */
+  intro: string;
+  email: string;
+  /**
+   * One line per row (company, address, registration number).
+   */
+  office: string;
+  expertiseHeading: string;
+  expertise?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaHeading: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-page".
+ */
+export interface PrivacyPage {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  /**
+   * Leave empty to keep the current photo.
+   */
+  headerImage?: (number | null) | Media;
+  lastUpdated: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-page".
+ */
+export interface TermsPage {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  /**
+   * Leave empty to keep the current photo.
+   */
+  headerImage?: (number | null) | Media;
+  lastUpdated: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page_select".
+ */
+export interface AboutPageSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  headerImage?: T;
+  missionHeading?: T;
+  missionText?: T;
+  missionTagline?: T;
+  whatWeDoHeading?: T;
+  whatWeDoText?: T;
+  approachHeading?: T;
+  approachText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  headerImage?: T;
+  heading?: T;
+  intro?: T;
+  email?: T;
+  office?: T;
+  expertiseHeading?: T;
+  expertise?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  ctaHeading?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "privacy-page_select".
+ */
+export interface PrivacyPageSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  headerImage?: T;
+  lastUpdated?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "terms-page_select".
+ */
+export interface TermsPageSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  headerImage?: T;
+  lastUpdated?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

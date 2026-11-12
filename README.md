@@ -21,9 +21,10 @@ Log in at **necom.lv/admin**. Everything below is edited there; publishing refre
 | **Event series** | The pages under /events, the Events menu and the home-page list. Drag rows to reorder. |
 | **Partners** | The “Trusted By” logos. Drag rows to reorder. |
 | **Media** | All uploaded images. Add alt text for accessibility. |
+| **Pages** | Texts and header photos of About, Contact, Privacy Policy and Terms of Service. |
 | **Users** | Admin accounts. There is no public sign-up; an existing admin adds new users here. |
 
-Still in code (bespoke design): the hero, “By the Numbers”, the records board and the page texts (About, Contact, Privacy, Terms).
+Still in code (bespoke design): the hero, “By the Numbers”, the records board and the number blocks on About and Contact.
 
 ## Getting started
 
@@ -72,19 +73,22 @@ Without `BLOB_READ_WRITE_TOKEN`, uploads are stored in `./media` locally.
 app/(frontend)/          the public site (own root layout)
 app/(payload)/           Payload admin + REST API (generated, don't edit)
 cms/collections/         CMS schema: Journal, CalendarEvents, Events, Partners, Media, Users
+cms/globals/             single pages: About, Contact, Privacy, Terms
 cms/migrations/          database migrations (commit them)
 payload.config.ts        Payload config: Postgres, Blob storage, first-admin bootstrap
 lib/cms/                 server-side content queries used by pages
 lib/data/calendar.ts     calendar helpers (filtering, formatting, countdown)
 lib/data/legacy/         the original content files, kept as the import source
-scripts/import-content.ts  one-time content import
+scripts/import-content.ts  one-time content import (also fills Privacy/Terms while empty)
+scripts/media-maintenance.ts  build step: repairs missing Blob files, removes leftover copies
+lib/cms/page-defaults.ts the launch texts of the fixed pages (defaults/fallback)
 components/              UI components
 public/                  static assets (hero video, partner SVGs, legacy images)
 ```
 
 ## Changing the CMS schema
 
-1. Edit a collection in `cms/collections/`.
+1. Edit a collection in `cms/collections/` (or a global in `cms/globals/`).
 2. `pnpm generate:types && pnpm generate:importmap`
 3. `pnpm migrate:create <short-name>` and commit the new file in `cms/migrations/`.
 4. Deploys run the migration automatically before building.

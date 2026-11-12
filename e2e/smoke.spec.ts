@@ -81,6 +81,16 @@ test.describe("CMS", () => {
 
   test("content cannot be written without logging in", async ({ request }) => {
     expect((await request.post("/api/journal", { data: { title: "x" } })).status()).toBe(403)
+    for (const page of ["about-page", "contact-page", "privacy-page", "terms-page"]) {
+      expect((await request.post(`/api/globals/${page}`, { data: { title: "x" } })).status()).toBe(403)
+    }
+  })
+
+  test("page texts come from the CMS", async ({ page }) => {
+    await page.goto("/privacy")
+    await expect(page.locator(".legal-content h2").first()).toHaveText("1. Introduction")
+    await page.goto("/contact")
+    await expect(page.locator("main a[href^='mailto:']").first()).toBeVisible()
   })
 
   test("journal content comes from the CMS", async ({ page }) => {

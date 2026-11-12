@@ -1,4 +1,4 @@
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from "payload"
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, GlobalAfterChangeHook } from "payload"
 
 /**
  * Pages are statically generated. When content changes in the admin panel, refresh them so the
@@ -21,6 +21,11 @@ export const revalidateAfterChange: CollectionAfterChangeHook = async ({ doc, re
 }
 
 export const revalidateAfterDelete: CollectionAfterDeleteHook = async ({ doc, req }) => {
+  await revalidateSite(req.context)
+  return doc
+}
+
+export const revalidateGlobalAfterChange: GlobalAfterChangeHook = async ({ doc, req }) => {
   await revalidateSite(req.context)
   return doc
 }

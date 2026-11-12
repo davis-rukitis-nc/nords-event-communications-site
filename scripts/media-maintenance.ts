@@ -1,14 +1,18 @@
 /**
- * Repairs Media records whose Blob URL returns 404 by uploading the original file
- * (from public/) to exactly the URL stored in the record.
+ * Media upkeep, run in every build. Never changes database records and never fails a build.
  *
- * Why: the first deploys uploaded with `addRandomSuffix`, so files landed under
- * suffixed names while the records kept the plain URL. Runs in every build and is a
- * no-op once every image resolves. Never changes database records.
+ * 1. Repair: a Media record whose Blob URL returns 404 gets the original file (from public/)
+ *    uploaded to exactly the URL stored in the record.
+ * 2. Cleanup (production only): the first deploys uploaded with `addRandomSuffix`, leaving
+ *    copies like `photo-AbC123…xyz.jpg` next to the `photo.jpg` the record uses. Those copies
+ *    are deleted. Only names that are a used file plus a random suffix are touched; preview/
+ *    files and anything else are left alone (and listed in the log).
+ *
+ * Both steps are no-ops once everything is in order.
  */
 import fs from "node:fs"
 import path from "node:path"
-import { put } from "@vercel/blob"
+import { del, list, put } from "@vercel/blob"
 import { getPayload } from "payload"
 import config from "@payload-config"
 
@@ -31,6 +35,30 @@ const mimeByExt: Record<string, string> = {
   ".webp": "image/webp",
   ".svg": "image/svg+xml",
   ".avif": "image/avif",
+}
+
+const blobPath = (url: string) => decodeURIComponent(new URL(url).pathname.replace(/^\/+/, ""))
+
+// `photo-<random suffix>.jpg` → `photo.jpg`. Vercel's random suffixes are long alphanumeric strings.
+const withoutSuffix = (pathname: string) => pathname.replace(/-[A-Za-z0-9]{20,40}(\.[A-Za-z0-9]+)$/, "$1")
+
+async function removeSuffixedCopies(used: Set<string>) {
+  const stale: string[] = []
+  const unknown: string[] = []
+  let cursor: string | undefined
+  do {
+    const page = await list({ cursor, limit: 1000, token })
+    for (const blob of page.blobs) {
+      if (blob.pathname.startsWith("preview/") || used.has(blob.pathname)) continue
+      const original = withoutSuffix(blob.pathname)
+      if (original !== blob.pathname && used.has(original)) stale.push(blob.url)
+      else unknown.push(blob.pathname)
+    }
+    cursor = page.hasMore ? page.cursor : undefined
+  } while (cursor)
+
+  for (let i = 0; i < stale.length; i += 100) await del(stale.slice(i, i + 100), { token })
+  return { removed: stale.length, unknown }
 }
 
 async function main() {
@@ -67,8 +95,7 @@ async function main() {
       missing.push(filename)
       return
     }
-    const pathname = decodeURIComponent(new URL(url).pathname.replace(/^\/+/, ""))
-    await put(pathname, body, {
+    await put(blobPath(url), body, {
       access: "public",
       addRandomSuffix: false,
       allowOverwrite: true,
@@ -88,6 +115,13 @@ async function main() {
 
   payload.logger.info(`Media check: ${ok} ok, ${repaired} repaired, ${missing.length} without a local original.`)
   if (missing.length) payload.logger.warn(`No local original for: ${missing.join(", ")}`)
+
+  if (process.env.VERCEL_ENV === "production") {
+    const used = new Set(docs.flatMap((d) => (d.url?.startsWith("https://") ? [blobPath(d.url)] : [])))
+    const { removed, unknown } = await removeSuffixedCopies(used)
+    payload.logger.info(`Blob cleanup: ${removed} leftover copies removed.`)
+    if (unknown.length) payload.logger.info(`Blob files not used by any Media record (kept): ${unknown.join(", ")}`)
+  }
   process.exit(0)
 }
 

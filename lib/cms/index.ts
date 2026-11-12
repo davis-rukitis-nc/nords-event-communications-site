@@ -6,6 +6,7 @@ import config from "@payload-config"
 import type { Media } from "@/payload-types"
 import type { CalendarEvent } from "@/lib/data/calendar"
 import type { Event, JournalArticle, Partner } from "./types"
+import { aboutDefaults, contactDefaults, privacyDefaults, termsDefaults } from "./page-defaults"
 
 export type { Event, JournalArticle, Partner } from "./types"
 
@@ -80,7 +81,11 @@ export const getCalendarEvents = cache(async (): Promise<CalendarEvent[]> => {
 export const getPartners = cache(async (): Promise<Partner[]> => {
   const payload = await getCMS()
   const { docs } = await payload.find({ collection: "partners", sort: "_order", limit: 200, depth: 1 })
-  return docs.map((d) => ({ name: d.name, logo: mediaUrl(d.logo), link: opt(d.link) }))
+  return docs.map((d) => {
+    const m = typeof d.logo === "object" ? d.logo : null
+    const logoRatio = m?.width && m?.height ? m.width / m.height : undefined
+    return { name: d.name, logo: mediaUrl(d.logo), logoRatio, link: opt(d.link) }
+  })
 })
 
 // ---------------------------------------------------------------- journal
@@ -113,3 +118,51 @@ export async function getArticle(slug: string) {
 export async function getLatestArticles(limit: number) {
   return (await getArticles()).slice(0, limit)
 }
+
+// ---------------------------------------------------------------- pages
+
+/** Saved CMS values over the launch texts, so a page never renders empty. */
+function withDefaults<T extends Record<string, unknown>>(defaults: T, doc: Record<string, unknown>): T {
+  const out: Record<string, unknown> = { ...defaults }
+  for (const key of Object.keys(defaults)) {
+    const v = doc[key]
+    if (typeof v === "string" ? v.trim() : v !== null && v !== undefined) out[key] = v
+  }
+  return out as T
+}
+
+const paragraphs = (text: string) =>
+  text
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+
+export const getAboutPage = cache(async () => {
+  const doc = await (await getCMS()).findGlobal({ slug: "about-page", depth: 1 })
+  const page = withDefaults(aboutDefaults, { ...doc, headerImage: mediaUrl(doc.headerImage) })
+  return { ...page, whatWeDo: paragraphs(page.whatWeDoText), approach: paragraphs(page.approachText) }
+})
+
+export const getContactPage = cache(async () => {
+  const doc = await (await getCMS()).findGlobal({ slug: "contact-page", depth: 1 })
+  const expertise = (doc.expertise ?? []).map((e) => e.item).filter(Boolean)
+  const page = withDefaults(contactDefaults, {
+    ...doc,
+    headerImage: mediaUrl(doc.headerImage),
+    expertise: expertise.length ? expertise : undefined,
+  })
+  return {
+    ...page,
+    intro: paragraphs(page.intro),
+    office: page.office.split("\n").map((l) => l.trim()).filter(Boolean),
+  }
+})
+
+const legalDefaults = { "privacy-page": privacyDefaults, "terms-page": termsDefaults }
+
+export const getLegalPage = cache(async (slug: keyof typeof legalDefaults) => {
+  const doc = await (await getCMS()).findGlobal({ slug, depth: 1 })
+  const { title, subtitle, headerImage, lastUpdated } = legalDefaults[slug]
+  const page = withDefaults({ title, subtitle, headerImage, lastUpdated }, { ...doc, headerImage: mediaUrl(doc.headerImage) })
+  return { ...page, content: (doc.content ?? null) as JournalArticle["content"] | null }
+})

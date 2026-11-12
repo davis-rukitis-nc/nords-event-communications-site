@@ -23,6 +23,7 @@ import { displayEvents } from "../lib/data/legacy/events-data"
 import { partnerLogos } from "../lib/data/legacy/partners-data"
 import { calendarEvents } from "../lib/data/legacy/calendar"
 import { journalArticles } from "../lib/data/legacy/journal-data"
+import { privacyDefaults, termsDefaults } from "../lib/cms/page-defaults"
 
 const PUBLIC_DIR = path.resolve(process.cwd(), "public")
 const force = process.argv.includes("--force") || process.env.IMPORT_FORCE === "1"
@@ -82,8 +83,29 @@ function trimTableCells(nodes: Node[], inCell = false) {
   }
 }
 
-async function markdownToLexical(payload: Payload, markdown: string) {
-  const field = payload.collections.journal.config.fields.find((f) => "name" in f && f.name === "content")
+// Markdown hard breaks (a line ending in "\\") arrive as U+2028 and become editor line breaks.
+const LINE_BREAK = "\u2028"
+function splitLineBreaks(nodes: Node[]) {
+  for (const n of nodes) {
+    if (!n.children) continue
+    n.children = n.children.flatMap((c) =>
+      c.type === "text" && typeof c.text === "string" && c.text.includes(LINE_BREAK)
+        ? c.text.split(LINE_BREAK).flatMap((text, i) => [
+            ...(i > 0 ? [{ type: "linebreak", version: 1 } as Node] : []),
+            ...(text ? [{ ...c, text }] : []),
+          ])
+        : [c],
+    )
+    splitLineBreaks(n.children)
+  }
+}
+
+async function markdownToLexical(
+  payload: Payload,
+  markdown: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  field: any = payload.collections.journal.config.fields.find((f) => "name" in f && f.name === "content"),
+) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const editorConfig = await editorConfigFactory.fromField({ field: field as any })
   const md = (src: string): Node[] =>
@@ -149,8 +171,39 @@ async function markdownToLexical(payload: Payload, markdown: string) {
 
 const normaliseCategory = (c: string) => (c === "Food & Drink" ? "Food & Drinks" : c)
 
+// ---------------------------------------------------------------- pages
+
+/** Fills Privacy and Terms with the launch texts while they are still empty (or on IMPORT_FORCE). */
+async function seedLegalPages(payload: Payload) {
+  for (const [slug, defaults] of [
+    ["privacy-page", privacyDefaults],
+    ["terms-page", termsDefaults],
+  ] as const) {
+    const current = await payload.findGlobal({ slug, depth: 0, overrideAccess: true })
+    const hasContent = Boolean((current.content as { root?: { children?: unknown[] } } | null)?.root?.children?.length)
+    if (hasContent && !force) continue
+    const field = payload.globals.config.find((g) => g.slug === slug)?.fields.find((f) => "name" in f && f.name === "content")
+    const content = await markdownToLexical(payload, defaults.markdown.replace(/\\\n/g, LINE_BREAK), field)
+    splitLineBreaks(content.root.children)
+    await payload.updateGlobal({
+      slug,
+      data: {
+        title: defaults.title,
+        subtitle: defaults.subtitle,
+        lastUpdated: new Date(`${defaults.lastUpdated}T12:00:00Z`).toISOString(),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        content: content as any,
+      },
+      overrideAccess: true,
+      context: ctx,
+    })
+    payload.logger.info(`Page imported: ${defaults.title}`)
+  }
+}
+
 async function main() {
   const payload = await getPayload({ config })
+  await seedLegalPages(payload)
 
   const existing = await payload.count({ collection: "journal", overrideAccess: true })
   if (existing.totalDocs > 0 && process.env.IMPORT_IF_EMPTY === "1") {
