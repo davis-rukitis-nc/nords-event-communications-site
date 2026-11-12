@@ -3,19 +3,33 @@ import Link from "next/link"
 import { getPartners } from "@/lib/cms"
 import type { Partner } from "@/lib/cms/types"
 
+// Every logo gets roughly the same area, so long wordmarks and compact marks look equally heavy.
+const LOGO_AREA = 4800 // px² at desktop size; phones show 75%
+const MAX_W = 200
+const MAX_H = 60
+
+function logoSize(ratio = 2.5) {
+  let h = Math.min(Math.sqrt(LOGO_AREA / ratio), MAX_H)
+  let w = h * ratio
+  if (w > MAX_W) [w, h] = [MAX_W, MAX_W / ratio]
+  return { w: Math.round(w), h: Math.round(h) }
+}
+
 function Logo({ partner, hidden = false }: { partner: Partner; hidden?: boolean }) {
+  const { w, h } = logoSize(partner.logoRatio)
   const img = (
     <Image
       src={partner.logo}
       alt={hidden ? "" : partner.name}
-      width={140}
-      height={80}
+      width={w}
+      height={h}
       draggable={false}
-      className="h-auto max-h-16 w-auto max-w-[140px] select-none object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+      style={{ "--w": `${w}px`, "--h": `${h}px` } as React.CSSProperties}
+      className="h-[calc(var(--h)*0.75)] w-[calc(var(--w)*0.75)] select-none object-contain opacity-70 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-(--h) md:w-(--w)"
     />
   )
   return (
-    <li className="flex min-w-[180px] shrink-0 items-center justify-center px-8" aria-hidden={hidden || undefined}>
+    <li className="flex min-w-[190px] shrink-0 items-center justify-center px-6 md:min-w-[260px] md:px-10" aria-hidden={hidden || undefined}>
       {partner.link ? (
         <a
           href={partner.link}
@@ -43,7 +57,7 @@ export default async function PartnersSection() {
         </h2>
 
         <div className="partners-marquee group/marquee relative overflow-hidden rounded-2xl bg-neutral-100">
-          <ul className="partners-track flex w-max items-center py-6">
+          <ul className="partners-track flex w-max items-center py-8 md:py-12">
             {partnerLogos.map((p) => (
               <Logo key={p.name} partner={p} />
             ))}

@@ -74,10 +74,14 @@ const nextConfig = {
       },
     ]
   },
-  // Hidden guest guide for Pink Noise Riga: a static page in public/pnr-riga-guide/.
-  // Not linked anywhere and not in the sitemap; noindex keeps it out of search engines.
+  // Hidden static pages, not linked anywhere and not in the sitemap; noindex keeps them out of
+  // search engines. Pink Noise Riga guest guide: public/pnr-riga-guide/.
+  // Baltic Wine & Drinks Awards producer menus: public/bwda/menu/<name>.html → /bwda/menu/<name>.
   async rewrites() {
-    return [{ source: "/pnr-riga-guide", destination: "/pnr-riga-guide/index.html" }]
+    return [
+      { source: "/pnr-riga-guide", destination: "/pnr-riga-guide/index.html" },
+      { source: "/bwda/menu/:name", destination: "/bwda/menu/:name.html" },
+    ]
   },
   async headers() {
     return [
@@ -101,6 +105,10 @@ const nextConfig = {
       },
       {
         source: "/pnr-riga-guide",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
+      },
+      {
+        source: "/bwda/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
       },
     ]

@@ -12,6 +12,7 @@ import { Journal } from "./cms/collections/Journal"
 import { CalendarEvents } from "./cms/collections/CalendarEvents"
 import { Events } from "./cms/collections/Events"
 import { Partners } from "./cms/collections/Partners"
+import { AboutPage, ContactPage, PrivacyPage, TermsPage } from "./cms/globals/Pages"
 import { migrations } from "./cms/migrations"
 
 const filename = fileURLToPath(import.meta.url)
@@ -40,6 +41,7 @@ export default buildConfig({
     dateFormat: "d MMM yyyy, HH:mm",
   },
   collections: [Journal, CalendarEvents, Events, Partners, Media, Users],
+  globals: [AboutPage, ContactPage, PrivacyPage, TermsPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },

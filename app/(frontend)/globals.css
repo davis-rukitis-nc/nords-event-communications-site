@@ -290,6 +290,63 @@
   color: inherit;
 }
 
+/* Privacy Policy / Terms of Service rich text (CMS). Mirrors the original hand-written layout. */
+.legal-content {
+  font-size: 1rem;
+  line-height: 1.625;
+  color: var(--color-neutral-700);
+}
+.legal-content h2 {
+  margin: 2rem 0 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: var(--color-neutral-900);
+}
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+.legal-content h3 {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--color-neutral-800);
+}
+.legal-content p + p {
+  margin-top: 1rem;
+}
+.legal-content ul,
+.legal-content ol {
+  margin-top: 0.75rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+.legal-content ol {
+  list-style-type: decimal;
+}
+.legal-content li {
+  line-height: 1.5;
+}
+.legal-content li + li {
+  margin-top: 0.5rem;
+}
+/* The closing paragraph (company contact details) sits in a light card. */
+.legal-content > p:last-child {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: var(--color-neutral-50);
+  line-height: 1.5;
+}
+.legal-content strong {
+  font-weight: 700;
+}
+.legal-content a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 /* Partner logo marquee: pure CSS, pauses on hover/focus, static + scrollable for reduced motion. */
 .partners-track {
   animation: partners-scroll 80s linear infinite;

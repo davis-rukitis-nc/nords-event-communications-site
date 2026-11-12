@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "payload migrate && IMPORT_IF_EMPTY=1 payload run scripts/import-content.ts && payload run scripts/repair-media.ts && next build",
+    "build": "payload migrate && IMPORT_IF_EMPTY=1 payload run scripts/import-content.ts && payload run scripts/media-maintenance.ts && next build",
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
