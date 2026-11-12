@@ -18,6 +18,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const INITIAL_ADMIN_EMAIL = "marathon.data@necom.lv"
+const IS_PREVIEW = process.env.VERCEL_ENV === "preview"
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
@@ -47,10 +48,19 @@ export default buildConfig({
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
       // Keep the database schema identical with and without Blob (local dev has no token).
       alwaysInsertFields: true,
-      // Serve files straight from Vercel's CDN instead of through a function on every view.
-      collections: { media: { disablePayloadAccessControl: true } },
+      collections: {
+        media: {
+          // Serve files straight from Vercel's CDN instead of through a function on every view.
+          disablePayloadAccessControl: true,
+          // Previews share the Blob store with production: keep their uploads in their own folder
+          // so a test upload can never overwrite a live image with the same name.
+          ...(IS_PREVIEW ? { prefix: "preview" } : {}),
+        },
+      },
       token: process.env.BLOB_READ_WRITE_TOKEN,
-      addRandomSuffix: true,
+      // No random suffix: Payload already makes filenames unique per database, and with a suffix
+      // the stored URL did not match the uploaded object (images 404'd).
+      addRandomSuffix: false,
     }),
   ],
   async onInit(payload) {
