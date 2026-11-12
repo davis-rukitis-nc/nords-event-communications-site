@@ -12,7 +12,21 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
+    # Throwaway Postgres for the build: migrations run, content is imported from lib/data/legacy, pages are generated.
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: necom
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://postgres:ci@localhost:5432/necom
+      PAYLOAD_SECRET: ci-only-not-a-real-secret
+      PAYLOAD_INITIAL_ADMIN_PASSWORD: ci-only-password
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -21,6 +35,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm generate:types && git diff --exit-code payload-types.ts
       - run: pnpm lint
       - run: pnpm type-check
       - run: pnpm test:unit

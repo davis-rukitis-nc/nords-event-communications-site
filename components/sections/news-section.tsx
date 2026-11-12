@@ -1,10 +1,10 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { getSortedArticles } from "@/lib/data/journal-data"
+import { getLatestArticles } from "@/lib/cms"
 import ArticleCard from "@/components/journal/article-card"
 
-export default function NewsSection({ excludeId }: { excludeId?: string }) {
-  const latestArticles = getSortedArticles(5)
+export default async function NewsSection({ excludeId }: { excludeId?: string }) {
+  const latestArticles = (await getLatestArticles(5))
     .filter((a) => a.id !== excludeId)
     .slice(0, 4)
 

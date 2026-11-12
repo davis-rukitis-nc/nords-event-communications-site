@@ -1,0 +1,375 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * Design tokens — one neutral ramp, nothing else.
+ * Event brand colours come from lib/data/events-data.ts.
+ */
+:root {
+  --bg: oklch(1 0 0);
+  --fg: oklch(0.145 0 0); /* neutral-950 */
+  --fg-muted: oklch(0.44 0 0); /* body copy on white, 8.6:1 */
+  --fg-subtle: oklch(0.556 0 0); /* captions/meta, 4.7:1 */
+  --line: oklch(0.922 0 0);
+  --line-strong: oklch(0.87 0 0);
+  --surface: oklch(0.97 0 0);
+  --inverse: oklch(0.145 0 0);
+  --inverse-fg: oklch(0.985 0 0);
+
+  --space-section: clamp(4rem, 8vw, 6rem);
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-muted-foreground: var(--fg-muted);
+  --color-subtle: var(--fg-subtle);
+  --color-border: var(--line);
+  --color-surface: var(--surface);
+  --color-primary: var(--inverse);
+  --color-primary-foreground: var(--inverse-fg);
+  --color-ring: var(--fg);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  .font-heading {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer utilities {
+  /* Legacy names kept so page markup stays untouched; both map to tokens. */
+  .text-primary-dark {
+    color: var(--fg);
+  }
+
+  .text-secondary-dark {
+    color: var(--fg-muted);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect the OS "reduce motion" setting everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.article-content {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--fg-muted);
+}
+
+.article-content > * + * {
+  margin-top: 1.5rem;
+}
+
+.article-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--fg);
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--fg);
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.article-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--fg);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.article-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--fg);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.article-content p {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.article-content a:hover {
+  color: var(--fg-muted);
+}
+
+.article-content strong {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.article-content em {
+  font-style: italic;
+}
+
+.article-content blockquote {
+  border-left: 2px solid var(--fg);
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  margin: 2.5rem 0;
+  color: var(--fg);
+}
+
+.article-content blockquote p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.article-content blockquote p:first-child {
+  margin-top: 0;
+}
+
+.article-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.article-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-content li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.article-content li::marker {
+  color: var(--fg-subtle);
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.article-content hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.article-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+  background-color: var(--surface);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  color: var(--fg);
+}
+
+.article-content pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  background-color: var(--fg);
+  color: hsl(0 0% 95%);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.article-content pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Partner logo marquee: pure CSS, pauses on hover/focus, static + scrollable for reduced motion. */
+.partners-track {
+  animation: partners-scroll 80s linear infinite;
+}
+.partners-marquee:hover .partners-track,
+.partners-marquee:focus-within .partners-track {
+  animation-play-state: paused;
+}
+@keyframes partners-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee {
+    overflow-x: auto;
+  }
+  .partners-track {
+    animation: none;
+  }
+  .partners-track > [aria-hidden="true"] {
+    display: none;
+  }
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  margin: 2rem 0;
+}
+.article-content th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  padding: 0 1rem 0.5rem 0;
+  border-bottom: 1px solid var(--fg);
+}
+.article-content td {
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.article-content th:last-child,
+.article-content td:last-child {
+  padding-right: 0;
+}
+/* Long tables scroll inside the column on small screens instead of squeezing. */
+@media (max-width: 640px) {
+  .article-content table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Tables from the CMS editor: drop Lexical's inline cell borders/padding and the <p> inside cells. */
+.article-content .lexical-table-cell {
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  padding: 0.6rem 1rem 0.6rem 0 !important;
+  text-align: left;
+  vertical-align: top;
+}
+.article-content th.lexical-table-cell {
+  border-bottom-color: var(--fg) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0.5rem !important;
+}
+.article-content .lexical-table-cell > p {
+  margin: 0;
+}
+.article-content th.lexical-table-cell > p {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}

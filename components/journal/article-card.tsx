@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import { type JournalArticle, formatArticleDate } from "@/lib/data/journal-data"
+import type { JournalArticle } from "@/lib/cms/types"
+import { formatArticleDate } from "@/lib/cms/format"
 
 interface ArticleCardProps {
   article: JournalArticle

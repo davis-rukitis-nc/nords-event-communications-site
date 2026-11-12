@@ -1,10 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { displayEvents } from "@/lib/data/events-data"
+import { getEvents } from "@/lib/cms"
 
-export default function OtherEvents({ currentEventId }: { currentEventId: string }) {
-  const otherEvents = displayEvents.filter((event) => event.id !== currentEventId).slice(0, 4)
+export default async function OtherEvents({ currentEventId }: { currentEventId: string }) {
+  const otherEvents = (await getEvents()).filter((event) => event.id !== currentEventId).slice(0, 4)
   if (otherEvents.length === 0) return null
 
   return (

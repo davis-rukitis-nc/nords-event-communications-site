@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { partnerLogos, type Partner } from "@/lib/data/partners-data"
+import { getPartners } from "@/lib/cms"
+import type { Partner } from "@/lib/cms/types"
 
 function Logo({ partner, hidden = false }: { partner: Partner; hidden?: boolean }) {
   const img = (
@@ -32,7 +33,8 @@ function Logo({ partner, hidden = false }: { partner: Partner; hidden?: boolean 
   )
 }
 
-export default function PartnersSection() {
+export default async function PartnersSection() {
+  const partnerLogos = await getPartners()
   return (
     <section aria-labelledby="trusted-by" className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 md:px-8">

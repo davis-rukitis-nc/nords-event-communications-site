@@ -1,4 +1,4 @@
-import type { Event } from "@/lib/data/events-data"
+import type { Event } from "@/lib/cms/types"
 
 export default function EventStats({ event }: { event: Event }) {
   const stats = [

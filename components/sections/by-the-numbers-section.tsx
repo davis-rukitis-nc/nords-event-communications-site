@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef, useSyncExternalStore } from "
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { displayEvents } from "@/lib/data/events-data"
+import type { Event } from "@/lib/cms/types"
 import RecordsBoard from "@/components/records-board"
 
 const BottleSVG1 = ({ filled, onClick }: { filled: boolean; onClick: () => void }) => (
@@ -413,7 +413,15 @@ const subscribeMobile = (cb: () => void) => {
   return () => mq.removeEventListener("change", cb)
 }
 
-export default function ByTheNumbersSection({ daysToMarathon }: { daysToMarathon: number }) {
+export default function ByTheNumbersSection({
+  daysToMarathon,
+  rimiMarathon,
+  wineChampagne,
+}: {
+  daysToMarathon: number
+  rimiMarathon?: Event
+  wineChampagne?: Event
+}) {
   const [gameState, setGameState] = useState<"idle" | "playing" | "won" | "lost">("idle")
   const [poppedBottles, setPoppedBottles] = useState<Set<number>>(new Set())
   const [timeLeft, setTimeLeft] = useState(60)
@@ -489,8 +497,6 @@ export default function ByTheNumbersSection({ daysToMarathon }: { daysToMarathon
     [gameState, poppedBottles],
   )
 
-  const rimiMarathon = displayEvents.find((e) => e.id === "rimi-riga-marathon")
-  const wineChampagne = displayEvents.find((e) => e.id === "riga-wine-champagne")
 
   const eventYears: Record<string, number | undefined> = {
     [rimiMarathon?.id ?? ""]: yearsRunning(rimiMarathon?.startDate),

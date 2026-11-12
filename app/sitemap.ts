@@ -1,10 +1,12 @@
 import type { MetadataRoute } from "next"
-import { displayEvents } from "@/lib/data/events-data"
-import { journalArticles } from "@/lib/data/journal-data"
+import { getArticles, getEvents } from "@/lib/cms"
+
+export const revalidate = 3600
 
 const baseUrl = "https://www.necom.lv"
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [displayEvents, journalArticles] = await Promise.all([getEvents(), getArticles()])
   const latestArticle = journalArticles.map((a) => a.date).sort().at(-1)
 
   const staticPages: MetadataRoute.Sitemap = [

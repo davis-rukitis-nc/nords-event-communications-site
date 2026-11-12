@@ -1,6 +1,6 @@
-// Single source for dated events (calendar, countdown, footer "Upcoming", Event JSON-LD).
+// Helpers for dated events (calendar, countdown, footer "Upcoming", Event JSON-LD).
+// The entries themselves are edited in the CMS (Calendar collection) and loaded via lib/cms.
 // Past entries drop off automatically once their end time has passed; pages revalidate hourly.
-// Times are local Riga time, written with their UTC offset (EET +02:00 / EEST +03:00).
 
 export type CalendarSeries = "rwch" | "pnr" | "bwda" | "rrm" | "tba"
 
@@ -21,121 +21,7 @@ export interface CalendarEvent {
 
 export const TIME_ZONE = "Europe/Riga"
 
-const RWCH = "https://rigawinechampagne.lv/"
-const PNR = "https://pinknoiseriga.com/"
-
-export const calendarEvents: CalendarEvent[] = [
-  {
-    id: "miles-davis-latvian-all-stars-2026",
-    name: "Cookin’ with the Miles Davis Latvian All-Stars",
-    start: "2026-11-20T19:00:00+02:00",
-    venue: "Hanzas Perons",
-    description: "A Miles Davis tribute dinner-concert by Riga Wine & Champagne with Pink Noise Riga.",
-    series: "rwch",
-    link: RWCH,
-    soldOut: true,
-  },
-  {
-    id: "baltic-wine-drinks-awards-2026",
-    name: "Baltic Wine & Drinks Awards 2026",
-    start: "2026-11-21T11:00:00+02:00",
-    end: "2026-11-21T14:00:00+02:00",
-    venue: "Hanzas Perons",
-    description: "The awards ceremony for the Baltic wine and drinks competition.",
-    series: "bwda",
-    link: "https://rigawinechampagne.lv/baltic-wine-drinks-awards/about",
-  },
-  {
-    id: "top-100-wines-chefs-2026",
-    name: "TOP 100 Wines + Chefs",
-    start: "2026-11-21T17:00:00+02:00",
-    end: "2026-11-21T23:00:00+02:00",
-    venue: "Hanzas Perons",
-    description:
-      "The main Riga Wine & Champagne festival evening, a large tasting of 100 top wines paired with chefs’ food.",
-    series: "rwch",
-    link: RWCH,
-  },
-  {
-    id: "les-amis-de-bordeaux-2026",
-    name: "Les Amis de Bordeaux: a millennium feast",
-    start: "2026-11-22T13:00:00+02:00",
-    end: "2026-11-22T16:00:00+02:00",
-    venue: "B7 restaurant",
-    description: "A Bordeaux-themed long lunch, supported by Rietumu Banka.",
-    series: "rwch",
-    link: RWCH,
-  },
-  {
-    id: "jason-hunter-sextet-2026",
-    name: "Jason Hunter Sextet – Miles Davis 100: The Sound of a Century",
-    start: "2026-11-27T20:00:00+02:00",
-    venue: "M/House of JAZZ",
-    description: "A Pink Noise Riga club concert marking Miles Davis’s centenary.",
-    series: "pnr",
-    link: PNR,
-  },
-  {
-    id: "intars-busulis-lush-life-2026",
-    name: "Intars Busulis Lush Life Quintet Vol. 2",
-    start: "2026-11-28T18:00:00+02:00",
-    venue: "Mūzikas nams Daile",
-    description: "The second Pink Noise Riga jazz-standards concert from Intars Busulis.",
-    series: "pnr",
-    link: PNR,
-  },
-  {
-    id: "sanyu-2026",
-    name: "SANYU",
-    start: "2026-11-28T20:00:00+02:00",
-    venue: "M/House of JAZZ",
-    description: "A Pink Noise Riga club concert.",
-    series: "pnr",
-    link: PNR,
-  },
-  {
-    id: "jlco-wynton-marsalis-2026",
-    name: "Jazz at Lincoln Center Orchestra with Wynton Marsalis",
-    start: "2026-11-29T18:00:00+02:00",
-    venue: "Dailes teātris",
-    description:
-      "The headline concert of the Pink Noise Riga Autumn Session and Marsalis’s first time performing in Latvia.",
-    series: "pnr",
-    link: PNR,
-    soldOut: true,
-  },
-  {
-    id: "bubble-parade-2027",
-    name: "Burbuļu parāde (Bubble Parade)",
-    start: "2027-04-03T17:00:00+03:00",
-    end: "2027-04-03T23:00:00+03:00",
-    venue: "Hanzas Perons",
-    description: "The Riga Wine & Champagne spring tasting of sparkling wine and champagne.",
-    series: "rwch",
-    link: RWCH,
-  },
-  {
-    id: "rimi-riga-marathon-2027",
-    name: "Rimi Riga Marathon 2027",
-    start: "2027-05-15T00:00:00+03:00",
-    end: "2027-05-16T23:59:00+03:00",
-    allDay: true,
-    venue: "Riga",
-    description: "The big annual running weekend in Riga.",
-    series: "rrm",
-    link: "https://rimirigamarathon.com/",
-  },
-  {
-    id: "unannounced-2027-10",
-    name: "Unannounced project",
-    start: "2027-10-03T00:00:00+03:00",
-    allDay: true,
-    series: "tba",
-    isToBeAnnounced: true,
-  },
-]
-
-/** Brand colour per series (kept in sync with lib/data/events-data.ts brandColors). */
+/** Brand colour per series (match the event series brand colours in the CMS). */
 export const seriesColor: Record<CalendarSeries, string> = {
   rwch: "#e40521",
   pnr: "#fa4100",
@@ -149,19 +35,20 @@ function endOf(event: CalendarEvent) {
 }
 
 /** Upcoming (not yet finished) events, soonest first. */
-export function getUpcomingCalendarEvents(now: Date = new Date()): CalendarEvent[] {
+export function getUpcomingCalendarEvents(calendarEvents: CalendarEvent[], now: Date = new Date()): CalendarEvent[] {
   return calendarEvents
     .filter((e) => endOf(e) > now.getTime())
     .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
 }
 
 /** Next announced event that has not started yet. */
-export function getNextCalendarEvent(now: Date = new Date()): CalendarEvent | null {
-  return getUpcomingCalendarEvents(now).find((e) => !e.isToBeAnnounced && new Date(e.start) > now) ?? null
+export function getNextCalendarEvent(calendarEvents: CalendarEvent[], now: Date = new Date()): CalendarEvent | null {
+  return getUpcomingCalendarEvents(calendarEvents, now).find((e) => !e.isToBeAnnounced && new Date(e.start) > now) ?? null
 }
 
-export function getCalendarEvent(id: string) {
-  return calendarEvents.find((e) => e.id === id)
+/** Next upcoming entry of a series, e.g. the next Rimi Riga Marathon. */
+export function getNextInSeries(calendarEvents: CalendarEvent[], series: CalendarSeries, now: Date = new Date()) {
+  return getUpcomingCalendarEvents(calendarEvents, now).find((e) => e.series === series && !e.isToBeAnnounced) ?? null
 }
 
 const dayKey = (d: Date) =>

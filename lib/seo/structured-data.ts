@@ -1,4 +1,4 @@
-import type { JournalArticle } from "@/lib/data/journal-data"
+import type { JournalArticle } from "@/lib/cms/types"
 import type { CalendarEvent } from "@/lib/data/calendar"
 
 const SITE = "https://www.necom.lv"
@@ -91,7 +91,6 @@ export function generateArticleStructuredData(article: JournalArticle) {
     },
     articleSection: article.category,
     keywords: article.tags.join(", "),
-    wordCount: article.content.split(" ").length,
     inLanguage: "en",
   }
 }

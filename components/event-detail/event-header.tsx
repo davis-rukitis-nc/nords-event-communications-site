@@ -1,5 +1,5 @@
 import Image from "next/image"
-import type { Event } from "@/lib/data/events-data"
+import type { Event } from "@/lib/cms/types"
 
 export default function EventHeader({ event, title, subtitle }: { event: Event; title?: string; subtitle?: string }) {
   return (
