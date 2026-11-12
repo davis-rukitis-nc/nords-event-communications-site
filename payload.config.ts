@@ -18,6 +18,16 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const INITIAL_ADMIN_EMAIL = "marathon.data@necom.lv"
+const IS_PREVIEW = process.env.VERCEL_ENV === "preview"
+
+/**
+ * Neon's URLs use sslmode=require. The Postgres driver already treats that as full certificate
+ * verification but warns that the next major version will weaken it. Say verify-full explicitly:
+ * same behaviour today, no warning, and it stays strict after future driver upgrades.
+ */
+function databaseUrl(url = "") {
+  return url.replace(/([?&]sslmode=)(require|prefer|verify-ca)\b/, "$1verify-full")
+}
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
@@ -34,7 +44,7 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
   db: postgresAdapter({
-    pool: { connectionString: process.env.DATABASE_URL || "" },
+    pool: { connectionString: databaseUrl(process.env.DATABASE_URL) },
     // Schema changes ship as committed migrations; production never auto-pushes.
     push: false,
     migrationDir: path.resolve(dirname, "cms/migrations"),
@@ -47,10 +57,19 @@ export default buildConfig({
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
       // Keep the database schema identical with and without Blob (local dev has no token).
       alwaysInsertFields: true,
-      // Serve files straight from Vercel's CDN instead of through a function on every view.
-      collections: { media: { disablePayloadAccessControl: true } },
+      collections: {
+        media: {
+          // Serve files straight from Vercel's CDN instead of through a function on every view.
+          disablePayloadAccessControl: true,
+          // Previews share the Blob store with production: keep their uploads in their own folder
+          // so a test upload can never overwrite a live image with the same name.
+          ...(IS_PREVIEW ? { prefix: "preview" } : {}),
+        },
+      },
       token: process.env.BLOB_READ_WRITE_TOKEN,
-      addRandomSuffix: true,
+      // No random suffix: Payload already makes filenames unique per database, and with a suffix
+      // the stored URL did not match the uploaded object (images 404'd).
+      addRandomSuffix: false,
     }),
   ],
   async onInit(payload) {
