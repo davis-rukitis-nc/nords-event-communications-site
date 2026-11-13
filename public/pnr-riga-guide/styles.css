@@ -122,7 +122,7 @@ a:focus-visible, summary:focus-visible {
 .hero h1 span { display: inline-block; }
 .stay {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
   border-top: 2px solid var(--white);
   padding-top: 16px;
@@ -162,6 +162,27 @@ a:focus-visible, summary:focus-visible {
 .stay > div:nth-child(1) { animation-delay: 260ms; }
 .stay > div:nth-child(2) { animation-delay: 320ms; }
 .stay > div:nth-child(3) { animation-delay: 380ms; }
+.stay > div:nth-child(4) { animation-delay: 440ms; }
+.hero a { text-decoration-color: currentColor; white-space: nowrap; }
+.hero a:hover { color: inherit; }
+.greeting {
+  font-size: clamp(17px, 2vw, 22px);
+  margin-bottom: 12px;
+  animation: rise 700ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+/* Placeholders for material that arrives later (schedule, backstage plan) */
+.schedule, .soon { display: flex; align-items: center; gap: 12px; font-size: 15px; }
+.schedule { margin-top: 32px; }
+.body .soon { margin-top: 24px; color: var(--grey); }
+.pill {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 2px dashed currentColor;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.soon .pill { color: var(--black); }
 
 /* Sections */
 .section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
@@ -187,6 +208,11 @@ a:focus-visible, summary:focus-visible {
 }
 .lead { font-size: 26px; line-height: 1.2; font-weight: 600; margin-bottom: 4px; }
 .body > p + p { margin-top: 8px; }
+.body > p.intro { max-width: 60ch; margin-top: 16px; }
+.body > p.intro:first-child { margin: 0 0 32px; }
+.route { width: 100%; max-width: 372px; margin-bottom: 24px; border: 1px solid var(--rule); }
+.statement { font-size: clamp(20px, 2.4vw, 26px); line-height: 1.35; font-weight: 600; max-width: 34ch; }
+.body > .statement + p { margin-top: 16px; max-width: 60ch; }
 .links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 12px; }
 .body .links { margin-top: 16px; }
 
@@ -208,9 +234,11 @@ a:focus-visible, summary:focus-visible {
 .mapbox[open] img { animation: rise 260ms cubic-bezier(0.215, 0.61, 0.355, 1) both; }
 
 /* Contacts */
+.contacts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; column-gap: 24px; }
 .contacts li {
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
+  grid-template-columns: subgrid;
   gap: 4px 24px;
   align-items: baseline;
   padding: 16px 0;
@@ -324,6 +352,7 @@ a:focus-visible, summary:focus-visible {
 @media (max-width: 820px) {
   .grid { grid-template-columns: 1fr; gap: 24px; }
   .section { padding: 48px 0; }
+  .stay { grid-template-columns: 1fr 1fr; row-gap: 20px; }
 }
 
 @media (max-width: 560px) {
@@ -337,8 +366,7 @@ a:focus-visible, summary:focus-visible {
   .bar-logo { width: 92px; }
   .bar-links { gap: 18px; }
   .stay { grid-template-columns: 1fr 1fr; row-gap: 20px; }
-  .stay > div:last-child { grid-column: 1 / -1; }
-  .contacts li { grid-template-columns: 1fr auto; }
+  .contacts { grid-template-columns: minmax(0, 1fr) auto; }
   .contacts .role { grid-column: 1 / -1; }
   .facts > div { grid-template-columns: 1fr; }
   .places { gap: 28px 14px; }
@@ -348,14 +376,14 @@ a:focus-visible, summary:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero h1 span, .stay > div, .stay::before, .mapbox[open] img { animation: none; }
+  .hero h1 span, .greeting, .stay > div, .stay::before, .mapbox[open] img { animation: none; }
   .place img, .bar, .bar-logo, .bar-links a, .badges a { transition: none; }
 }
 
 @media print {
   .bar, .mapbox summary, .badges { display: none; }
   .hero, .section.blue, .callout, .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .hero h1 span, .stay > div, .stay::before { animation: none; }
+  .hero h1 span, .greeting, .stay > div, .stay::before { animation: none; }
   .section { padding: 24px 0; }
   .place, .app, .contacts li { break-inside: avoid; }
   .places { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
