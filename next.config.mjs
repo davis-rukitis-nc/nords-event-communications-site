@@ -77,10 +77,12 @@ const nextConfig = {
   // Hidden static pages, not linked anywhere and not in the sitemap; noindex keeps them out of
   // search engines. Pink Noise Riga guest guide: public/pnr-riga-guide/.
   // Baltic Wine & Drinks Awards producer menus: public/bwda/menu/<name>.html → /bwda/menu/<name>.
+  // Riga Wine & Champagne autumn 2026 booklet (flipbook): public/rwch-rudens-2026/.
   async rewrites() {
     return [
       { source: "/pnr-riga-guide", destination: "/pnr-riga-guide/index.html" },
       { source: "/bwda/menu/:name", destination: "/bwda/menu/:name.html" },
+      { source: "/rwch-rudens-2026", destination: "/rwch-rudens-2026/index.html" },
     ]
   },
   async headers() {
@@ -105,6 +107,14 @@ const nextConfig = {
       },
       {
         source: "/pnr-riga-guide",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
+      },
+      {
+        source: "/rwch-rudens-2026/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
+      },
+      {
+        source: "/rwch-rudens-2026",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive, nosnippet, noimageindex" }],
       },
       {
