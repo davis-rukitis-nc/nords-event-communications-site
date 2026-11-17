@@ -16,7 +16,7 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* Riga Wine & Champagne: cover pink on a deep wine-violet, with the cover's blue halftone. */
+/* Riga Wine & Champagne: cover pink on a deep wine-violet. */
 :root {
   --bg: #1c1020;
   --bar: #150b18;
@@ -25,7 +25,6 @@
   --muted: #b8a2b9;
   --accent: #f163b2; /* cover pink */
   --ink: #2a0f25;    /* text on pink */
-  --dot: 58, 76, 214; /* cover halftone blue */
   --bar-h: 56px;
   --top-h: 52px;
   color-scheme: dark;
@@ -103,26 +102,6 @@ button { font: inherit; color: inherit; }
   min-width: 0;
   overflow: hidden;
   padding: 8px max(12px, env(safe-area-inset-right, 0px)) 12px max(12px, env(safe-area-inset-left, 0px));
-  isolation: isolate;
-}
-/* Halftone from the cover: dots grow toward the edges, so the pages stay the focus. */
-.stage::before,
-.stage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-.stage::before {
-  background: radial-gradient(circle, rgba(var(--dot), .5) 1.1px, transparent 1.6px) 0 0 / 9px 9px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, transparent 40%, #000 95%);
-  mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, transparent 40%, #000 95%);
-}
-.stage::after {
-  background: radial-gradient(circle, rgba(var(--dot), .75) 2.4px, transparent 3px) 0 0 / 9px 9px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, transparent 62%, #000 110%);
-  mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, transparent 62%, #000 110%);
 }
 .book { position: relative; flex: none; }
 .book.stf__parent { touch-action: pan-y pinch-zoom; }
