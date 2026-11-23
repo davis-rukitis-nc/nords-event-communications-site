@@ -171,18 +171,20 @@ a:focus-visible, summary:focus-visible {
   animation: rise 700ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
-/* Placeholders for material that arrives later (schedule, backstage plan) */
-.schedule, .soon { display: flex; align-items: center; gap: 12px; font-size: 15px; }
-.schedule { margin-top: 32px; }
-.body .soon { margin-top: 24px; color: var(--grey); }
-.pill {
+/* Daily schedule button */
+.schedule { display: flex; align-items: center; gap: 12px; margin-top: 32px; font-size: 15px; }
+.hero .pill {
   display: inline-block;
-  padding: 8px 16px;
-  border: 2px dashed currentColor;
+  padding: 10px 20px;
   border-radius: 999px;
+  background: var(--white);
+  color: var(--orange);
   font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 150ms ease, color 150ms ease;
 }
-.soon .pill { color: var(--black); }
+.hero .pill:hover { background: var(--black); color: var(--white); }
 
 /* Sections */
 .section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
