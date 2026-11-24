@@ -42,8 +42,8 @@ export default function DpChart() {
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
       <figure className="min-w-0 rounded-2xl border border-neutral-200 p-5 md:p-6 lg:col-span-8">
         <figcaption className="flex flex-wrap items-baseline justify-between gap-3">
-          <span className="text-xs font-semibold tracking-[0.12em] text-neutral-500 uppercase">
-            Krug Grande Cuvée vs Dom Pérignon 2015, same list
+          <span className="text-sm font-medium text-neutral-700">
+            Krug Grande Cuvée and Dom Pérignon 2015 on the same list
           </span>
           <span className="text-xs text-neutral-500">{rows.length} venues</span>
         </figcaption>
@@ -120,13 +120,13 @@ export default function DpChart() {
           )}
         </div>
         <details className="mt-4 text-sm">
-          <summary className="cursor-pointer font-medium text-neutral-800">The paired prices</summary>
+          <summary className="cursor-pointer font-medium text-neutral-800">Show the prices</summary>
           <table className="mt-3 w-full text-left">
             <thead>
-              <tr className="border-b border-neutral-300 text-xs tracking-[0.12em] text-neutral-500 uppercase">
-                <th className="py-2 font-semibold">Venue</th>
-                <th className="py-2 text-right font-semibold">Krug</th>
-                <th className="py-2 text-right font-semibold">DP 2015</th>
+              <tr className="border-b border-neutral-300 text-sm text-neutral-500">
+                <th className="py-2 font-medium">Venue</th>
+                <th className="py-2 text-right font-medium">Krug</th>
+                <th className="py-2 text-right font-medium">Dom Pérignon 2015</th>
               </tr>
             </thead>
             <tbody>
@@ -144,23 +144,21 @@ export default function DpChart() {
         </details>
       </figure>
 
-      <div className="flex flex-col gap-4 lg:col-span-4">
-        <p className="text-sm leading-relaxed text-neutral-600">
-          The test: hide one venue, then guess its Dom Pérignon price from the others. Once with that venue&rsquo;s
-          Krug price as a clue, once with a plain median. Repeat for every venue.
+      <div className="flex flex-col gap-5 text-neutral-600 lg:col-span-4">
+        <p className="leading-relaxed">
+          To test it, we left out one venue at a time and estimated its Dom Pérignon price from the others.
         </p>
-        <div className="rounded-2xl bg-[#fad0c5] p-5">
-          <p className="text-[11px] font-semibold tracking-[0.12em] text-neutral-700 uppercase">Guess using Krug</p>
-          <p className="mt-1 text-4xl font-bold text-neutral-950 tabular-nums">
-            €{Math.round(h.krugMae)} <span className="text-base font-medium text-neutral-700">off on average</span>
-          </p>
-        </div>
-        <div className="rounded-2xl bg-[#f1f1f1] p-5">
-          <p className="text-[11px] font-semibold tracking-[0.12em] text-neutral-600 uppercase">Guess using the median</p>
-          <p className="mt-1 text-4xl font-bold text-neutral-950 tabular-nums">
-            €{Math.round(h.medianMae)} <span className="text-base font-medium text-neutral-600">off on average</span>
-          </p>
-        </div>
+        <dl className="divide-y divide-neutral-200 border-y border-neutral-200">
+          <div className="flex items-baseline justify-between gap-4 py-3">
+            <dt>Estimate from its Krug price</dt>
+            <dd className="text-2xl font-bold text-neutral-950 tabular-nums">€{Math.round(h.krugMae)} off</dd>
+          </div>
+          <div className="flex items-baseline justify-between gap-4 py-3">
+            <dt>Estimate from the median</dt>
+            <dd className="text-2xl font-bold text-neutral-950 tabular-nums">€{Math.round(h.medianMae)} off</dd>
+          </div>
+        </dl>
+        <p className="text-sm">Average error across {h.n} venues.</p>
         <label className="flex cursor-pointer items-center gap-2 text-sm text-neutral-700">
           <input
             type="checkbox"
@@ -168,12 +166,10 @@ export default function DpChart() {
             onChange={(e) => setDropMax(e.target.checked)}
             className="size-4 accent-neutral-950"
           />
-          Leave out the €800 bottle
+          Leave out Harper Woolf&rsquo;s €800 bottle
         </label>
-        <p className="text-xs leading-relaxed text-neutral-500">
-          Correlation {dropMax ? study.dpPearsonNoMax : study.dpPearson} (Pearson), rank correlation{" "}
-          {dropMax ? study.dpSpearmanNoMax : study.dpSpearman}. Eleven venues is a small sample: a strong clue for
-          prestige Champagne on these lists, not a law.
+        <p className="text-sm leading-relaxed text-neutral-500">
+          Krug still helps without it, though less. With so few venues, treat it as a good hint rather than a rule.
         </p>
       </div>
     </div>

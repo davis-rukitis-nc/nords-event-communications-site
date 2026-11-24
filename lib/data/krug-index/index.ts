@@ -58,14 +58,14 @@ export const formatEur = (n: number) => eur.format(n)
  * Kept here rather than in the generated file because they are editorial wording.
  */
 export const venueNotes: Record<string, string> = {
-  W015: "The same list also carries the 171st edition at €425. The index uses the newest numbered edition.",
-  W021: "The bottle price sits in a 750 mL column on the by-the-glass page. A 125 mL pour of the same Krug is €68.",
-  W050: "€315 is the shelf price. Drinking the bottle in the bar adds a €15 bottle fee.",
-  W049: "€315 is the shelf price. Drinking the bottle in the bar adds a €15 bottle fee. Taken from the July 2026 list.",
-  W038: "The 171st edition is listed too, also at €550.",
-  W048: "The menu says a 10% discretionary service charge will be added. With it the bottle comes to €660; the index leaves it out.",
-  W024: "The file name carries an 11-2025 date; it was submitted for the 2026 awards.",
-  W008: "A scanned list. On the same page: Dom Pérignon 2015 at €360 and Cristal 2015 at €430.",
-  W044: "Listed in a separate Champagne appendix to the wine list.",
-  W040: "Printed as Grande Cuvée “2006” with Krug iD 219 011. The edition can't be confirmed from the menu, so this bottle stays out of the €390 benchmark.",
+  W015: "Also lists the 171st edition, at €425.",
+  W021: "A 125 mL glass of the same Krug is €68.",
+  W050: "€315 on the shelf, plus €15 to drink it in the bar.",
+  W049: "€315 on the shelf, plus €15 to drink it in the bar. From the July 2026 list.",
+  W038: "Also lists the 171st edition, at the same €550.",
+  W048: "The menu adds a 10% service charge, which it calls discretionary. With it the bottle is €660. The index uses €600.",
+  W024: "The file is dated November 2025, but it was submitted for the 2026 awards.",
+  W008: "The list is a scan. On the same page: Dom Pérignon 2015 at €360 and Cristal 2015 at €430.",
+  W044: "From a separate Champagne list.",
+  W040: "The list prints this bottle as Grande Cuvée “2006” with Krug iD 219 011. The edition can’t be confirmed, so it isn’t counted in the median.",
 }

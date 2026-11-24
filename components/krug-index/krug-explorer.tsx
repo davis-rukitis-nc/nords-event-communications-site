@@ -8,7 +8,6 @@ import {
   BENCHMARK_EUR,
   COUNTRY_NAMES,
   krugIndex,
-  editionLabel,
   ordinal,
   formatEur,
   summarize,
@@ -92,7 +91,7 @@ export default function KrugExplorer() {
           ))}
         </div>
         <label className="flex items-center gap-2 text-sm text-neutral-700">
-          <span className="text-xs font-semibold tracking-[0.12em] text-neutral-500 uppercase">Edition</span>
+          <span className="text-neutral-500">Edition</span>
           <select
             value={String(edition)}
             onChange={(e) => {
@@ -117,18 +116,15 @@ export default function KrugExplorer() {
             onChange={(e) => setWithLegacy(e.target.checked)}
             className="size-4 accent-neutral-950"
           />
-          Show Riviera&rsquo;s iD-numbered bottle
+          Include Riviera (edition unclear)
         </label>
       </div>
 
       <p className="mt-4 text-sm text-neutral-500" aria-live="polite">
         {summary ? (
           <>
-            Showing <strong className="font-semibold text-neutral-900">{summary.n}</strong>{" "}
-            {summary.n === 1 ? "venue" : "venues"}
-            {activeCity ? ` in ${activeCity}` : ""}. Median of this selection{" "}
-            <strong className="font-semibold text-neutral-900">{formatEur(summary.median)}</strong> (index{" "}
-            {Math.round(krugIndex(summary.median))}). Index 100 stays fixed at {formatEur(BENCHMARK_EUR)}.
+            {summary.n} {summary.n === 1 ? "venue" : "venues"}
+            {activeCity ? ` in ${activeCity}` : ""}, median {formatEur(summary.median)}.
           </>
         ) : (
           "No venue matches these filters."
@@ -156,21 +152,21 @@ export default function KrugExplorer() {
 
       {/* The table is the accessible, complete view of the same data */}
       <div className="relative mt-12 overflow-x-auto">
-        <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+        <table className="w-full border-collapse text-left text-sm sm:min-w-[640px]">
           <caption className="sr-only">
             Krug Grande Cuvée drink-in prices by venue, 2026 BW&amp;DA submitted lists. Index 100 ={" "}
             {formatEur(BENCHMARK_EUR)}.
           </caption>
           <thead>
-            <tr className="border-b border-neutral-950 text-xs tracking-[0.12em] text-neutral-500 uppercase">
+            <tr className="border-b border-neutral-950 text-sm text-neutral-500">
               <SortHeader label="Venue" k="name" sort={sort} onSort={toggleSort} />
-              <SortHeader label="City" k="city" sort={sort} onSort={toggleSort} />
-              <SortHeader label="Edition" k="edition" sort={sort} onSort={toggleSort} />
-              <th scope="col" className="py-3 pr-4 text-right font-semibold">
+              <SortHeader label="City" k="city" sort={sort} onSort={toggleSort} className="hidden sm:table-cell" />
+              <SortHeader label="Edition" k="edition" sort={sort} onSort={toggleSort} className="hidden sm:table-cell" />
+              <th scope="col" className="hidden py-3 pr-4 text-right font-medium sm:table-cell">
                 Listed
               </th>
-              <SortHeader label="Drink-in" k="drinkIn" sort={sort} onSort={toggleSort} align="right" />
-              <th scope="col" className="py-3 pr-4 text-right font-semibold">
+              <SortHeader label="Price" k="drinkIn" sort={sort} onSort={toggleSort} align="right" />
+              <th scope="col" className="py-3 pr-4 text-right font-medium">
                 Index
               </th>
               <th scope="col" className="py-3 text-right font-semibold">
@@ -196,15 +192,16 @@ export default function KrugExplorer() {
                     >
                       {v.name}
                     </button>
+                    <span className="block text-xs font-normal text-neutral-500 sm:hidden">{v.city}</span>
                     {v.scope === "legacy-id" && (
                       <span className="ml-2 rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] font-medium text-neutral-600">
-                        not in benchmark
+                        not counted
                       </span>
                     )}
                   </th>
-                  <td className="py-3 pr-4 text-neutral-600">{v.city}</td>
-                  <td className="py-3 pr-4 text-neutral-600">{v.edition ?? (v.scope === "legacy-id" ? "iD" : "—")}</td>
-                  <td className="py-3 pr-4 text-right text-neutral-600 tabular-nums">
+                  <td className="hidden py-3 pr-4 text-neutral-600 sm:table-cell">{v.city}</td>
+                  <td className="hidden py-3 pr-4 text-neutral-600 sm:table-cell">{v.edition ?? (v.scope === "legacy-id" ? "iD" : "—")}</td>
+                  <td className="hidden py-3 pr-4 text-right text-neutral-600 tabular-nums sm:table-cell">
                     {formatEur(v.printed)}
                     {v.bottleFee > 0 && <span className="text-neutral-500"> + {formatEur(v.bottleFee)}</span>}
                   </td>
@@ -241,24 +238,26 @@ function SortHeader({
   sort,
   onSort,
   align = "left",
+  className = "",
 }: {
   label: string
   k: SortKey
   sort: { key: SortKey; dir: 1 | -1 }
   onSort: (k: SortKey) => void
   align?: "left" | "right"
+  className?: string
 }) {
   const active = sort.key === k
   return (
     <th
       scope="col"
       aria-sort={active ? (sort.dir === 1 ? "ascending" : "descending") : "none"}
-      className={`py-3 pr-4 font-semibold ${align === "right" ? "text-right" : ""}`}
+      className={`py-3 pr-4 font-medium ${align === "right" ? "text-right" : ""} ${className}`}
     >
       <button
         type="button"
         onClick={() => onSort(k)}
-        className={`inline-flex items-center gap-1 uppercase ${active ? "text-neutral-950" : "hover:text-neutral-800"}`}
+        className={`inline-flex items-center gap-1 ${active ? "text-neutral-950" : "hover:text-neutral-800"}`}
       >
         {label}
         {active &&
@@ -413,7 +412,7 @@ function BalticMap({
         })}
       </svg>
       <figcaption className="flex flex-wrap justify-between gap-2 px-4 py-3 text-[11px] text-neutral-500">
-        <span>Venues grouped by city · tap a city to filter</span>
+        <span>Grouped by city. Tap a city to filter.</span>
         <span>Outlines: Natural Earth</span>
       </figcaption>
     </figure>
@@ -465,16 +464,14 @@ function PriceLadder({
   return (
     <div className="rounded-2xl border border-neutral-200 p-5 md:p-6">
       <div className="flex items-baseline justify-between gap-4">
-        <h3 className="text-xs font-semibold tracking-[0.12em] text-neutral-500 uppercase">
-          Drink-in price, one bottle
-        </h3>
+        <h3 className="text-sm font-medium text-neutral-700">Price of a bottle</h3>
         <span className="text-xs text-neutral-500">each dot is one venue</span>
       </div>
       <div ref={ref} className="relative mt-3">
         <svg width={width} height={height} className="block overflow-visible" role="group" aria-label="Price ladder">
           <line x1={x(BENCHMARK_EUR)} x2={x(BENCHMARK_EUR)} y1={18} y2={base} stroke="#9c695a" strokeWidth={1.5} />
           <text x={x(BENCHMARK_EUR)} y={12} textAnchor="middle" className="fill-[#7a5245] text-[11px] font-semibold">
-            Index 100 · {formatEur(BENCHMARK_EUR)}
+            median {formatEur(BENCHMARK_EUR)}
           </text>
           <line x1={padL} x2={width - padR} y1={base} y2={base} stroke="#d4d4d4" />
           {ticks.map((t) => (
@@ -548,10 +545,8 @@ function VenueCard({ venue: v, onClose }: { venue: KrugVenue | null; onClose: ()
   if (!v) {
     return (
       <div className="flex min-h-[220px] flex-1 flex-col justify-center rounded-2xl bg-[#f1f1f1] p-6 md:p-8">
-        <p className="text-xs font-semibold tracking-[0.12em] text-neutral-500 uppercase">Venue card</p>
-        <p className="mt-3 max-w-md text-lg leading-snug text-neutral-800">
-          Pick a dot or a venue in the table to see the edition, how the price is built and a link to the full 2026
-          wine list.
+        <p className="max-w-md text-neutral-600">
+          Choose a venue on the chart or in the table to see the details and its full 2026 wine list.
         </p>
       </div>
     )
@@ -562,64 +557,64 @@ function VenueCard({ venue: v, onClose }: { venue: KrugVenue | null; onClose: ()
   const note = venueNotes[v.id]
 
   return (
-    <article className="flex-1 rounded-2xl bg-[#fad0c5] p-6 md:p-8" aria-live="polite">
+    <article className="flex-1 rounded-2xl border border-neutral-200 p-6 md:p-8" aria-live="polite">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold tracking-[0.12em] text-neutral-700 uppercase">
-            {v.city} · {COUNTRY_NAMES[v.country]} · {v.type}
+          <h3 className="text-2xl font-bold text-neutral-950 md:text-3xl">{v.name}</h3>
+          <p className="mt-1 text-neutral-600">
+            {v.type}, {v.city}, {COUNTRY_NAMES[v.country]}
           </p>
-          <h3 className="mt-2 text-2xl font-bold text-neutral-950 md:text-3xl">{v.name}</h3>
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="rounded-full px-2 py-1 text-xs font-medium text-neutral-700 hover:bg-black/5"
+          className="rounded-full px-2 py-1 text-sm text-neutral-500 hover:bg-black/5 hover:text-neutral-900"
         >
           Close
         </button>
       </div>
 
-      <div className="mt-6 grid grid-cols-3 gap-4 border-t border-neutral-950/15 pt-5">
+      <div className="mt-6 grid grid-cols-3 gap-4 border-t border-neutral-200 pt-5">
         <div>
-          <p className="text-[11px] font-semibold tracking-[0.12em] text-neutral-700 uppercase">Drink-in</p>
+          <p className="text-sm text-neutral-500">Price</p>
           <p className="mt-1 text-2xl font-bold text-neutral-950 tabular-nums md:text-3xl">{formatEur(v.drinkIn)}</p>
         </div>
         <div>
-          <p className="text-[11px] font-semibold tracking-[0.12em] text-neutral-700 uppercase">Krug Index</p>
+          <p className="text-sm text-neutral-500">Index</p>
           <p className="mt-1 text-2xl font-bold text-neutral-950 tabular-nums md:text-3xl">{Math.round(idx)}</p>
         </div>
         <div>
-          <p className="text-[11px] font-semibold tracking-[0.12em] text-neutral-700 uppercase">vs median</p>
+          <p className="text-sm text-neutral-500">vs median</p>
           <p className="mt-1 text-2xl font-bold text-neutral-950 tabular-nums md:text-3xl">
             {delta === 0 ? "±€0" : `${delta > 0 ? "+" : "−"}${formatEur(Math.abs(delta))}`}
           </p>
         </div>
       </div>
 
-      <dl className="mt-5 space-y-2 text-sm text-neutral-800">
+      <dl className="mt-5 space-y-2 text-neutral-800">
         <div className="flex gap-2">
-          <dt className="w-24 shrink-0 text-neutral-600">On the menu</dt>
-          <dd className="italic">{v.label}</dd>
+          <dt className="w-28 shrink-0 text-neutral-600">On the list</dt>
+          <dd>{v.label}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-24 shrink-0 text-neutral-600">Edition</dt>
-          <dd>{editionLabel(v)}</dd>
+          <dt className="w-28 shrink-0 text-neutral-600">Edition</dt>
+          <dd>{v.edition ? `${ordinal(v.edition)}` : v.scope === "legacy-id" ? "Krug iD 219 011" : "Not stated"}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="w-24 shrink-0 text-neutral-600">Price</dt>
+          <dt className="w-28 shrink-0 text-neutral-600">Listed</dt>
           <dd>
-            {formatEur(v.printed)} listed
-            {v.bottleFee > 0 ? ` + ${formatEur(v.bottleFee)} bottle fee to drink in` : ""}
+            {formatEur(v.printed)}
+            {v.bottleFee > 0 ? `, plus ${formatEur(v.bottleFee)} to drink it on site` : ""}
           </dd>
         </div>
         {dp && (
           <div className="flex gap-2">
-            <dt className="w-24 shrink-0 text-neutral-600">Next door</dt>
-            <dd>Dom Pérignon 2015 on the same list: {formatEur(dp.dp)}</dd>
+            <dt className="w-28 shrink-0 text-neutral-600">Dom Pérignon</dt>
+            <dd>{formatEur(dp.dp)} for the 2015</dd>
           </div>
         )}
       </dl>
-      {note && <p className="mt-4 text-sm leading-relaxed text-neutral-800">{note}</p>}
+      {note && <p className="mt-4 leading-relaxed text-neutral-600">{note}</p>}
 
       <div className="mt-6 flex flex-wrap gap-3">
         <a
@@ -628,7 +623,7 @@ function VenueCard({ venue: v, onClose }: { venue: KrugVenue | null; onClose: ()
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 rounded-full bg-neutral-950 px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800"
         >
-          Open the 2026 wine list <ArrowUpRight className="size-4" aria-hidden />
+          2026 wine list <ArrowUpRight className="size-4" aria-hidden />
         </a>
         {v.resultUrl && (
           <a
