@@ -57,6 +57,7 @@ export default function KrugIndexPage() {
   const ttw = byId("W049")
   const dia = byId("W008")
   const uma = byId("W053")
+  const john = byId("W021")
 
   return (
     <div className="bg-white">
@@ -125,8 +126,8 @@ export default function KrugIndexPage() {
               {words[unnumbered] ?? unnumbered} lists don&rsquo;t say which edition they have.
             </li>
             <li className="py-5">
-              DIA&rsquo;s list is a scan. On the same page as Krug: Dom Pérignon 2015 at €360 and Cristal 2015 at
-              €430.
+              {john.name} also pours Krug by the glass, €68 for 125 mL. Six glasses fill a bottle, so that&rsquo;s
+              €408, against {formatEur(john.drinkIn)} for the bottle.
             </li>
           </ul>
         </div>

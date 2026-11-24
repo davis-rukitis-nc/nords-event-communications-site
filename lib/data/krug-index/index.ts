@@ -65,7 +65,7 @@ export const venueNotes: Record<string, string> = {
   W038: "Also lists the 171st edition, at the same €550.",
   W048: "The menu adds a 10% service charge, which it calls discretionary. With it the bottle is €660. The index uses €600.",
   W024: "The file is dated November 2025, but it was submitted for the 2026 awards.",
-  W008: "The list is a scan. On the same page: Dom Pérignon 2015 at €360 and Cristal 2015 at €430.",
+  W008: "On the same page: Dom Pérignon 2015 at €360 and Cristal 2015 at €430.",
   W044: "From a separate Champagne list.",
   W040: "The list prints this bottle as Grande Cuvée “2006” with Krug iD 219 011. The edition can’t be confirmed, so it isn’t counted in the median.",
 }
