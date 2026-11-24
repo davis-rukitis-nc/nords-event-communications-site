@@ -154,7 +154,7 @@ export default function KrugExplorer() {
       <div className="relative mt-12 overflow-x-auto">
         <table className="w-full border-collapse text-left text-sm sm:min-w-[640px]">
           <caption className="sr-only">
-            Krug Grande Cuvée drink-in prices by venue, 2026 BW&amp;DA submitted lists. Index 100 ={" "}
+            Krug Grande Cuvée drink-in prices by venue, lists submitted to the 2026 Baltic Wine &amp; Drinks Awards. Index 100 ={" "}
             {formatEur(BENCHMARK_EUR)}.
           </caption>
           <thead>
@@ -632,7 +632,7 @@ function VenueCard({ venue: v, onClose }: { venue: KrugVenue | null; onClose: ()
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-neutral-950/30 px-4 py-2 text-sm font-semibold text-neutral-950 hover:border-neutral-950"
           >
-            BW&amp;DA result <ArrowUpRight className="size-4" aria-hidden />
+            Baltic Wine &amp; Drinks Awards result <ArrowUpRight className="size-4" aria-hidden />
           </a>
         )}
       </div>

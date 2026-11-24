@@ -56,7 +56,7 @@ stats = dict(
   stillFlex=dict(n=proto["basket"]["still_family_min2"]["holdout"]["n"], krugMae=round(proto["basket"]["still_family_min2"]["holdout"]["krug_mae"],3), medianMae=round(proto["basket"]["still_family_min2"]["holdout"]["median_mae"],3)),
 )
 with open(OUT, "w") as o:
-    o.write("// Generated from the BW&DA Krug Index 2026 audit pack (snapshot 24 Nov 2026):\n")
+    o.write("// Generated from the Baltic Wine & Drinks Awards Krug Index 2026 audit pack (snapshot 24 Nov 2026):\n")
     o.write("// data/krug_index.csv, venues.geojson, prestige_pairs.csv, international.csv, analysis.json.\n")
     o.write("// Do not hand-edit prices here; change the reviewed research inputs and regenerate.\n\n")
     o.write('import type { KrugVenue, DpPair, IntlReference, KrugStudyStats } from "./types"\n\n')

@@ -10,7 +10,7 @@ import {
   ordinal,
 } from "@/lib/data/krug-index"
 
-// Figures published in the BW&DA Krug Index 2026 research report (snapshot 24 Nov 2026).
+// Figures published in the Baltic Wine & Drinks Awards Krug Index 2026 research report (snapshot 24 Nov 2026).
 describe("Krug Index data", () => {
   it("reproduces the primary benchmark", () => {
     const s = summarize(primaryVenues)
@@ -50,5 +50,15 @@ describe("Krug Index data", () => {
     expect(krugIndex(402)).toBeCloseTo(103.08, 2)
     expect(quantile([1, 2, 3, 4], 0.25)).toBe(1.75)
     expect([1, 2, 3, 4, 11, 12, 13, 172].map(ordinal)).toEqual(["1st", "2nd", "3rd", "4th", "11th", "12th", "13th", "172nd"])
+  })
+})
+
+describe("Dom Pérignon estimate", () => {
+  it("is increasing and close to the observed pairs", async () => {
+    const { estimateDp, dpFit } = await import("@/lib/data/krug-index")
+    expect(dpFit.slope).toBeGreaterThan(0)
+    expect(estimateDp(800)).toBeGreaterThan(estimateDp(390))
+    const mae = dpPairs.reduce((s, p) => s + Math.abs(estimateDp(p.krug) - p.dp), 0) / dpPairs.length
+    expect(mae).toBeLessThan(30) // in-sample; the held-out error in the report is €26
   })
 })

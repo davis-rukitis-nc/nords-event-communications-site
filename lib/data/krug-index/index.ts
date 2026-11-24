@@ -69,3 +69,29 @@ export const venueNotes: Record<string, string> = {
   W044: "From a separate Champagne list.",
   W040: "The list prints this bottle as Grande Cuvée “2006” with Krug iD 219 011. The edition can’t be confirmed, so it isn’t counted in the median.",
 }
+
+/**
+ * Log–log least-squares fit of Dom Pérignon 2015 on Krug, over the paired lists.
+ * Used by the "read a list" tool; the held-out error of this model is study.dpHoldout.krugMae.
+ */
+export const dpFit = (() => {
+  const xs = dpPairs.map((p) => Math.log(p.krug))
+  const ys = dpPairs.map((p) => Math.log(p.dp))
+  const mx = xs.reduce((a, b) => a + b, 0) / xs.length
+  const my = ys.reduce((a, b) => a + b, 0) / ys.length
+  let sxy = 0
+  let sxx = 0
+  xs.forEach((x, i) => {
+    sxy += (x - mx) * (ys[i] - my)
+    sxx += (x - mx) ** 2
+  })
+  const slope = sxy / sxx
+  return {
+    slope,
+    intercept: my - slope * mx,
+    minKrug: Math.min(...dpPairs.map((p) => p.krug)),
+    maxKrug: Math.max(...dpPairs.map((p) => p.krug)),
+  }
+})()
+
+export const estimateDp = (krug: number) => Math.exp(dpFit.intercept + dpFit.slope * Math.log(krug))

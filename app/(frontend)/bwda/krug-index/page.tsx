@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
 import { generatePageMetadata } from "@/lib/seo/meta-config"
 import {
@@ -13,7 +14,9 @@ import {
 } from "@/lib/data/krug-index"
 import KrugExplorer from "@/components/krug-index/krug-explorer"
 import DpChart from "@/components/krug-index/dp-chart"
-import GuessGame from "@/components/krug-index/guess-game"
+import KrugReader from "@/components/krug-index/krug-reader"
+
+const HERO_IMAGE = "https://xihtm39htkc6nxiz.public.blob.vercel-storage.com/baltic-wine-drinks-awards.webp"
 
 // Hidden page: not linked from the site, not in the sitemap, and noindex (here and via the /bwda/* header).
 export const metadata: Metadata = generatePageMetadata({
@@ -21,6 +24,7 @@ export const metadata: Metadata = generatePageMetadata({
   description:
     "What a bottle of Krug Grande Cuvée costs on the wine lists entered for the 2026 Baltic Wine & Drinks Awards, and what that says about the rest of the list.",
   url: "/bwda/krug-index",
+  image: HERO_IMAGE,
   noIndex: true,
 })
 
@@ -56,9 +60,10 @@ export default function KrugIndexPage() {
 
   return (
     <div className="bg-white">
-      <header className="overflow-hidden rounded-b-2xl bg-[#231F20] text-white">
-        <div className="h-1.5 w-full bg-[#fad0c5]" aria-hidden />
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 pt-32 pb-12 md:pt-40 md:pb-16 lg:grid-cols-12 lg:px-8">
+      <header className="relative isolate overflow-hidden rounded-b-2xl bg-[#231F20] text-white">
+        <Image src={HERO_IMAGE} alt="" fill priority sizes="100vw" className="-z-10 object-cover opacity-75" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#231F20]/95 via-[#231F20]/55 to-[#231F20]/25" aria-hidden />
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 pt-36 pb-12 md:pt-48 md:pb-16 lg:grid-cols-12 lg:px-8">
           <div className="lg:col-span-7">
             <Link
               href="/events/baltic-wine-drinks-awards"
@@ -69,8 +74,8 @@ export default function KrugIndexPage() {
             </Link>
             <h1 className="mt-6 text-5xl leading-[0.95] font-bold md:text-7xl">The Krug Index 2026</h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80">
-              Krug Grande Cuvée is on {all.n} of the wine lists entered for this year&rsquo;s awards. We wanted to
-              know if its price says anything about how expensive the rest of the list is.
+              Krug Grande Cuvée is on {all.n} of the wine lists entered for the 2026 Baltic Wine &amp; Drinks Awards.
+              We wanted to know if its price says anything about how expensive the rest of the list is.
             </p>
           </div>
           <div className="flex flex-col justify-end lg:col-span-5 lg:items-end lg:text-right">
@@ -88,8 +93,8 @@ export default function KrugIndexPage() {
           <div className={`mt-5 ${prose}`}>
             <p>
               For each venue we took the price of one regular bottle of Krug Grande Cuvée, including any fixed fee
-              for drinking it on site. The median, {formatEur(BENCHMARK_EUR)}, is 100 on the index, so a venue at
-              €480 scores 123.
+              for drinking it on site. The median, {formatEur(BENCHMARK_EUR)}, is 100 on the index, so a bottle at
+              €480 comes out at 123.
             </p>
             <p>
               It&rsquo;s a price comparison, nothing more. Plenty of the best lists in the awards don&rsquo;t carry
@@ -107,8 +112,9 @@ export default function KrugIndexPage() {
           <h2 className={h2}>A few things we noticed</h2>
           <ul className="mt-8 max-w-3xl divide-y divide-neutral-200 border-y border-neutral-200 text-lg leading-relaxed text-neutral-700">
             <li className="py-5">
-              The 172nd edition costs {formatEur(cheap172.drinkIn)} at {cheap172.name} and{" "}
-              {formatEur(dear172.drinkIn)} at {dear172.name}. It&rsquo;s the same bottle.
+              The 172nd edition is {formatEur(cheap172.drinkIn)} at {cheap172.name}, a {cheap172.type.toLowerCase()} in{" "}
+              {cheap172.city}, and {formatEur(dear172.drinkIn)} at {dear172.name}, a {dear172.type.toLowerCase()} in{" "}
+              {dear172.city}. Same bottle, different setting and service.
             </li>
             <li className="py-5">
               Time to Wine in Tallinn prices its list like a shop. Krug is {formatEur(ttw.printed)} on the shelf,
@@ -157,14 +163,14 @@ export default function KrugIndexPage() {
               Muga Reserva 2021 is a good example. It costs €53 at {dia.name} and €155 at UMA. Krug goes the other way:
               {formatEur(dia.drinkIn)} at {dia.name}, {formatEur(uma.drinkIn)} at UMA.
             </p>
-            <p>So Krug is a decent guide to other prestige Champagne. For the reds and whites, read the list.</p>
+            <p>So Krug is a decent guide to Dom Pérignon. For the reds and whites, read the list.</p>
           </div>
         </div>
       </section>
 
       <section className="pb-16 md:pb-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <GuessGame />
+          <KrugReader />
         </div>
       </section>
 
@@ -265,7 +271,7 @@ export default function KrugIndexPage() {
               <a href={MENUS_URL} {...ext} className={link}>
                 menus.balticwinelists.com
               </a>
-              . The jury&rsquo;s results are on{" "}
+              . The Baltic Wine &amp; Drinks Awards 2026 results are on{" "}
               <a href={RESULTS_URL} {...ext} className={link}>
                 rigawinechampagne.lv
               </a>

@@ -1,4 +1,4 @@
-// Generated from the BW&DA Krug Index 2026 audit pack (snapshot 24 Nov 2026):
+// Generated from the Baltic Wine & Drinks Awards Krug Index 2026 audit pack (snapshot 24 Nov 2026):
 // data/krug_index.csv, venues.geojson, prestige_pairs.csv, international.csv, analysis.json.
 // Do not hand-edit prices here; change the reviewed research inputs and regenerate.
 
